@@ -1,0 +1,20 @@
+CREATE TABLE teacher_users (
+  	teacher_username varchar(100) NOT NULL PRIMARY KEY,
+    	teacher_password varchar(100) NOT NULL,
+  	teacher_name varchar(100),
+  	teacher_faculty varchar(100),
+	department varchar(100),
+	course_ID int(7)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE course (
+	course_ID int(7) NOT NULL PRIMARY KEY,
+	course_name varchar(100),
+	department varchar(100) REFERENCES teacher_users(department),
+    	section varchar(100),
+  	semester varchar(100),
+  	academic_year varchar(100),
+  	credit varchar(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

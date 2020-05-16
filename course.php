@@ -2,6 +2,19 @@
     session_start();
     include('server.php');
 
+    /*!-- logged in user information --*/
+    $id = $_SESSION['username'];
+    $query = " SELECT * FROM teacher_users WHERE username = '$id' ";
+    $result = mysqli_query($conn, $query);
+    while ($row = mysqli_fetch_array($result)) {
+        $name = $row['name'];
+        $faculty = $row['faculty'];
+        $department = $row['department'];
+        $course_ID = $row['course_ID'];
+    }
+    $currentTimeinSeconds = time(); 
+    $currentDate = date('d-m-Y', $currentTimeinSeconds); 
+
     if (!isset($_SESSION['username'])) {
         $_SESSION['msg'] = "You must log in first";
         header('location: login.php');
@@ -51,10 +64,13 @@
         <a href="history.php"><i class="fas fa-history"></i><span>History</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>Logout</span></a>
         
-        <!-- logged in user information -->
-        <?php if (isset($_SESSION['username'])) : ?>    
-            <h5><span><?php echo $_SESSION['username']; ?></span></h5>
-        <?php endif ?>   
+        <div class="sidebar_info_user">
+            <p><?php echo $currentDate; ?></p>
+            <p><?php echo $name; ?></p>
+            <p><?php echo $department; ?></p>
+            <p><?php echo $faculty; ?></p>
+        </div>
+
     </div>    
     <!--sidebar end-->
     

@@ -74,19 +74,24 @@
                 </tr>
 
                 <?php
-                    $select_course = "SELECT * FROM course ORDER BY 1 DESC";
-                    $query_course = mysqli_query($conn, $select_course);
 
-                    while ($row = mysqli_fetch_array($query_course)) {
-                        $course_ID = $row['course_ID'];
-                        $course_name = $row['course_name'];
-                        $section = $row['section'];
-                        $department = $row['department'];
-                        $semester = $row['semester'];
-                        $academic_year = $row['academic_year'];
-                        $credit = substr($row['credit'], 0 , 100);
+                    $id = $_SESSION['username'];
+                    $query = " SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.credit 
+                               FROM course c, teacher_users t 
+                               WHERE t.username = '$id' AND c.course_ID = t.course_ID ";
+                    $result = mysqli_query($conn, $query);
+                    
+                    if (mysqli_num_rows($result) > 0) {
+                        
+                        while ($row = mysqli_fetch_array($result)) {
+                            $course_ID = $row['course_ID'];
+                            $course_name = $row['course_name'];
+                            $section = $row['section'];
+                            $department = $row['department'];
+                            $semester = $row['semester'];
+                            $academic_year = $row['academic_year'];
+                            $credit = substr($row['credit'], 0 , 100);
                 ?>
-
                 <tr>
                     <td><?php echo $course_ID; ?></td>
                     <td><?php echo $course_name; ?></td>
@@ -98,6 +103,13 @@
                 </tr>
 
                 <?php } ?>
+
+                <?php
+                    } else {
+                        echo "You are not having course in this term";
+                    }
+                ?>
+
             </table>
         </div>
     </div>

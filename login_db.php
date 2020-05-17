@@ -21,7 +21,7 @@
             $query = "SELECT * FROM teacher_users WHERE username = '$username' AND password = '$password' ";
             $result = mysqli_query($conn, $query);
 
-            if (mysqli_num_rows($result) == 1) {
+            if (mysqli_num_rows($result) > 0) {
                 $_SESSION['username'] = $username;
                 $_SESSION['success'] = "Your are now logged in";
                 header("location: index.php");

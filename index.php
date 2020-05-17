@@ -12,8 +12,7 @@
         $department = $row['department'];
         $course_ID = $row['course_ID'];
     }
-    $currentTimeinSeconds = time(); 
-    $currentDate = date('d-m-Y', $currentTimeinSeconds); 
+    $currentDate = date("jS F Y h:i A") . "<br>";
 
     /*!-- no username --*/
     if (!isset($_SESSION['username'])) {

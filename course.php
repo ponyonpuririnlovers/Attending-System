@@ -12,8 +12,7 @@
         $department = $row['department'];
         $course_ID = $row['course_ID'];
     }
-    $currentTimeinSeconds = time(); 
-    $currentDate = date('d-m-Y', $currentTimeinSeconds); 
+    $currentDate = date("jS F Y h:i A") . "<br>";
 
     if (!isset($_SESSION['username'])) {
         $_SESSION['msg'] = "You must log in first";
@@ -76,61 +75,61 @@
     
     <div class="content">
         <h1>Opening Course</h1>
-        <div class="show_info">
-
+    
+        <div class="table">
             <table border="1">
                 <tr>
-                    <th>course_ID</th>
-                    <th>course_name</th>
-                    <th>section</th>
-                    <th>department</th>
-                    <th>semester</th>
-                    <th>academic year</th>
-                    <th>credit</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Link</th> 
                 </tr>
 
-                <?php
-
-                    $id = $_SESSION['username'];
-                    $query = " SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.credit 
-                               FROM course c, teacher_users t 
-                               WHERE t.username = '$id' AND c.course_ID = t.course_ID ";
-                    $result = mysqli_query($conn, $query);
+        <?php
+            $id = $_SESSION['username'];
+            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit 
+                        FROM course c, teacher_users t 
+                        WHERE t.username = '$id' AND c.course_ID = t.course_ID ";
+            $result = mysqli_query($conn, $query);
                     
-                    if (mysqli_num_rows($result) > 0) {
-                        
-                        while ($row = mysqli_fetch_array($result)) {
-                            $course_ID = $row['course_ID'];
-                            $course_name = $row['course_name'];
-                            $section = $row['section'];
-                            $department = $row['department'];
-                            $semester = $row['semester'];
-                            $academic_year = $row['academic_year'];
-                            $credit = substr($row['credit'], 0 , 100);
-                ?>
-                <tr>
-                    <td><?php echo $course_ID; ?></td>
-                    <td><?php echo $course_name; ?></td>
-                    <td><?php echo $section; ?></td>
-                    <td><?php echo $department; ?></td>
-                    <td><?php echo $semester; ?></td>
-                    <td><?php echo $academic_year; ?></td>
-                    <td><?php echo $credit; ?></td>
-                </tr>
+            if (mysqli_num_rows($result) > 0) {
 
-                <?php } ?>
-
-                <?php
-                    } else {
-                        echo "You are not having course in this term";
+                $row_count=0;
+                $col_count=0;
+                while($rowpost = mysqli_fetch_array($result)) { 
+                    if($row_count==0){
+                        echo "<tr>";
+                        $col_count=1;
                     }
-                ?>
+                    $academic_year = $rowpost['academic_year'];
+                    $semester = $rowpost['semester'];
+        ?>
+
+            <td><?php echo $rowpost['course_ID']; ?></td>
+            <td><?php echo $rowpost['course_name']; ?></td>
+            <td><a href="course_info.php">Click</a></td>
+            
+        <?php
+            echo "</tr>";
+            $row_count++; 
+            $col_count++; 
+                }
+        ?>      
+        <?php
+            } else {
+                echo "You are not having course in this term";
+            }
+        ?>
+
+            <div class="head_course">
+                <p>
+                    <a>Academic Year</a> <w><?php echo $academic_year; ?></w>
+                    <a>Semester</a> <w><?php echo $semester; ?></w>
+                </p> 
+            </div>
 
             </table>
         </div>
     </div>
-    
-
 
 </body>
 </html>

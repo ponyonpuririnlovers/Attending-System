@@ -1,7 +1,10 @@
 <?php 
     session_start();
     include('server.php');
-    
+
+    /*!-- course_ID from course user choose --*/
+    $course_ID = $_GET['id'];
+
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
     $query = " SELECT * FROM teacher_users WHERE username = '$id' ";
@@ -76,10 +79,11 @@
         <h1>Opening Course</h1>
     
         <div class="table">
-            <table border="1" align='center' width='500'>
+            <table border="1">
                 <tr>
                     <th>Course ID</th>
                     <th>Course Name</th>
+                    <th>Link</th> 
                 </tr>
 
         <?php
@@ -103,7 +107,7 @@
         <?php
                     echo "</tr>"; 
                 }
-
+        
             } else {
                 echo "You are not having course in this term";
             }
@@ -113,7 +117,11 @@
                 <p>
                     <a>Academic Year</a> <w><?php echo $academic_year; ?></w>
                     <a>Semester</a> <w><?php echo $semester; ?></w>
-                </p> 
+                    <p>
+                        <?php echo $course_ID; ?>
+                    </p>
+                </p>
+                
             </div>
 
             </table>

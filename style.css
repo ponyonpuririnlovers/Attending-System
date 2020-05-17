@@ -280,3 +280,12 @@ label #sidebar_btn:hover{
   color: #838383;
   padding: 20px 20px;
 }
+
+.content .table .btn2{
+  padding: 5px 20px;
+  color: white;
+  background: #E096AC;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}

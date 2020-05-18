@@ -271,21 +271,6 @@ label #sidebar_btn:hover{
     transition: 0.5s;
 }
 
-.content .table .head_course {
-  padding-bottom: 50px;
-}
-.content .table .head_course a{
-    color: whitesmoke;
-    background: #e37aa1;
-    padding: 10px;
-    background-clip: padding-box; 
-}
-
-.content .table .head_course w{
-  color: #838383;
-  padding: 20px 20px;
-}
-
 .content .table .btn2{
   padding: 5px 20px;
   color: white;
@@ -293,4 +278,27 @@ label #sidebar_btn:hover{
   font-size: 20px;
   border: none;
   border-radius: 5px;
+}
+
+.content .head_course {
+  padding-bottom: 50px;
+}
+
+.content .head_course a{
+    color: whitesmoke;
+    background: #acacac;
+    padding: 10px;
+    background-clip: padding-box; 
+}
+
+.content .head_course aa{
+  color: whitesmoke;
+  background: #e37aa1;
+  padding: 10px;
+  background-clip: padding-box; 
+}
+
+.content .head_course w{
+  color: #838383;
+  padding: 20px 20px;
 }

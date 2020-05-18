@@ -4,6 +4,7 @@
 
     /*!-- course_ID from course user choose --*/
     $course_ID = $_GET['id'];
+    $section = $_GET['sec'];
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
@@ -76,18 +77,11 @@
     <!--sidebar end-->
     
     <div class="content">
-    
-        <div class="table">
-            <table border="1" align='center'>
-                <tr>
-                    <th>Section</th>
-                    <th>Student Number</th>
-                    <th>Attending Students</th> 
-                </tr>
-
         <?php
             $id = $_SESSION['username'];
-            $query = "SELECT * FROM course WHERE course_ID = '".$_GET["id"]."' ";
+            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.student_number
+                        FROM course c, teacher_users t 
+                        WHERE t.username = '$id' AND c.course_ID = '".$_GET["id"]."' AND c.course_ID = t.course_ID AND c.section = '".$_GET["sec"]."' AND c.section = t.section";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -96,13 +90,10 @@
                     $course_name = $rowpost['course_name'];
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];
-                    echo "<tr>";
+                    $section = $rowpost['section']; 
+                    $student_number = $rowpost['student_number'];
         ?>
-                    <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $rowpost['student_number']; ?></center></td>
-                    <td><center><a href="approve.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a></center></td>
         <?php
-                    echo "</tr>"; 
                 }
         
             } else {
@@ -116,12 +107,12 @@
                 <p>
                     <a>Academic Year</a> <w><?php echo $academic_year; ?></w>
                     <a>Semester</a> <w><?php echo $semester; ?></w>
+                    <aa>Section</aa> <w><?php echo $section; ?></w>
+                    <aa>Student Number</aa> <w><?php echo $student_number; ?></w>
                 </p>
                 
             </div>
-
-            </table>
-        </div>
+        
     </div>
 
 </body>

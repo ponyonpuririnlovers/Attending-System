@@ -15,6 +15,7 @@
         $faculty = $row['faculty'];
         $department = $row['department'];
     }
+    date_default_timezone_set("Asia/Bangkok");
     $currentDate = date("jS F Y h:i A") . "<br>";
 
     if (!isset($_SESSION['username'])) {

@@ -11,7 +11,9 @@
         $faculty = $row['faculty'];
         $department = $row['department'];
     }
+    date_default_timezone_set("Asia/Bangkok");
     $currentDate = date("jS F Y h:i A") . "<br>";
+    
 
     if (!isset($_SESSION['username'])) {
         $_SESSION['msg'] = "You must log in first";
@@ -76,14 +78,15 @@
     <div class="content">
         <h1>รายวิชาที่เปิดสอน</h1>
     
-        <div class="table">
-            <table border="1">
+        <table border="1" class="table">
+            <thead>
                 <tr>
-                    <th>Course ID</th>
-                    <th>Course Name</th>
-                    <th>Section</th> 
-                    <th>Link</th> 
+                    <th>รหัสรายวิชา</th>
+                    <th>ชื่อรายวิชา</th>
+                    <th>ตอนเรียน</th> 
+                    <th>อนุมัติ</th> 
                 </tr>
+            </thead>
 
         <?php
             $id = $_SESSION['username'];
@@ -93,20 +96,31 @@
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
-
+                
+                $row_count=0;
+                $col_count=0;
                 while($rowpost = mysqli_fetch_array($result)) { 
-
+                    if($row_count%2!=0){
+                        echo "<tbody>";
+                        echo "<tr class='active-row'>";
+                    } 
+                    else {
+                        echo "<tbody>";
+                        echo "<tr>";
+                    }
                     $academic_year = $rowpost['academic_year'];
-                    $semester = $rowpost['semester'];
-                    echo "<tr>";
+                    $semester = $rowpost['semester'];    
         ?>          
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
-                    <td><center><?php echo $rowpost['course_name']; ?></center></td>
+                    <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><a href="course_info.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">Click</a><center></td>
+                    <td><center><a href="course_info.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
         <?php
+                    $row_count++; 
+                    $col_count++;
                     echo "</tr>"; 
-                }
+                    echo "</tbody>"; 
+        }
 
             } else {
                 echo "You are not having course in this term";
@@ -120,8 +134,7 @@
                 </p> 
             </div>
 
-            </table>
-        </div>
+        </table>
     </div>
 
 </body>

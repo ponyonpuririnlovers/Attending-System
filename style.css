@@ -258,7 +258,7 @@ label #sidebar_btn:hover{
     transition: 0.5s;
 }
 
-/* ;----------------------------------- course ------------------------------------------; */
+/* ;----------------------------------- course table ------------------------------------------; */
 
 .content h2{
   padding-top: 20px;
@@ -266,19 +266,49 @@ label #sidebar_btn:hover{
 }
 
 .content .table{
-    color: #838383;
     font-size: 30px;
     transition: 0.5s;
+    border-collapse: collapse;
+    margin: 25px 0;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content .table thead tr {
+  background-color: #e37aa1;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  border-right: 0px solid #e37aa1;
+}
+
+.content .table th,
+.content .table td {
+  padding: 12px 15px;
+}
+
+.content .table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+.content .table tbody tr.active-row {
+  color: #e37aa1;
+  background-color: #f3f3f3;
 }
 
 .content .table .btn2{ /* botton link ไปหน้า approve */
-  padding: 5px 20px;
+  padding: 2px 15px;
   color: white;
   background: #e37aa1;
-  font-size: 20px;
-  border: none;
-  border-radius: 5px;
+  border-radius: 100px;
 }
+
+/* ;----------------------------------- course info ------------------------------------------; */
 
 .content .head_course { /* tag ข้อมูลของรายวิชา */
   padding-bottom: 50px;

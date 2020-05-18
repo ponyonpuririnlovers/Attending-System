@@ -12,6 +12,7 @@
         $department = $row['department'];
         $course_ID = $row['course_ID'];
     }
+    date_default_timezone_set("Asia/Bangkok");
     $currentDate = date("jS F Y h:i A") . "<br>";
 
     /*!-- no username --*/

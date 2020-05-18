@@ -114,7 +114,7 @@
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><a href="course_info.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
+                    <td><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
         <?php
                     $row_count++; 
                     $col_count++;

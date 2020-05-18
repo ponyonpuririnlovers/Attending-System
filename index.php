@@ -34,10 +34,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Home</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
     
 </head>
 <body>
@@ -49,7 +50,7 @@
         <i class="fas fa-bars" id="sidebar_btn"></i>
       </label>
       <div class="left_area">
-        <h3>Attending System <span> Teacher</span></h3>
+        <h3>ระบบเพิ่มรายวิชา <span>อาจารย์</span></h3>
       </div>
     </header>
     <!--header area end-->
@@ -60,11 +61,10 @@
             <img src="chula_logo_index.jpg" class="profile_image" alt="">
             <h4>Chulalongkorn University</h4>
         </center>
-        <a href="index.php"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="course.php"><i class="fas fa-table"></i><span>Approve</span></a>
-        <a href="history.php"><i class="fas fa-history"></i><span>History</span></a>
-        <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>Logout</span></a>
-        
+        <a href="index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
+        <a href="course.php"><i class="fas fa-table"></i><span>อนุมัติเพิ่มรายวิชา</span></a>
+        <a href="history.php"><i class="fas fa-history"></i><span>ประวัติเพิ่มรายวิชา</span></a>
+        <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user">
             <p><?php echo $currentDate; ?></p>
             <p><?php echo $name; ?></p>
@@ -76,9 +76,10 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>Welcome to <span>Attending System</span></h1>
-        <p>please choose the label what do you want to do \ (^-^) /</p>
-        <a>this page will be close when you not connect belong in 10 minutes</a>
+        <h1>ยินดีต้อนรับเข้าสู่ <span>ระบบเพิ่มรายวิชา</span></h1>
+        <p style="padding-top: 100px;">กรุณาเลือกบริการที่ต้องการจากรายการด้านซ้ายมือ \ (^-^) /</p>
+        <a>ท่านจะออกจากระบบโดยอัตโนมัติ เมื่อหยุดการติดต่อนานเกิน 10 นาที</a>
+        <p>ท่านต้องกด <a>ออกจากระบบ</a> ทุกครั้งที่เสร็จสิ้นการใช้งาน เพื่อมิให้ผู้อื่นเข้าใช้งาน ในชื่อของท่านได้</p>
     </div>
     
 

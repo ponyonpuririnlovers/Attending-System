@@ -87,7 +87,7 @@
             $id = $_SESSION['username'];
             $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit 
                         FROM course c, teacher_users t 
-                        WHERE t.username = '$id' AND c.course_ID = t.course_ID ";
+                        WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -97,10 +97,10 @@
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];
                     echo "<tr>";
-        ?>
-                    <td><?php echo $rowpost['course_ID']; ?></td>
-                    <td><?php echo $rowpost['course_name']; ?></td>
-                    <td><a href="course_info.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a></td>
+        ?>          
+                    <td><center><?php echo $rowpost['course_ID']; ?></center></td>
+                    <td><center><?php echo $rowpost['course_name']; ?></center></td>
+                    <td><center><a href="course_info.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a><center></td>
         <?php
                     echo "</tr>"; 
                 }

@@ -76,34 +76,31 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>Opening Course</h1>
     
         <div class="table">
-            <table border="1" align='center' width='500'>
+            <table border="1" align='center'>
                 <tr>
-                    <th>Course ID</th>
-                    <th>Course Name</th>
-                    <th>Link</th> 
+                    <th>Section</th>
+                    <th>Student Number</th>
+                    <th>Attending Students</th> 
                 </tr>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit 
-                        FROM course c, teacher_users t 
-                        WHERE t.username = '$id' AND c.course_ID = t.course_ID ";
+            $query = "SELECT * FROM course WHERE course_ID = '".$_GET["id"]."' ";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
 
                 while($rowpost = mysqli_fetch_array($result)) { 
-
+                    $course_name = $rowpost['course_name'];
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];
                     echo "<tr>";
         ?>
-                    <td><?php echo $rowpost['course_ID']; ?></td>
-                    <td><?php echo $rowpost['course_name']; ?></td>
-                    <td><a href="course_info.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a></td>
+                    <td><center><?php echo $rowpost['section']; ?></center></td>
+                    <td><center><?php echo $rowpost['student_number']; ?></center></td>
+                    <td><center><a href="approve.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a></center></td>
         <?php
                     echo "</tr>"; 
                 }
@@ -113,10 +110,9 @@
             }
         ?>
 
+            <h1><?php echo $course_ID; ?> <?php echo $course_name; ?></h1>
+
             <div class="head_course">
-                <p>
-                        <?php echo $course_ID; ?>
-                </p>
                 <p>
                     <a>Academic Year</a> <w><?php echo $academic_year; ?></w>
                     <a>Semester</a> <w><?php echo $semester; ?></w>

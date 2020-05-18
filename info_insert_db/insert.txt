@@ -6,13 +6,14 @@ CREATE TABLE teacher_users (
   	faculty varchar(100),
 	department varchar(100),
 	course_ID int(7),
+	section varchar(100),
 	PRIMARY KEY(row_id, username)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE course (
-	course_ID int(7) NOT NULL PRIMARY KEY,
+	course_ID int(7) NOT NULL,
 	course_name varchar(100),
     	section varchar(100),
 	department varchar(100) REFERENCES teacher_users(department),
@@ -20,6 +21,8 @@ CREATE TABLE course (
   	academic_year varchar(100),
 	level varchar(100),
 	credit varchar(100),
-	student_number int(3)
+	student_number int(3),
+	PRIMARY KEY(course_ID, section)
+
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

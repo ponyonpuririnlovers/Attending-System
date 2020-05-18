@@ -76,10 +76,11 @@
         <h1>Opening Course</h1>
     
         <div class="table">
-            <table border="1" align='center' width='500'>
+            <table border="1">
                 <tr>
                     <th>Course ID</th>
                     <th>Course Name</th>
+                    <th>Section</th> 
                     <th>Link</th> 
                 </tr>
 
@@ -100,7 +101,8 @@
         ?>          
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><center><?php echo $rowpost['course_name']; ?></center></td>
-                    <td><center><a href="course_info.php?id=<?php echo $rowpost['course_ID'];?>" role="button" class="btn2">Click</a><center></td>
+                    <td><center><?php echo $rowpost['section']; ?></center></td>
+                    <td><center><a href="course_info.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">Click</a><center></td>
         <?php
                     echo "</tr>"; 
                 }

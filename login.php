@@ -12,6 +12,8 @@
     <title>Login Page</title>
 
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
+    
 </head>
 <body>
 
@@ -20,7 +22,7 @@
     </div>
 
     <div class="login_header">
-        <h2>Attending System</h2>
+        <h2>ระบบเพิ่มรายวิชา</h2>
     </div>
 
     <form action="login_db.php" method="post">
@@ -43,7 +45,7 @@
             <input type="password" name="password">
         </div>
         <div class="input-group">
-            <button type="submit" name="login_user" class="btn">Login</button>
+            <button type="submit" name="login_user" class="btn" >Login</button>
         </div>
         
     </form>

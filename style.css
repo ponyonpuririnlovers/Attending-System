@@ -6,7 +6,8 @@
 body {
     font-size: 120%;
     background: white;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Prompt', sans-serif;
+    
 }
 
 /* ;----------------------------------- login ------------------------------------------; */
@@ -56,17 +57,19 @@ form {
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid gray;
+    color: #E096AC;
 }
 
 .btn {
     height: 50px;
     width: 97.5%;
     padding: 5px 20px;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     background: #E096AC;
     border: none;
     border-radius: 5px;
+    font-family: 'Prompt', sans-serif;
 }
 
 .error {
@@ -101,11 +104,8 @@ header{
 
 .left_area h3{
   color: #fff;
-  
-  margin: 0;
   text-transform: uppercase;
-  font-size: 22px;
-  font-weight: 900;
+  font-size: 23px;
 }
 
 .left_area span{
@@ -172,7 +172,7 @@ label #sidebar_btn{
   color: #fff;
   position: fixed;
   cursor: pointer;
-  left: 420px;
+  left: 280px;
   font-size: 20px;
   margin: 5px 0;
   transition: 0.5s;
@@ -232,7 +232,7 @@ label #sidebar_btn:hover{
 
 .content {
     color: #838383;
-    padding-top: 150px;
+    padding-top: 120px;
     margin-left: 350px;
     font-size: 30px;
     transition: 0.5s;
@@ -244,7 +244,7 @@ label #sidebar_btn:hover{
 
 .content p{
     font-size: 25px;
-    padding-top: 80px;
+    padding-top: 20px;
   }
 
 .content a{
@@ -271,34 +271,36 @@ label #sidebar_btn:hover{
     transition: 0.5s;
 }
 
-.content .table .btn2{
+.content .table .btn2{ /* botton link ไปหน้า approve */
   padding: 5px 20px;
   color: white;
-  background: #E096AC;
+  background: #e37aa1;
   font-size: 20px;
   border: none;
   border-radius: 5px;
 }
 
-.content .head_course {
+.content .head_course { /* tag ข้อมูลของรายวิชา */
   padding-bottom: 50px;
 }
 
-.content .head_course a{
-    color: whitesmoke;
+.content .head_course a{ /* ปีการศึกษา ภาคการศึกษา*/
+    color: white;
     background: #acacac;
     padding: 10px;
     background-clip: padding-box; 
+    border-radius: 10px;
 }
 
-.content .head_course aa{
-  color: whitesmoke;
-  background: #e37aa1;
+.content .head_course aa{ /* ตอนเรียน จำนวนนักเรียน*/
+  color: white;
+  background: #ffb5d0;
   padding: 10px;
   background-clip: padding-box; 
+  border-radius: 10px;
 }
 
-.content .head_course w{
+.content .head_course w{ /* value ของ a, aa*/
   color: #838383;
   padding: 20px 20px;
 }

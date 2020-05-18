@@ -61,7 +61,7 @@
             <h4>Chulalongkorn University</h4>
         </center>
         <a href="index.php"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="course.php"><i class="fas fa-table"></i><span>Opening Course</span></a>
+        <a href="course.php"><i class="fas fa-table"></i><span>Approve</span></a>
         <a href="history.php"><i class="fas fa-history"></i><span>History</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>Logout</span></a>
         

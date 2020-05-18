@@ -34,7 +34,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opening Course</title>
+    <title>Attending Approve</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
@@ -61,7 +61,7 @@
             <h4>Chulalongkorn University</h4>
         </center>
         <a href="index.php"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="course.php"><i class="fas fa-table"></i><span>Opening Course</span></a>
+        <a href="course.php"><i class="fas fa-table"></i><span>Approve</span></a>
         <a href="history.php"><i class="fas fa-history"></i><span>History</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>Logout</span></a>
         
@@ -79,7 +79,7 @@
         <h1>Opening Course</h1>
     
         <div class="table">
-            <table border="1">
+            <table border="1" align='center' width='500'>
                 <tr>
                     <th>Course ID</th>
                     <th>Course Name</th>
@@ -115,11 +115,11 @@
 
             <div class="head_course">
                 <p>
+                        <?php echo $course_ID; ?>
+                </p>
+                <p>
                     <a>Academic Year</a> <w><?php echo $academic_year; ?></w>
                     <a>Semester</a> <w><?php echo $semester; ?></w>
-                    <p>
-                        <?php echo $course_ID; ?>
-                    </p>
                 </p>
                 
             </div>

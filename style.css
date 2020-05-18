@@ -260,6 +260,11 @@ label #sidebar_btn:hover{
 
 /* ;----------------------------------- course ------------------------------------------; */
 
+.content h2{
+  padding-top: 20px;
+
+}
+
 .content .table{
     color: #838383;
     font-size: 30px;

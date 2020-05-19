@@ -271,7 +271,7 @@ label #sidebar_btn:hover{
     border-collapse: collapse;
     margin: 25px 0;
     min-width: 400px;
-    border-radius: 5px 5px 0 0;
+    border-radius: 10px ;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
@@ -333,4 +333,64 @@ label #sidebar_btn:hover{
 .content .head_course w{ /* value ของ a, aa*/
   color: #838383;
   padding: 20px 20px;
+}
+
+/* ;----------------------------------- approve ------------------------------------------; */
+
+input[type="checkbox"] {
+  position: relative;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  left: 20px;
+  -webkit-appearance: none;
+  outline: none;
+  transition: .3s;
+  
+}
+
+input[type="checkbox"]:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 4px solid #e37aa1;
+  box-sizing: border-box;
+  transition: .3s; 
+}
+
+input:checked[type="checkbox"]:before {
+  border-left: none;
+  border-top: none;
+  width: 20px;
+  border-color: #e37aa1;
+  transform: rotate(45deg) translate(5px , -10px);
+}
+
+/*----submit aprrove----*/
+
+input[type="submit"] {
+  display: block;
+  margin-top: 60px;
+  margin-left: 750px;
+	padding: 0;
+	width: 250px;
+	height: 70px;
+	border: 2px solid #e37aa1;
+	border-radius: 40px;
+	background: transparent;
+	color: #e37aa1;
+	letter-spacing: 1px;
+	font-size: 20px;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+  font-family: 'Prompt', sans-serif;
+}
+
+input[type="submit"]:hover {
+  color: #ffffff;
+  background-color: #e37aa1;
 }

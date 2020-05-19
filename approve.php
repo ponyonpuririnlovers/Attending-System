@@ -145,8 +145,8 @@
         ?>          
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
-                  
-                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>" ></td>
+                    
+                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_number]" value="<?php echo $rowpost['student_number']; ?>" >
         
@@ -156,7 +156,9 @@
                     echo "</tr>"; 
                     echo "</tbody>"; 
                 }  
-                echo '<td colspan="2" align="center"><input type="submit" value="submit" name="submit" id="submit" class="btn2" ></td>';
+                echo "</form>";
+                echo '<input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >';
+                echo "</table>";
 
             } else {
                 echo "ไม่มีนิสิตที่ขอเพิ่มรายวิชานี้";
@@ -165,9 +167,6 @@
             }
             
         ?>   
-        
-        </form>
-    </table>
   
          
     </div>

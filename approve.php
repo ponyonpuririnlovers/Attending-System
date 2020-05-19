@@ -156,9 +156,10 @@
                     echo "</tr>"; 
                     echo "</tbody>"; 
                 }  
-                echo "</form>";
-                echo '<input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >';
+                
                 echo "</table>";
+                echo '<input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >';
+                echo "</form>";
 
             } else {
                 echo "ไม่มีนิสิตที่ขอเพิ่มรายวิชานี้";
@@ -167,6 +168,7 @@
             }
             
         ?>   
+        
   
          
     </div>

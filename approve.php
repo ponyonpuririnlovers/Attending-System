@@ -113,7 +113,9 @@
     
     <!--student request list table START-->
     <div class="content" style="padding-top: 1px;">
-        <table border="1" class="table" id="student_request_table" >
+
+    <table border="1" class="table" id="student_request_table" >
+        <form action="checkbox.php" method="post">  
             <thead>
                 <tr>
                     <th>รหัสนิสิต</th>
@@ -122,9 +124,9 @@
                 </tr>
             </thead>        
         <?php
-            $query = "  SELECT sr.student_ID, su.name
-                        FROM student_request sr, student_users su
-                        WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID ";
+            $query = "  SELECT sr.student_ID, su.name, c.student_number
+                        FROM student_request sr, student_users su, course c
+                        WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID AND $course_ID = c.course_ID AND $section = c.section ";
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
@@ -143,22 +145,32 @@
         ?>          
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
-                    <td><input type="checkbox" name="student[]" id="$rowpost['student_ID']" value="$rowpost['student_ID']" 
-                    onClick="if(frm.chk1.checked==false){frm.submit.disabled=true;}else{frm.submit.disabled=false;}"></td>
-                    
+                  
+                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>" ></td>
+                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
+                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_number]" value="<?php echo $rowpost['student_number']; ?>" >
+        
         <?php
                     $row_count++; 
                     $col_count++;
                     echo "</tr>"; 
                     echo "</tbody>"; 
-                }
+                }  
+                echo '<td colspan="2" align="center"><input type="submit" value="submit" name="submit" id="submit" class="btn2" ></td>';
+
             } else {
                 echo "ไม่มีนิสิตที่ขอเพิ่มรายวิชานี้";
                 echo "<script> document.getElementById('student_request_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('submit').deleteRow(0); </script>";
             }
+            
         ?>   
-
-        <input name="submit" id="submit" type=submit value="ยืนยัน" disabled> 
+        
+        </form>
+    </table>
+  
+         
+    </div>
         
 </body>
 </html>

@@ -7,7 +7,7 @@ CREATE TABLE teacher_users (
 	department varchar(100),
 	course_ID int(7),
 	section varchar(100),
-	PRIMARY KEY(row_id, username)
+	PRIMARY KEY(row_id,username)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -15,7 +15,7 @@ CREATE TABLE teacher_users (
 CREATE TABLE course (
 	course_ID int(7) NOT NULL,
 	course_name varchar(100),
-    	section varchar(100),
+    	section varchar(100) NOT NULL,
 	department varchar(100) REFERENCES teacher_users(department),
   	semester varchar(100),
   	academic_year varchar(100),
@@ -24,5 +24,41 @@ CREATE TABLE course (
 	student_number int(3),
 	PRIMARY KEY(course_ID, section)
 
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE student_users (
+	username varchar(100) NOT NULL,
+	password varchar(100) NOT NULL,
+	student_ID varchar(100) NOT NULL,
+  	name varchar(100),
+  	faculty varchar(100),
+	major varchar(100),
+	PRIMARY KEY(student_ID)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE student_request (
+	student_ID varchar(100) NOT NULL,
+	course_ID int(7) NOT NULL REFERENCES course(course_ID),
+	course_name varchar(100) REFERENCES course(course_name),
+	section varchar(100) REFERENCES course(section),	
+	request_time varchar(100),
+	request_date varchar(100),
+	PRIMARY KEY(student_ID,course_ID)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE student_approven (
+	student_ID varchar(100) NOT NULL,
+	course_ID int(7) NOT NULL REFERENCES course(course_ID),
+	section varchar(100) REFERENCES course(section),	
+	approven_time varchar(100),
+	approven_date varchar(100),
+	updated_current_students varchar(100),
+	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

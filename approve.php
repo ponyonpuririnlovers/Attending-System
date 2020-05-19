@@ -113,9 +113,10 @@
     
     <!--student request list table START-->
     <div class="content" style="padding-top: 1px;">
+    <form action="checkbox.php" method="post"> 
 
     <table border="1" class="table" id="student_request_table" >
-        <form action="checkbox.php" method="post">  
+         
             <thead>
                 <tr>
                     <th>รหัสนิสิต</th>
@@ -156,10 +157,6 @@
                     echo "</tr>"; 
                     echo "</tbody>"; 
                 }  
-                
-                echo "</table>";
-                echo '<input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >';
-                echo "</form>";
 
             } else {
                 echo "ไม่มีนิสิตที่ขอเพิ่มรายวิชานี้";
@@ -169,8 +166,10 @@
             
         ?>   
         
-  
-         
+        
+    </table>
+    <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >
+    </form>
     </div>
         
 </body>

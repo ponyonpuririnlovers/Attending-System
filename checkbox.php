@@ -30,12 +30,12 @@
 
             /*---------------------------------- INSERT to database ----------------------------------*/
 
-            if ($_POST["submit"]=="submit")  { 
+            if ($_POST["submit"]=="ยืนยันการอนุมัติ")  { 
 
             for ($i=0; $i< sizeof ($student_ID) ;$i++) {  
 
-                $query="INSERT INTO student_approven(student_ID, course_ID, section, approven_time, approven_date, updated_current_students) 
-                        VALUES ('".$student_ID[$i]."','".$course_ID."','".$section."','".$approven_time."','".$approven_date."','".$updated_current_students."') ";
+                $query="INSERT INTO student_approven(student_ID, course_ID, section, approven_time, approven_date, updated_current_students, approven_student_num) 
+                        VALUES ('".$student_ID[$i]."','".$course_ID."','".$section."','".$approven_time."','".$approven_date."','".$updated_current_students."','".$approven_student_num."') ";
                 mysqli_query($conn, $query) ;
 
             }  

@@ -262,15 +262,18 @@ label #sidebar_btn:hover{
 
 .content h2{
   padding-top: 20px;
+}
 
+.content form{
+  margin-left: -20px;
+  margin-top: -20px;
+  border-width: 0ch;
 }
 
 .content .table{
     font-size: 30px;
     transition: 0.5s;
     border-collapse: collapse;
-    margin: 25px 0;
-    min-width: 400px;
     border-radius: 10px ;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -286,8 +289,9 @@ label #sidebar_btn:hover{
 
 .content .table th,
 .content .table td {
-  padding: 12px 15px;
+  padding: 12px 55px;
 }
+
 
 .content .table tbody tr {
   border-bottom: 1px solid #dddddd;

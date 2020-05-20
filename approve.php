@@ -113,15 +113,16 @@
     
     <!--student request list table START-->
     <div class="content" style="padding-top: 1px;">
-    <form action="checkbox.php" method="post"> 
 
-    <table border="1" class="table" id="student_request_table" >
+    <form action="checkbox.php" method="post" > 
+
+    <table class="table" id="student_request_table" >
          
             <thead>
                 <tr>
-                    <th>รหัสนิสิต</th>
-                    <th>ชื่อนิสิต</th> 
-                    <th>อนุมัติ</th> 
+                    <th style="padding: 12px 90px;">รหัสนิสิต</th>
+                    <th style="padding: 12px 90px;">ชื่อนิสิต</th> 
+                    <th style="padding: 12px 90px;">อนุมัติ</th> 
                 </tr>
             </thead>        
         <?php
@@ -144,10 +145,10 @@
                         echo "<tr>";
                     }   
         ?>          
-                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
-                    <td><?php echo $rowpost['name']; ?></td>
+                    <td style="padding: 12px 90px;"><center><?php echo $rowpost['student_ID']; ?></center></td>
+                    <td style="padding: 12px 90px;"><?php echo $rowpost['name']; ?></td>
                     
-                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>"></td>
+                    <td style="padding: 12px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_number]" value="<?php echo $rowpost['student_number']; ?>" >
         

@@ -78,7 +78,7 @@
     <div class="content">
         <h1>รายวิชาที่เปิดสอน</h1>
     
-        <table border="1" class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>รหัสรายวิชา</th>

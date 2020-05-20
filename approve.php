@@ -14,6 +14,10 @@
         $name = $row['name'];
         $faculty = $row['faculty'];
         $department = $row['department'];
+        # เก็บ username & password ไว้เช็ค password ในการยืนยันเพิ่มรายวิชา #
+        $username = $row['username'];
+        $password = $row['password'];
+
     }
     date_default_timezone_set("Asia/Bangkok");
     $currentDate = date("jS F Y h:i A") . "<br>";
@@ -128,7 +132,8 @@
         <?php
             $query = "  SELECT sr.student_ID, su.name, c.student_number
                         FROM student_request sr, student_users su, course c
-                        WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID AND $course_ID = c.course_ID AND $section = c.section ";
+                        WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID AND $course_ID = c.course_ID AND $section = c.section 
+                        ORDER BY sr.student_ID ASC ";
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
@@ -144,13 +149,17 @@
                         echo "<tbody>";
                         echo "<tr>";
                     }   
+                    
         ?>          
                     <td style="padding: 12px 90px;"><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td style="padding: 12px 90px;"><?php echo $rowpost['name']; ?></td>
                     
-                    <td style="padding: 12px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>"></td>
+                    <td style="padding: 12px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
+                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_number]" value="<?php echo $rowpost['student_number']; ?>" >
+                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][username]" value="<?php echo $username; ?>" >
+                    
         
         <?php
                     $row_count++; 
@@ -158,20 +167,29 @@
                     echo "</tr>"; 
                     echo "</tbody>"; 
                 }  
+        ?> 
+    
+    </table>
 
+        <div class="input-group" >
+            <label for="password" style="font-size: 20px;  display: inline; margin-left: 655px;">กรุณากรอกรหัสผ่าน</label>
+            <input type="password" name="confirm_password" style="margin-left: 655px;">
+        </div>
+
+        <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >
+
+        
+
+    </form>
+    </div>
+
+        <?php
             } else {
-                echo "ไม่มีนิสิตที่ขอเพิ่มรายวิชานี้";
+                echo "ไม่มีนิสิตขอเพิ่มรายวิชานี้";
                 echo "<script> document.getElementById('student_request_table').deleteRow(0); </script>";
                 echo "<script> document.getElementById('submit').deleteRow(0); </script>";
             }
-            
-        ?>   
-        
-        
-    </table>
-    <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >
-    </form>
-    </div>
+        ?>
         
 </body>
 </html>

@@ -92,7 +92,8 @@
             $id = $_SESSION['username'];
             $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit 
                         FROM course c, teacher_users t 
-                        WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section";
+                        WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
+                        ORDER BY c.course_ID ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {

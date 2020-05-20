@@ -48,6 +48,7 @@ form {
     display: block;
     text-align: left;
     margin: 3px;
+   
 }
 
 .input-group input {
@@ -58,6 +59,7 @@ form {
     border-radius: 5px;
     border: 1px solid gray;
     color: #E096AC;
+   
 }
 
 .btn {

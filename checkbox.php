@@ -62,12 +62,19 @@
                             $query="INSERT INTO student_approven(student_ID, course_ID, section, approven_time, approven_date, updated_current_students, approven_student_num) 
                                     VALUES ('".$student_ID[$i]."','".$course_ID."','".$section."','".$approven_time."','".$approven_date."','".$updated_current_students."','".$approven_student_num."') ";
                             mysqli_query($conn, $query) ;
+
+                            # del data student from table["student_request"] #
+                            $del = " DELETE FROM student_request WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
+                            mysqli_query($conn, $del);
+
+                            # update student_number in table["course"] #
+                            $update = " UPDATE course SET student_number='.$updated_current_students.' WHERE course_ID=$course_ID AND section=$section ";
+                            mysqli_query($conn, $update);
                         }
+
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
                         header("location: finish_approve.php");
                         
-                        
-
                     }  else { /*--------- username & password ผิดด!!! ----------*/
                         array_push($errors, "Wrong Password");
                         $_SESSION['error'] = "Wrong Password!";

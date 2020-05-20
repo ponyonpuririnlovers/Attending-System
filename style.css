@@ -379,8 +379,8 @@ input:checked[type="checkbox"]:before {
 
 input[type="submit"] {
   display: block;
-  margin-top: 60px;
-  margin-left: 750px;
+  margin-top: 20px;
+  margin-left: 740px;
 	padding: 0;
 	width: 250px;
 	height: 70px;
@@ -389,7 +389,7 @@ input[type="submit"] {
 	background: transparent;
 	color: #e37aa1;
 	letter-spacing: 1px;
-	font-size: 20px;
+	font-size: 25px;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
 	transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;

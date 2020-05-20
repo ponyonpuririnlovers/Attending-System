@@ -18,7 +18,7 @@ body {
     color: white;
     background: #E096AC;
     text-align: center;
-    border: 1px solid #b0c4de;
+    border: 1px solid #E096AC;
     border-bottom: none;
     border-radius: 10px 10px 0px 0px;
     padding: 20px;
@@ -34,21 +34,31 @@ form {
     width: 30%;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #b0c4de;
+    border: 1px solid #E096AC;
     background: white;
     border-radius: 0px 0px 10px 10px;
+}
+
+.form_login form {
+  width: 30%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #E096AC;
+  background: white;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .input-group {
     margin: 10px 0px 10px 0px;
     color: rgb(114, 114, 114);
+    margin-left: 8px;
 }
 
 .input-group label {
     display: block;
     text-align: left;
-    margin: 3px;
-   
+    margin: 3px; 
 }
 
 .input-group input {
@@ -57,20 +67,21 @@ form {
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid gray;
+    border: 1px solid #E096AC;
     color: #E096AC;
-   
 }
 
 .btn {
-    height: 50px;
-    width: 97.5%;
+    height: 60px;
+    width: 30%;
+    margin-left: 33%;
     padding: 5px 20px;
+    margin-top: 20px;
     font-size: 20px;
     color: white;
     background: #E096AC;
     border: none;
-    border-radius: 5px;
+    border-radius: 100px;
     font-family: 'Prompt', sans-serif;
 }
 
@@ -380,11 +391,11 @@ input:checked[type="checkbox"]:before {
 input[type="submit"] {
   display: block;
   margin-top: 20px;
-  margin-left: 740px;
+  margin-left: 745px;
 	padding: 0;
 	width: 250px;
 	height: 70px;
-	border: 2px solid #e37aa1;
+	border: 3px solid #e37aa1;
 	border-radius: 40px;
 	background: transparent;
 	color: #e37aa1;

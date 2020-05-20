@@ -24,8 +24,9 @@
     <div class="login_header">
         <h2>ระบบเพิ่มรายวิชา</h2>
     </div>
-
-    <form action="login_db.php" method="post">
+    
+    <div class="form_login">
+    <form action="login_db.php" method="post" class="form_login">
         <?php if (isset($_SESSION['error'])) : ?>
             <div class="error">
                 <h3>
@@ -47,8 +48,9 @@
         <div class="input-group">
             <button type="submit" name="login_user" class="btn" >Login</button>
         </div>
-        
+    
     </form>
+    </div>
 
 </body>
 </html>

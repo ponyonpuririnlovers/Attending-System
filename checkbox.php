@@ -73,7 +73,7 @@
                         }
 
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
-                        header("location: finish_approve.php");
+                        header("location: finish_approve.php ?id=$course_ID &sec=$section");
                         
                     }  else { /*--------- username & password ผิดด!!! ----------*/
                         array_push($errors, "Wrong Password");

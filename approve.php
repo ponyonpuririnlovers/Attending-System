@@ -172,8 +172,8 @@
     </table>
 
         <div class="input-group" >
-            <label for="password" style="font-size: 20px;  display: inline; margin-left: 750px;">Password</label>
-            <input type="password" name="confirm_password" style="font-size: 30px; margin-left: 750px; height: 30px; width: 200px;">
+            <lable for="password" style="font-size: 20px; margin-left: 750px; display: inline;" >Password</lable>
+            <input type="password" name="confirm_password" style="font-size: 30px; margin-left: 750px; height: 30px; width: 200px; border: 3px solid #E096AC;">
         </div>
 
         <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >

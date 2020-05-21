@@ -21,7 +21,7 @@ CREATE TABLE course (
   	academic_year varchar(100),
 	level varchar(100),
 	credit varchar(100),
-	student_number int(3),
+	current_student int(3),
 	open_student_number int(3),
 	PRIMARY KEY(course_ID, section)
 

@@ -1,4 +1,4 @@
-course_ID,course_name,section,department,semester,academic_year,level,credit,student_number,open_student_number
+course_ID,course_name,section,department,semester,academic_year,level,credit,current_student,open_student_number
 2209372,Intro compu ling,1,Linguistic,2,2562,Bachelor,3,40,40
 2225101,Korean I,1,Eastern language,2,2562,Bachelor,3,30,30
 2225101,Korean I,2,Eastern language,2,2562,Bachelor,3,30,30

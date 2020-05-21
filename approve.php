@@ -69,7 +69,7 @@
         </center>
         <a href="index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="course.php"><i class="fas fa-table"></i><span>อนุมัติเพิ่มรายวิชา</span></a>
-        <a href="history.php"><i class="fas fa-history"></i><span>ประวัติเพิ่มรายวิชา</span></a>
+        <a href="history.php"><i class="fas fa-history"></i><span>ประวัติการอนุมัติ</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         
         <div class="sidebar_info_user">
@@ -104,7 +104,7 @@
             }    
         ?>
 
-        <h1><?php echo $course_ID; ?> <?php echo $course_name; ?></h1>
+        <h1>อนุมัติเพิ่มรายวิชา <o style="color: #e37aa1;"><?php echo $course_ID; ?> <?php echo $course_name; ?></o></h1>
         <div class="head_course">
             <p>
                 <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
@@ -117,19 +117,20 @@
     <!--head info coruse END-->
     
     <!--student request list table START-->
-    <div class="content" style="padding-top: 1px;">
+    <div class="content" style="padding: 20px;">
 
     <form action="checkbox.php" method="post" > 
 
-    <table class="table" id="student_request_table" >
+        <table class="table" id="student_request_table" >
          
             <thead>
                 <tr>
-                    <th style="padding: 12px 90px;">รหัสนิสิต</th>
-                    <th style="padding: 12px 90px;">ชื่อนิสิต</th> 
-                    <th style="padding: 12px 90px;">อนุมัติ</th> 
+                    <th>รหัสนิสิต</th>
+                    <th>ชื่อนิสิต</th> 
+                    <th>อนุมัติ</th> 
                 </tr>
-            </thead>        
+            </thead>    
+
         <?php
             $query = "  SELECT sr.student_ID, su.name, c.current_student
                         FROM student_request sr, student_users su, course c
@@ -152,10 +153,10 @@
                     }   
                     
         ?>          
-                    <td style="padding: 12px 90px;"><center><?php echo $rowpost['student_ID']; ?></center></td>
-                    <td style="padding: 12px 90px;"><?php echo $rowpost['name']; ?></td>
+                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
+                    <td><?php echo $rowpost['name']; ?></td>
                     
-                    <td style="padding: 12px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
+                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][current_student]" value="<?php echo $rowpost['current_student']; ?>" >
@@ -191,6 +192,8 @@
                 echo "<script> document.getElementById('submit').deleteRow(0); </script>";
             }
         ?>
+
+    <!--student request list table END-->
         
 </body>
 </html>

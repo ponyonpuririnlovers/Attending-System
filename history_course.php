@@ -1,6 +1,10 @@
 <?php 
     session_start();
     include('server.php');
+
+    /*!-- course_ID from course user choose --*/
+    $course_ID = $_GET['id'];
+    $section = $_GET['sec'];
     
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
@@ -76,24 +80,24 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>อนุมัติเพิ่มรายวิชา <o style="color: #e37aa1;">รายวิชาที่เปิดสอน</o></h1>
     
         <table class="table" id="course_table">
             <thead>
                 <tr>
-                    <th>รหัสรายวิชา</th>
-                    <th>ชื่อรายวิชา</th>
-                    <th>ตอนเรียน</th> 
-                    <th>นิสิตที่ขอเพิ่มรายวิชา</th> 
+                    <th>วันที่</th>
+                    <th>เวลา</th>
+                    <th>รหัสนิสิต</th>
+                    <th>ชื่อนิสิต</th> 
                 </tr>
             </thead>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit 
-                        FROM course c, teacher_users t 
+            $query = "  SELECT  c.*, sa.*, su.name
+                        FROM course c, teacher_users t, student_approven sa, student_users su
                         WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
-                        ORDER BY c.course_ID ASC";
+                        AND sa.course_ID = t.course_ID AND sa.section = t.section AND sa.student_ID = su.student_ID
+                        ORDER BY sa.approven_time ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -110,12 +114,19 @@
                         echo "<tr>";
                     }
                     $academic_year = $rowpost['academic_year'];
-                    $semester = $rowpost['semester'];    
-        ?>          
-                    <td><center><?php echo $rowpost['course_ID']; ?></center></td>
-                    <td><?php echo $rowpost['course_name']; ?></td>
-                    <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
+                    $semester = $rowpost['semester']; 
+                    $course_name = $rowpost['course_name'];  
+                    $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];
+                    
+                
+        ?>
+                    <td><center><?php echo $rowpost['approven_date']; ?></center></td>
+                    <td><center><?php echo $rowpost['approven_time']; ?></center></td>
+                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
+                    <td><?php echo $rowpost['name']; ?></td>
+                    
+                    
         <?php
                     $row_count++; 
                     $col_count++;
@@ -124,16 +135,19 @@
         }
         ?>
         
+        <h1>ประวัติการอนุมัติ <o style="color: #e37aa1;"><?php echo $course_ID; ?> <?php echo $course_name; ?></o></h1>
             <div class="head_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
+                    <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
+                    <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
                 </p> 
             </div>
 
         <?php
             } else {
-                echo "ไม่มีรายวิชาที่เปิดสอนในภาคการศึกษานี้";
+                echo "ไม่มีประวัติการอนุมัติเพิ่มรายวิชา";
                 echo "<script> document.getElementById('course_table').deleteRow(0); </script>";
             }
         ?>

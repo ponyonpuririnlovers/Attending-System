@@ -30,15 +30,6 @@ body {
     text-align: center;
 }
 
-form {
-    width: 30%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #E096AC;
-    background: white;
-    border-radius: 0px 0px 10px 10px;
-}
-
 .form_login form {
   width: 30%;
   margin: 0 auto;
@@ -280,7 +271,6 @@ label #sidebar_btn:hover{
 .content form{
   margin-left: -20px;
   margin-top: -20px;
-  border-width: 0ch;
 }
 
 .content .table{
@@ -303,6 +293,12 @@ label #sidebar_btn:hover{
 .content .table th,
 .content .table td {
   padding: 12px 55px;
+}
+
+/*----- ปรับ table หน้า approven.php ให้เท่ากับหน้า course.php -----*/
+.content form .table th,
+.content form .table td {
+  padding: 12px 76.5px;
 }
 
 
@@ -328,6 +324,7 @@ label #sidebar_btn:hover{
 /* ;----------------------------------- course info ------------------------------------------; */
 
 .content .head_course { /* tag ข้อมูลของรายวิชา */
+  padding-top: 50px;
   padding-bottom: 50px;
 }
 

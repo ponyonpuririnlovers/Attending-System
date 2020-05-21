@@ -64,7 +64,7 @@
         </center>
         <a href="index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="course.php"><i class="fas fa-table"></i><span>อนุมัติเพิ่มรายวิชา</span></a>
-        <a href="history.php"><i class="fas fa-history"></i><span>ประวัติเพิ่มรายวิชา</span></a>
+        <a href="history.php"><i class="fas fa-history"></i><span>ประวัติการอนุมัติ</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user">
             <p><?php echo $currentDate; ?></p>

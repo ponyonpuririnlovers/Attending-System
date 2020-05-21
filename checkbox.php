@@ -23,7 +23,7 @@
                     if ($key == "section"){
                         $section = $value;
                     } 
-                    if ($key == "student_number"){
+                    if ($key == "current_student"){
                         $current_student = $value;
                     }
                     else { #username teacher
@@ -67,13 +67,17 @@
                             $del = " DELETE FROM student_request WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
                             mysqli_query($conn, $del);
 
-                            # update student_number in table["course"] #
-                            $update = " UPDATE course SET student_number='.$updated_current_students.' WHERE course_ID=$course_ID AND section=$section ";
+                            # update current_student in table["course"] #
+                            $update = " UPDATE course SET current_student='.$updated_current_students.' WHERE course_ID=$course_ID AND section=$section ";
+                            mysqli_query($conn, $update);
+
+                            # update status in table["student_status"] #
+                            $update = " UPDATE student_status SET status='approven' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
                             mysqli_query($conn, $update);
                         }
 
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
-                        header("location: finish_approve.php ?id=$course_ID &sec=$section");
+                        header("location: finish_approve.php ?id=$course_ID &approven_time=$approven_time");
                         
                     }  else { /*--------- username & password ผิดด!!! ----------*/
                         array_push($errors, "Wrong Password");

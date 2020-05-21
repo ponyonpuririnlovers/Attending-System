@@ -22,6 +22,7 @@ CREATE TABLE course (
 	level varchar(100),
 	credit varchar(100),
 	student_number int(3),
+	open_student_number int(3),
 	PRIMARY KEY(course_ID, section)
 
 
@@ -59,6 +60,20 @@ CREATE TABLE student_approven (
 	approven_time varchar(100),
 	approven_date varchar(100),
 	updated_current_students varchar(100),
+	approven_student_num varchar(100),
+	PRIMARY KEY(student_ID,course_ID)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE student_status (
+	student_ID varchar(100) NOT NULL,
+	course_ID int(7) NOT NULL REFERENCES course(course_ID),
+	course_name varchar(100) REFERENCES course(course_name),
+	section varchar(100) REFERENCES course(section),	
+	request_time varchar(100),
+	request_date varchar(100),
+	status varchar(100),
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

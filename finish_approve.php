@@ -4,7 +4,7 @@
 
     /*!-- GET! infomation from approven.php --*/
     $course_ID = $_GET['id'];
-    $section = $_GET['sec'];  
+    $approven_time = $_GET['approven_time'];  
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
@@ -80,45 +80,52 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>ยืนยันการเพิ่มรายวิชา</h1>
+        <h1><i class="fas fa-check-circle" style="color:#e37aa1;"></i> อนุมัติการเพิ่มรายวิชาเสร็จสมบูรณ์</h1>
 
         <?php
-            date_default_timezone_set("Asia/Bangkok");
-            $approven_date = date("d/m/Y") ;
-            $approven_time = date("h:i:s") ;
-            print_r($approven_date);
 
-            $id = $_SESSION['username'];
-
-            $query = "  SELECT  c.course_name, c.department, c.semester, c.academic_year, c.student_number,
-                                sa.approven_time, sa.updated_current_students, sa.approven_student_num
-                        FROM course c, student_approven sa
-                        WHERE c.course_ID = $course_ID AND c.section = $section 
-                        AND sa.course_ID = $course_ID AND sa.section = $section 
+            $query = "  SELECT  c.course_name, c.section, c.department, c.semester, c.academic_year, c.current_student,
+                                sa.updated_current_students, sa.approven_student_num, sa.approven_date
+                        FROM    course c, student_approven sa
+                        WHERE   c.course_ID = $course_ID    AND sa.approven_time = '$approven_time' # 'TIME'ต้องใส่น้องด้วย ---> (' ')  #(;-;)โง่นานแงง
+                        AND     sa.course_ID = $course_ID   AND sa.section = c.section
                     ";
+            
             $result = mysqli_query($conn, $query); 
-                    
+
             if (mysqli_num_rows($result) > 0) {
                 
                 while($rowpost = mysqli_fetch_array($result)) { 
+
+                    # from table['course']
                     $course_name = $rowpost['course_name'];
+                    $section = $rowpost['section'];
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];  
-                    $student_number = $rowpost['student_number'];  
-                     
+                    $current_student = $rowpost['current_student'];
+
+                    # from table['student_approve']
+                    $updated_current_students = $rowpost['updated_current_students'];
+                    $approven_student_num = $rowpost['approven_student_num'];
+                    $approven_date = $rowpost['approven_date'];
+
                 }
             } 
         ?>
-            <h2><?php echo $course_ID; ?> <?php echo $course_name; ?></h2>
 
-            <div class="head_course">
-                <p>
-                    <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
-                    <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
-                    <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
-                    <aa>จำนวนนักเรียนปัจจุบัน</aa> <w><?php echo $student_number; ?></w>
-                </p> 
+            <div class="head_course" style="background:none">
+                <p></p>
+                <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
+                <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
+                <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
+                <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
+                <p><aaa>วันที่อนุมัติ</aaa> <w><?php echo $approven_date; ?></w>
+                <p><aaa>เวลาอนุมัติ</aaa> <w><?php echo $approven_time; ?></w></p>
+                <p><aaa>จำนวนนิสิตปัจจุบัน</aaa> <w><?php echo $current_student; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่อนุมัติ</aaa> <w><?php echo $approven_student_num; ?></w></p>
             </div>
+            
+            <a href="index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
     </div>
 
 </body>

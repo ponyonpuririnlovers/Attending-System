@@ -86,7 +86,7 @@
     <div class="content">
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.student_number
+            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.current_student
                         FROM course c, teacher_users t 
                         WHERE t.username = '$id' AND c.course_ID = '".$_GET["id"]."' AND c.course_ID = t.course_ID AND c.section = '".$_GET["sec"]."' AND c.section = t.section ";
             $result = mysqli_query($conn, $query);
@@ -98,7 +98,7 @@
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];
                     $section = $rowpost['section']; 
-                    $student_number = $rowpost['student_number'];
+                    $current_student = $rowpost['current_student'];
                 }
             }    
         ?>
@@ -109,7 +109,7 @@
                 <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                 <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
-                <aa>จำนวนนักเรียนปัจจุบัน</aa> <w><?php echo $student_number; ?></w>
+                <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?></w>
             </p>   
         </div>
     </div>
@@ -130,7 +130,7 @@
                 </tr>
             </thead>        
         <?php
-            $query = "  SELECT sr.student_ID, su.name, c.student_number
+            $query = "  SELECT sr.student_ID, su.name, c.current_student
                         FROM student_request sr, student_users su, course c
                         WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID AND $course_ID = c.course_ID AND $section = c.section 
                         ORDER BY sr.student_ID ASC ";
@@ -157,7 +157,7 @@
                     <td style="padding: 12px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
-                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_number]" value="<?php echo $rowpost['student_number']; ?>" >
+                    <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][current_student]" value="<?php echo $rowpost['current_student']; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][username]" value="<?php echo $username; ?>" >
                     
         

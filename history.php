@@ -84,19 +84,18 @@
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
                     <th>ตอนเรียน</th>
-                    <th>จำนวนนิสิตที่อนุมัติ</th> 
+                    <th>จำนวนนิสิตที่อนุมัติทั้งหมด</th> 
                     <th>อนุมัติ</th> 
                 </tr>
             </thead>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT  c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.credit, c.current_student,
-                                sa.student_ID, su.name, sa.approven_student_num
+            $query = "  SELECT  c.*, sa.student_ID, su.name, sa.approven_student_num
                         FROM course c, teacher_users t, student_approven sa, student_users su
                         WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
                         AND sa.course_ID = t.course_ID AND sa.section = t.section AND sa.student_ID = su.student_ID
-                        ORDER BY sa.student_ID ASC";
+                        ORDER BY c.course_ID ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -113,12 +112,24 @@
                         echo "<tr>";
                     }
                     $academic_year = $rowpost['academic_year'];
-                    $semester = $rowpost['semester'];    
-        ?>          
+                    $semester = $rowpost['semester'];   
+                    $course_ID = $rowpost['course_ID'];
+                    $section = $rowpost['section'];
+        ?>
+        
+        <?php # จำนวนนิสิตที่อนุมัติ[ทั้งหมด!!!]
+            $query_total = "    SELECT  student_ID
+                                FROM    student_approven
+                                WHERE   course_ID = $course_ID  AND section = $section
+                            ";
+            $result_total = mysqli_query($conn, $query_total);
+            $total_approven_student = mysqli_num_rows($result_total); 
+        ?>
+
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $rowpost['approven_student_num']; ?></center></td>
+                    <td><center><?php echo $total_approven_student; ?></center></td>
                     <td><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
         <?php
                     $row_count++; 

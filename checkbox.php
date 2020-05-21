@@ -33,7 +33,9 @@
                 }
             }
 
+            # จำนวนนิสิตที่อนุมัติ/ครั้ง
             $approven_student_num = sizeof ($student_ID);
+            # จำนวนนิสิตทั้งหมดในตอนเรียน[update]
             $updated_current_students = $current_student + $approven_student_num;
 
 
@@ -75,7 +77,6 @@
                             $update = " UPDATE student_status SET status='approven' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
                             mysqli_query($conn, $update);
 
-                            
                         }
 
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #

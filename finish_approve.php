@@ -84,8 +84,7 @@
 
         <?php
 
-            $query = "  SELECT  c.course_name, c.section, c.department, c.semester, c.academic_year, c.current_student,
-                                sa.updated_current_students, sa.approven_student_num, sa.approven_date
+            $query = "  SELECT  c.*, sa.updated_current_students, sa.approven_student_num, sa.approven_date
                         FROM    course c, student_approven sa
                         WHERE   c.course_ID = $course_ID    AND sa.approven_time = '$approven_time' # 'TIME'ต้องใส่น้องด้วย ---> (' ')  #(;-;)โง่นานแงง
                         AND     sa.course_ID = $course_ID   AND sa.section = c.section
@@ -103,6 +102,7 @@
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];  
                     $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];
 
                     # from table['student_approve']
                     $updated_current_students = $rowpost['updated_current_students'];
@@ -113,16 +113,26 @@
             } 
         ?>
 
+        <?php # จำนวนนิสิตที่อนุมัติ[ทั้งหมด!!!]
+            $query = "  SELECT  student_ID
+                        FROM    student_approven
+                        WHERE   course_ID = $course_ID  AND section = $section
+                    ";
+            $result = mysqli_query($conn, $query);
+            $total_approven_student = mysqli_num_rows($result); 
+        ?>
+
             <div class="head_course" style="background:none">
                 <p></p>
                 <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
+                <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
                 <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
-                <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>วันที่อนุมัติ</aaa> <w><?php echo $approven_date; ?></w>
                 <p><aaa>เวลาอนุมัติ</aaa> <w><?php echo $approven_time; ?></w></p>
-                <p><aaa>จำนวนนิสิตปัจจุบัน</aaa> <w><?php echo $current_student; ?></w></p>
+                <p><aaa>จำนวนนิสิตปัจจุบัน</aaa> <w><?php echo $current_student; ?> /<?php echo $open_student_number; ?></w></p>
                 <p><aaa>จำนวนนิสิตที่อนุมัติ</aaa> <w><?php echo $approven_student_num; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่อนุมัติในรายวิชานี้</aaa> <w><?php echo $total_approven_student; ?></w></p>
             </div>
             
             <a href="index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>

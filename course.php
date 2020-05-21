@@ -78,7 +78,7 @@
     <div class="content">
         <h1>รายวิชาที่เปิดสอน</h1>
     
-        <table class="table">
+        <table class="table" id="course_table">
             <thead>
                 <tr>
                     <th>รหัสรายวิชา</th>
@@ -122,18 +122,21 @@
                     echo "</tr>"; 
                     echo "</tbody>"; 
         }
-
-            } else {
-                echo "You are not having course in this term";
-            }
         ?>
-
+        
             <div class="head_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 </p> 
             </div>
+
+        <?php
+            } else {
+                echo "ไม่มีรายวิชาที่เปิดสอนในภาคการศึกษานี้";
+                echo "<script> document.getElementById('course_table').deleteRow(0); </script>";
+            }
+        ?>
 
         </table>
     </div>

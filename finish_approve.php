@@ -4,8 +4,8 @@
 
     /*!-- GET! infomation from approven.php --*/
     $course_ID = $_GET['id'];
-    $section = $_GET['sec'];
-    
+    $section = $_GET['sec'];  
+
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
     $query = " SELECT * FROM teacher_users WHERE username = '$id' ";
@@ -83,11 +83,20 @@
         <h1>ยืนยันการเพิ่มรายวิชา</h1>
 
         <?php
-            $query = "  SELECT c.course_name, c.department, c.semester, c.academic_year, c.level, sa.approven_time, sa.approven_date, sa.updated_current_students, sa.approven_student_num
+            date_default_timezone_set("Asia/Bangkok");
+            $approven_date = date("d/m/Y") ;
+            $approven_time = date("h:i:s") ;
+            print_r($approven_date);
+
+            $id = $_SESSION['username'];
+
+            $query = "  SELECT  c.course_name, c.department, c.semester, c.academic_year, c.student_number,
+                                sa.approven_time, sa.updated_current_students, sa.approven_student_num
                         FROM course c, student_approven sa
-                        WHERE c.course_ID = $course_ID AND c.section = $section
-                        ORDER BY c.course_ID ASC ";
-            $result = mysqli_query($conn, $query);
+                        WHERE c.course_ID = $course_ID AND c.section = $section 
+                        AND sa.course_ID = $course_ID AND sa.section = $section 
+                    ";
+            $result = mysqli_query($conn, $query); 
                     
             if (mysqli_num_rows($result) > 0) {
                 
@@ -95,10 +104,8 @@
                     $course_name = $rowpost['course_name'];
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];  
-                    $approven_time = $rowpost['approven_time'];
-                    $approven_date = $rowpost['approven_date'];
-                    $updated_current_students = $rowpost['updated_current_students'];
-                    $approven_student_num = $rowpost['approven_student_num']; 
+                    $student_number = $rowpost['student_number'];  
+                     
                 }
             } 
         ?>

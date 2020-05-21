@@ -93,10 +93,10 @@
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT  c.*, sa.*, su.name
-                        FROM course c, teacher_users t, student_approven sa, student_users su
-                        WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
-                        AND sa.course_ID = t.course_ID AND sa.section = t.section AND sa.student_ID = su.student_ID
+            $query = "  SELECT DISTINCT c.*, sa.*, su.name
+                        FROM    course c, student_approven sa, student_users su
+                        WHERE   c.course_ID = $course_ID    AND c.section = $section
+                        AND     sa.course_ID = $course_ID   AND sa.section = $section   AND sa.student_ID = su.student_ID
                         ORDER BY sa.approven_time ASC";
             $result = mysqli_query($conn, $query);
                     

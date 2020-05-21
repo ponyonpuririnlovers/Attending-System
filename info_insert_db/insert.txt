@@ -61,6 +61,7 @@ CREATE TABLE student_approven (
 	approven_date varchar(100),
 	updated_current_students varchar(100),
 	approven_student_num varchar(100),
+	total_approven_student_num varchar(100),
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

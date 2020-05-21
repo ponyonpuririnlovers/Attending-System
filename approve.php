@@ -86,7 +86,7 @@
     <div class="content">
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.current_student
+            $query = "  SELECT c.course_ID, c.course_name, c.section, c.department, c.semester, c.academic_year, c.level, c.current_student, c.open_student_number
                         FROM course c, teacher_users t 
                         WHERE t.username = '$id' AND c.course_ID = '".$_GET["id"]."' AND c.course_ID = t.course_ID AND c.section = '".$_GET["sec"]."' AND c.section = t.section ";
             $result = mysqli_query($conn, $query);
@@ -99,6 +99,7 @@
                     $semester = $rowpost['semester'];
                     $section = $rowpost['section']; 
                     $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];
                 }
             }    
         ?>
@@ -109,7 +110,7 @@
                 <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                 <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
-                <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?></w>
+                <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
             </p>   
         </div>
     </div>

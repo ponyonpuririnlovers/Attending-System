@@ -83,7 +83,7 @@
                 <tr>
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
-                    <th>ตอนเรียน</th>
+                    <th style="padding: 12px 5px;">ตอนเรียน</th>
                     <th>จำนวนนิสิตที่อนุมัติ</th> 
                     <th>เพิ่มเติม</th> 
                 </tr>
@@ -132,7 +132,7 @@
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
                     <td><center><?php echo $total_approven_student; ?></center></td>
-                    <td><center><a href="history_course.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-info-circle" style="font-size: 2em;"></i></a><center></td>
+                    <td><center><a href="history_course.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-info-circle" style="font-size: 40px;"></i></a><center></td>
         <?php
                     $row_count++; 
                     $col_count++;

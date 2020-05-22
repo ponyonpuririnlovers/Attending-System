@@ -12,7 +12,7 @@
         $department = $row['department'];
     }
     date_default_timezone_set("Asia/Bangkok");
-    $currentDate = date("jS F Y h:i A") . "<br>";
+    $currentDate = date("j F Y h:i A") . "<br>";
     
 
     if (!isset($_SESSION['username'])) {
@@ -50,6 +50,9 @@
       </label>
       <div class="left_area">
         <h3>ระบบเพิ่มรายวิชา <span> อาจารย์</span></h3>
+      </div>
+      <div class="right_area">
+        <a class="right_head"><?php echo $name; ?></a>
       </div>
     </header>
     <!--header area end-->

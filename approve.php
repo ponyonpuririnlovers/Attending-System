@@ -20,7 +20,7 @@
 
     }
     date_default_timezone_set("Asia/Bangkok");
-    $currentDate = date("jS F Y h:i A") . "<br>";
+    $currentDate = date("j F Y h:i A") . "<br>";
 
     if (!isset($_SESSION['username'])) {
         $_SESSION['msg'] = "You must log in first";
@@ -57,6 +57,9 @@
       </label>
       <div class="left_area">
         <h3>ระบบเพิ่มรายวิชา <span> อาจารย์</span></h3>
+      </div>
+      <div class="right_area">
+        <a class="right_head"><?php echo $name; ?></a>
       </div>
     </header>
     <!--header area end-->
@@ -127,7 +130,7 @@
                 <tr>
                     <th>รหัสนิสิต</th>
                     <th>ชื่อนิสิต</th> 
-                    <th>อนุมัติ</th> 
+                    <th style="padding: 0px 100px;">อนุมัติ</th> 
                 </tr>
             </thead>    
 
@@ -156,7 +159,7 @@
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
                     
-                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
+                    <td style="padding: 0px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][current_student]" value="<?php echo $rowpost['current_student']; ?>" >
@@ -171,11 +174,12 @@
                 }  
         ?> 
     
-    </table>
-
+        </table>
+        <p></p><p></p>
         <div class="input-group" >
-            <lable for="password" style="font-size: 20px; margin-left: 750px; display: inline;" >Password</lable>
-            <input type="password" name="confirm_password" style="font-size: 30px; margin-left: 750px; height: 30px; width: 200px; border: 3px solid #E096AC;">
+            <lable for="password" style="font-size: 20px; margin-left: 750px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
+            <input  type="password" name="confirm_password" 
+                    style="font-size: 30px; margin-left: 740px; width: 220px;  border-radius: 100px;  border:2px solid;">
         </div>
 
         <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >

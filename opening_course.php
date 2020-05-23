@@ -91,7 +91,7 @@
                 <tr>
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
-                    <th style="padding: 12px 5px;">ตอนเรียน</th>
+                    <th>ตอนเรียน</th>
                     <th>จำนวนนิสิต</th> 
                     <th>นิสิตที่ขอเพิ่มรายวิชา</th> 
                 </tr>
@@ -121,9 +121,9 @@
         ?>          
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
-                    <td style="padding: 12px 5px;"><center><?php echo $rowpost['section']; ?></center></td>
+                    <td><center><?php echo $rowpost['section']; ?></center></td>
                     <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
-                    <td style="padding: 10px 5px;"><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
+                    <td><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
         <?php
                     $row_count++; 
                     $col_count++;

@@ -309,14 +309,14 @@ label #sidebar_btn:hover{
 .content .table thead tr {
   background-color: #e37aa1;
   color: #ffffff;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   border-right: 0px solid #e37aa1;
 }
 
 .content .table th,
 .content .table td {
-  padding: 12px 55px;
+  padding: 15px 55px;
 }
 
 /*----- ปรับ table หน้า approven.php ให้เท่ากับหน้า course.php -----*/
@@ -339,10 +339,17 @@ label #sidebar_btn:hover{
 }
 
 .content .table .btn2{ /* botton link ไปหน้า approve */
-  padding: 2px 15px;
-  color: white;
-  background: #e37aa1;
+  padding: 5px 40px;
+  color: gray;
+  background: rgb(207, 207, 207);
   border-radius: 100px;
+  font-weight: bold;
+}
+
+.content .table .btn2:hover{ /* botton link ไปหน้า approve */
+  transition: 0.4s;
+  background: #e37aa1;
+  color: white;
 }
 
 /* ;----------------------------------- course info ------------------------------------------; */

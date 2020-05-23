@@ -93,7 +93,7 @@
                     <th>ชื่อรายวิชา</th>
                     <th>ตอนเรียน</th>
                     <th>จำนวนนิสิต</th> 
-                    <th>นิสิตที่ขอเพิ่มรายวิชา</th> 
+                    <th>นิสิตที่รอขออนุมัติ</th> 
                 </tr>
             </thead>
 
@@ -117,13 +117,30 @@
                         echo "<tr>";
                     }
                     $academic_year = $rowpost['academic_year'];
-                    $semester = $rowpost['semester'];    
+                    $semester = $rowpost['semester']; 
+                    $course_ID = $rowpost['course_ID'];
+                    $section = $rowpost['section'];
+                    
+                    # จำนวนนิสิตที่ขออนุมัติ[ทั้งหมด!!!]
+                    $query_total = "    SELECT  student_ID
+                                        FROM    student_request
+                                        WHERE   course_ID = $course_ID  AND section = $section
+                                    ";
+                    $result_total = mysqli_query($conn, $query_total);
+                    $total_request_student = mysqli_num_rows($result_total);
+
         ?>          
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
                     <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
-                    <td><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2"><i class="fas fa-angle-right"></i></a><center></td>
+
+                    <?php if ($total_request_student == '0') { ?>
+                            <td style="padding: 10px 5px;"><center><a class="btn0"><?php echo $total_request_student; ?></a><center></td> 
+                    <?php  } else { ?>
+                            <td style="padding: 10px 5px;"><center><a class="btn2"><?php echo $total_request_student; ?></a><center></td>
+                    <?php } ?>
+
         <?php
                     $row_count++; 
                     $col_count++;

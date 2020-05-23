@@ -120,7 +120,7 @@
     <!--head info coruse END-->
     
     <!--student request list table START-->
-    <div class="content" style="padding: 20px;">
+    <div class="content" style="margin: -100px; margin-left: 370px;">
 
     <form action="checkbox.php" method="post"> 
 
@@ -128,14 +128,17 @@
          
             <thead>
                 <tr>
-                    <th>รหัสนิสิต</th>
-                    <th>ชื่อนิสิต</th> 
-                    <th style="padding: 0px 100px;">อนุมัติ</th> 
+                    <th>ลำดับที่</th>
+                    <th style="padding-left: 20px;">รหัสนิสิต</th>
+                    <th style="padding-left: 20px;">ชื่อนิสิต</th> 
+                    <th style="padding-left: 15px;">เวลา</th>
+                    <th style="padding-left: 15px;">วันที่</th>
+                    <th style="padding-left: 20px;">อนุมัติ</th> 
                 </tr>
             </thead>    
 
         <?php
-            $query = "  SELECT sr.student_ID, su.name, c.current_student
+            $query = "  SELECT sr.*, su.name, c.current_student
                         FROM student_request sr, student_users su, course c
                         WHERE $course_ID = sr.course_ID AND $section = sr.section AND sr.student_ID = su.student_ID AND $course_ID = c.course_ID AND $section = c.section 
                         ORDER BY sr.student_ID ASC ";
@@ -156,10 +159,13 @@
                     }   
                     
         ?>          
-                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
-                    <td><?php echo $rowpost['name']; ?></td>
+                    <td><center><?php echo $row_count+1; ?></center></td>
+                    <td style="padding-left: 20px;"><?php echo $rowpost['student_ID']; ?></td>
+                    <td style="padding-left: 20px;"><?php echo $rowpost['name']; ?></td>
+                    <td style="padding-left: 20px;"><?php echo $rowpost['request_time']; ?></td>
+                    <td style="padding-left: 20px;"><?php echo $rowpost['request_date']; ?></td>
                     
-                    <td style="padding: 0px 90px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
+                    <td style="padding-left: 10px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][current_student]" value="<?php echo $rowpost['current_student']; ?>" >
@@ -201,6 +207,7 @@
 
         <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit">
 
+    <p></p><p></p><p></p>
     </form>
     </div>
 
@@ -213,6 +220,7 @@
         ?>
 
     <!--student request list table END-->
+    
         
 </body>
 </html>

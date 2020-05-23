@@ -92,8 +92,15 @@
 
                         }
 
+                        $_SESSION['course_ID'] = $course_ID;
+                        $_SESSION['section'] = $section;
+                        $_SESSION['approven_time'] = $approven_time;
+                        $_SESSION['approven_date'] = $approven_date;
+                        $_SESSION['updated_current_students'] = $updated_current_students;
+                        $_SESSION['approven_student_num'] = $approven_student_num;
+
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
-                        header("location: finish_approve.php ?id=$course_ID &approven_time=$approven_time");
+                        header("location: finish_approve.php");
                         
                     }  else { /*--------- password ผิดด!!! ----------*/
                         array_push($errors, "Wrong Password");

@@ -1,10 +1,6 @@
 <?php 
     session_start();
-    include('server.php');
-
-    /*!-- GET! infomation from approven.php --*/
-    $course_ID = $_GET['id'];
-    $approven_time = $_GET['approven_time'];  
+    include('server.php'); 
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
@@ -87,10 +83,15 @@
 
         <?php
 
-            $query = "  SELECT  c.*, sa.updated_current_students, sa.approven_student_num, sa.approven_date
-                        FROM    course c, student_approven sa
-                        WHERE   c.course_ID = $course_ID    AND sa.approven_time = '$approven_time' # 'TIME'ต้องใส่น้องด้วย ---> (' ')  #(;-;)โง่นานแงง
-                        AND     sa.course_ID = $course_ID   AND sa.section = c.section
+            $course_ID = $_SESSION['course_ID'];
+            $section = $_SESSION['section'];
+            $approven_time = $_SESSION['approven_time'];
+            $approven_date = $_SESSION['approven_date'];
+            $approven_student_num = $_SESSION['approven_student_num'];
+
+            $query = "  SELECT  *
+                        FROM    course
+                        WHERE   course_ID = $course_ID AND section = $section
                     ";
             
             $result = mysqli_query($conn, $query); 
@@ -101,16 +102,10 @@
 
                     # from table['course']
                     $course_name = $rowpost['course_name'];
-                    $section = $rowpost['section'];
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester'];  
                     $current_student = $rowpost['current_student'];
-                    $open_student_number = $rowpost['open_student_number'];
-
-                    # from table['student_approve']
-                    $updated_current_students = $rowpost['updated_current_students'];
-                    $approven_student_num = $rowpost['approven_student_num'];
-                    $approven_date = $rowpost['approven_date'];
+                    $open_student_number = $rowpost['open_student_number']; 
 
                 }
             } 

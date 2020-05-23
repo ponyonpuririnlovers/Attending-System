@@ -186,6 +186,7 @@ header{
 
 .sidebar i:hover{
   padding-right: 10px;
+  transition: 0.3s;
   transform: scale(2);
 }
 
@@ -442,4 +443,33 @@ input[type="submit"] {
 input[type="submit"]:hover {
   color: #ffffff;
   background-color: #e37aa1;
+}
+
+/* ;----------------------------------- student_insert ------------------------------------------; */
+
+.input-group-student {
+  margin: 10px 0px 10px 0px;
+  color: rgb(114, 114, 114);
+  margin-left: 8px;
+}
+
+.input-group-student label {
+  margin: 10px; 
+  font-size: 25px;
+  color: white;
+  background: #e37aa1;
+  padding: 10px;
+  background-clip: padding-box; 
+  border-radius: 10px;
+  
+}
+
+.input-group-student input {
+  height: 30px;
+  width: 10%;
+  padding: 10px 20px;
+  font-size: 25px;
+  border-radius: 5px;
+  border: 1px solid #E096AC;
+  color: #E096AC;
 }

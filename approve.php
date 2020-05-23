@@ -122,7 +122,7 @@
     <!--student request list table START-->
     <div class="content" style="padding: 20px;">
 
-    <form action="checkbox.php" method="post" > 
+    <form action="checkbox.php" method="post"> 
 
         <table class="table" id="student_request_table" >
          
@@ -176,15 +176,30 @@
     
         </table>
         <p></p><p></p>
+
+        <?php if (isset($_SESSION['error'])) : ?>
+            <div class="error" style="width: 68%;">
+                <h3>
+                    <?php 
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    ?>
+                </h3>
+            </div>
+        <?php endif ?>
+
         <div class="input-group" >
             <lable for="password" style="font-size: 20px; margin-left: 750px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
             <input  type="password" name="confirm_password" 
                     style="font-size: 30px; margin-left: 740px; width: 220px;  border-radius: 100px;  border:2px solid;">
         </div>
 
-        <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >
+        <?php   # เก็บ course_ID & section ส่งไป checkbox #
+                $_SESSION['course_ID'] = $course_ID;
+                $_SESSION['section'] = $section;
+        ?>
 
-        
+        <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit">
 
     </form>
     </div>

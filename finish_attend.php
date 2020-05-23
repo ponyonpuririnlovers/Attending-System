@@ -82,14 +82,49 @@
     </div>    
     <!--sidebar end-->
     
-    <div class="content">
-        <h1>ยินดีต้อนรับเข้าสู่ <span>ระบบเพิ่มรายวิชา</span></h1>
-        <p style="padding-top: 100px;">กรุณาเลือกบริการที่ต้องการจากรายการด้านซ้ายมือ \ (^-^) /</p>
-        <a>ท่านจะออกจากระบบโดยอัตโนมัติ เมื่อหยุดการติดต่อนานเกิน 10 นาที</a>
-        <p>ท่านต้องกด <a>ออกจากระบบ</a> ทุกครั้งที่เสร็จสิ้นการใช้งาน เพื่อมิให้ผู้อื่นเข้าใช้งาน ในชื่อของท่านได้</p>
-    </div>
-    
+    <div class="content" >
+        <h1><i class="fas fa-check-circle" style="color:#e37aa1;"></i> ขออนุมัติเพิ่มรายวิชาเสร็จสมบูรณ์</h1>
 
+        <?php
+
+            $course_ID = $_SESSION['course_ID'];
+            $section = $_SESSION['section'];
+            $request_time = $_SESSION['request_time'];
+            $request_date = $_SESSION['request_date'];
+
+            $query = "  SELECT  *
+                        FROM    course
+                        WHERE   course_ID = $course_ID 
+                    ";
+            
+            $result = mysqli_query($conn, $query); 
+
+            if (mysqli_num_rows($result) > 0) {
+                
+                while($rowpost = mysqli_fetch_array($result)) { 
+
+                    # from table['course']
+                    $course_name = $rowpost['course_name'];
+                    $academic_year = $rowpost['academic_year'];
+                    $semester = $rowpost['semester'];  
+
+                }
+            } 
+        ?>
+
+            <div class="head_course" style="background:none">
+                <p></p>
+                <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
+                <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
+                <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
+                <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
+                <p><aaa>วันที่ขออนุมัติ</aaa> <w><?php echo $request_date; ?></w>
+                <p><aaa>เวลาที่ขออนุมัติ</aaa> <w><?php echo $request_time; ?></w></p>
+            </div>
+            
+            <a href="student_index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
+
+    </div>
 
 </body>
 </html>

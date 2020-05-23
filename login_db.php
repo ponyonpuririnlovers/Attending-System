@@ -7,14 +7,6 @@
         $username = mysqli_real_escape_string($conn, $_POST['username']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-        if (empty($username)) {
-            array_push($errors, "Username is required");
-        }
-
-        if (empty($password)) {
-            array_push($errors, "Password is required");
-        }
-
         if (count($errors) == 0) {
             #$password = md5($password); รหัสแบบการป้องกันแบบ300%!!!!
             $query = "SELECT * FROM teacher_users WHERE username = '$username' AND password = '$password' ";
@@ -42,11 +34,26 @@
                 }
             }
 
-        } else { /*--------- ไม่ได้ใส่ username OR password ----------*/
+        } 
+        
+        if (empty($username)) {
+            array_push($errors, "Username is required");
+            $_SESSION['error'] = "Username is required";
+            header("location: login.php");
+        }
+
+        if (empty($password)) {
+            array_push($errors, "Password is required");
+            $_SESSION['error'] = "Password is required";
+            header("location: login.php");
+        }
+
+        if (empty($username)&&empty($password)) { /*--------- ไม่ได้ใส่ username OR password ----------*/
             array_push($errors, "Username & Password is required");
             $_SESSION['error'] = "Username & Password is required";
             header("location: login.php");
         }
+        
     }
 
 ?>

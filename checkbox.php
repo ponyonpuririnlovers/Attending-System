@@ -33,6 +33,10 @@
                 }
             }
 
+            # ถ้าไม่ได้checkเลย ให้เก็บ course_ID & section มาจาก approve.php
+            $course_ID = $_SESSION['course_ID'];
+            $section = $_SESSION['section'];
+
             # จำนวนนิสิตที่อนุมัติ/ครั้ง
             $approven_student_num = sizeof ($student_ID);
             # จำนวนนิสิตทั้งหมดในตอนเรียน[update]
@@ -46,6 +50,15 @@
                 if (empty($password)) {
                     array_push($errors, "Password is required");
                     $_SESSION['error'] = "Password is required";
+
+                    # link กลับไปหน้าก่อน approve.php !!! \(;-;)/ #
+                    header("location: approve.php ?id=$course_ID &sec=$section");
+                    
+                }
+
+                if (empty($student_ID)) {
+                    array_push($errors, "ท่านยังไม่ได้เลือกนิสิตที่ต้องการอนุมัติ");
+                    $_SESSION['error'] = "ท่านยังไม่ได้เลือกนิสิตที่ต้องการอนุมัติ";
 
                     # link กลับไปหน้าก่อน approve.php !!! \(;-;)/ #
                     header("location: approve.php ?id=$course_ID &sec=$section");
@@ -82,7 +95,7 @@
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
                         header("location: finish_approve.php ?id=$course_ID &approven_time=$approven_time");
                         
-                    }  else { /*--------- username & password ผิดด!!! ----------*/
+                    }  else { /*--------- password ผิดด!!! ----------*/
                         array_push($errors, "Wrong Password");
                         $_SESSION['error'] = "Wrong Password!";
                         

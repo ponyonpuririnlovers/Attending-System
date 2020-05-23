@@ -87,6 +87,7 @@
         <table class="table" id="course_table">
             <thead>
                 <tr>
+                    <th>ลำดับที่</th>
                     <th>วันที่</th>
                     <th>เวลา</th>
                     <th>รหัสนิสิต</th>
@@ -124,7 +125,8 @@
                     
                 
         ?>
-                    <td><center><?php echo $rowpost['approven_date']; ?></center></td>
+                    <td><center><?php echo $row_count+1; ?></center></td>
+                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
                     <td><center><?php echo $rowpost['approven_time']; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>

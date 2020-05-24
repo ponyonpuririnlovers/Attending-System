@@ -105,18 +105,28 @@
                     <aa>ชื่อ-นามสกุล</aa> <w><?php echo $name; ?></w>
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
+                <p style="margin-top: 50px; margin-bottom:-30px">
+                    <i class="fas fa-pen-nib" style="font-size:30px; color:#e37aa1;"></i>
+                    <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
+                </p>
             </div>
 
-        
         <form action="student_attend_db.php" method="post">
 
             <div class="input-group-student">
                 <p>
                     <label for="course_ID">รหัสรายวิชา</label> <input type="text" name="course_ID" class="form-control">
-                    <label for="section" style="margin-left:30px;">ตอนเรียน</label> <input type="text" name="section" class="form-control" style=" width: 2%;">
+                    <label for="section" style="margin-left:30px;">ตอนเรียน</label> <input type="text" name="section" class="form-control" style=" width: 3%;">
                 </p>
             </div>
-            
+
+                <p style="margin-left:20px; margin-top:20px;">
+                    <i class="fas fa-question-circle" style="font-size:20px;"></i>
+                    <w>หากท่านไม่ทราบ 'รหัสรายวิชา' สามารถตรวจสอบได้ที่ </w>
+                    <a href="opening_course.php" ><i class="fas fa-table"></i> <span>รายวิชาที่เปิดสอน</span></a>
+                </p>
+
+
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
             <div class="error" style="width: 68%; margin-left:18px; margin-top:30px;">
@@ -132,12 +142,12 @@
             <p></p>
 
             <div class="input-group" >
-                <lable for="password" style="font-size: 20px; margin-left: 500px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
+                <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
                 <input  type="password" name="confirm_password" 
-                        style="font-size: 30px; margin-left: 490px; width: 220px;  border-radius: 100px;  border:2px solid;">
+                        style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
             </div>
 
-            <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin-left: 495px;">
+                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin-left: 795px;">
         
         </form>
 

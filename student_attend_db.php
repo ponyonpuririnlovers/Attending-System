@@ -64,7 +64,7 @@
                 $sql = "INSERT INTO student_request (student_ID, course_ID, section, request_time, request_date) VALUES ('$student_ID', '$course_ID', '$section', '$request_time', '$request_date')";
                 mysqli_query($conn, $sql);
 
-                $sql = "INSERT INTO student_status (student_ID, course_ID, section, request_time, request_date, status) VALUES ('$student_ID', '$course_ID', '$section', '$request_time', '$request_date', 'waiting')";
+                $sql = "INSERT INTO student_status (student_ID, course_ID, section, request_time, request_date, status) VALUES ('$student_ID', '$course_ID', '$section', '$request_time', '$request_date', 'รออนุมัติ')";
                 mysqli_query($conn, $sql);
 
                 $_SESSION['course_ID'] = $course_ID;

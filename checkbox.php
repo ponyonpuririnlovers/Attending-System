@@ -87,7 +87,7 @@
                             mysqli_query($conn, $update);
 
                             # update status in table["student_status"] #
-                            $update = " UPDATE student_status SET status='approven' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                            $update = " UPDATE student_status SET status='อนุมัติแล้ว' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
                             mysqli_query($conn, $update);
 
                         }

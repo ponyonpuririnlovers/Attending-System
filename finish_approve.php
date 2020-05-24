@@ -120,7 +120,7 @@
             $total_approven_student = mysqli_num_rows($result); 
         ?>
 
-            <div class="head_course" style="background:none">
+            <div class="head_course" style="background:none; margin-top:-20px">
                 <p></p>
                 <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>

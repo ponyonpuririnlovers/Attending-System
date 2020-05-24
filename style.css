@@ -200,7 +200,7 @@ label #sidebar_btn{
   margin: 5px 0;
   transition: 0.5s;
   transition-property: color;
-  padding-top: 2px;
+  padding-top: 3px;
 }
 
 label #sidebar_btn:hover{
@@ -332,9 +332,18 @@ label #sidebar_btn:hover{
 }
 
 .content .table .btn0{ /* botton link ไปหน้า approve */
-  padding: 8px 20px;
+  padding: 8px 18px;
   color: gray;
-  background: rgb(207, 207, 207);
+  background: #e6e6e6;
+  border-radius: 100px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.content .table .btn1{ /* แสดงจำนวน student_request ในหน้า opening_course.php */
+  padding: 8px 20px;
+  color: white;
+  background: #e37aa1;
   border-radius: 100px;
   font-weight: bold;
   text-decoration: none;
@@ -458,7 +467,7 @@ input[type="submit"]:hover {
 /* ;----------------------------------- student_insert ------------------------------------------; */
 
 .input-group-student {
-  margin: 10px 0px 10px 0px;
+  margin-top: -10px;
   color: rgb(114, 114, 114);
   margin-left: 8px;
 }
@@ -482,4 +491,22 @@ input[type="submit"]:hover {
   border-radius: 5px;
   border: 1px solid #E096AC;
   color: #E096AC;
+}
+
+.table approven{
+  padding: 8px 20px;
+  color: white;
+  background: #e37aa1;
+  border-radius: 100px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.table waiting{ /* botton link ไปหน้า approve */
+  padding: 8px 18px;
+  color: gray;
+  background: #e6e6e6;
+  border-radius: 100px;
+  font-weight: bold;
+  text-decoration: none;
 }

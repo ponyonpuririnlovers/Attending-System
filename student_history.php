@@ -126,7 +126,13 @@
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['request_time']; ?></center></td>
                     <td><center><?php echo $rowpost['request_date']; ?></center></td>
-                    <td><center><?php echo $rowpost['status']; ?></center></td>
+
+                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
+                        <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
+                    <?php  } else { ?>
+                        <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
+                    <?php } ?>
+
         <?php
                     $row_count++; 
                     $col_count++;

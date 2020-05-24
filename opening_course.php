@@ -138,7 +138,7 @@
                     <?php if ($total_request_student == '0') { ?>
                             <td style="padding: 10px 5px;"><center><a class="btn0"><?php echo $total_request_student; ?></a><center></td> 
                     <?php  } else { ?>
-                            <td style="padding: 10px 5px;"><center><a class="btn2"><?php echo $total_request_student; ?></a><center></td>
+                            <td style="padding: 10px 5px;"><center><a class="btn1"><?php echo $total_request_student; ?></a><center></td>
                     <?php } ?>
 
         <?php

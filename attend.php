@@ -69,7 +69,7 @@
         </center>
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
-        <a href="student_attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
+        <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
         <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
@@ -106,12 +106,12 @@
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
                 <p style="margin-top: 50px; margin-bottom:-30px">
-                    <i class="fas fa-pen-nib" style="font-size:30px; color:#e37aa1;"></i>
+                    <i class="fas fa-pen-nib" style="font-size:20px; color:#e37aa1;"></i>
                     <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
                 </p>
             </div>
 
-        <form action="student_attend_db.php" method="post">
+        <form action="attend_db.php" method="post">
 
             <div class="input-group-student">
                 <p>
@@ -120,16 +120,19 @@
                 </p>
             </div>
 
-                <p style="margin-left:20px; margin-top:20px;">
+                <p style="margin-left:20px; margin-top:40px;">
                     <i class="fas fa-question-circle" style="font-size:20px;"></i>
                     <w>หากท่านไม่ทราบ 'รหัสรายวิชา' สามารถตรวจสอบได้ที่ </w>
                     <a href="opening_course.php" ><i class="fas fa-table"></i> <span>รายวิชาที่เปิดสอน</span></a>
                 </p>
 
+            <br>
+
+                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -190px 700px;">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 68%; margin-left:18px; margin-top:30px;">
+            <div class="error" style="width: 68%; margin: 250px 18px; margin-botton:100px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];
@@ -138,16 +141,6 @@
                 </h3>
             </div>
             <?php endif ?>
-
-            <p></p>
-
-            <div class="input-group" >
-                <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
-                <input  type="password" name="confirm_password" 
-                        style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
-            </div>
-
-                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin-left: 795px;">
         
         </form>
 

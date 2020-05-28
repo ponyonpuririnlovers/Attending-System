@@ -20,9 +20,10 @@ CREATE TABLE course (
   	semester varchar(100),
   	academic_year varchar(100),
 	level varchar(100),
-	credit varchar(100),
+	credit int(2),
 	current_student int(3),
 	open_student_number int(3),
+	note varchar(100),
 	PRIMARY KEY(course_ID, section)
 
 

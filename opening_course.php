@@ -77,7 +77,7 @@
         </center>
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
-        <a href="student_attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
+        <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
         <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
@@ -100,6 +100,7 @@
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
                     <th>ตอนเรียน</th>
+                    <th>หมายเหตุ</th>
                     <th>จำนวนนิสิต</th> 
                     <th>นิสิตที่รอขออนุมัติ</th> 
                 </tr>
@@ -107,47 +108,73 @@
         
         <form method="post" action="opening_course.php">
 
-            <div class="head_course">
+            <div class="head_course" style="margin:-95px 400px 30px;">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 </p> 
             </div>
 
-            <div class="search">
+            <div class="search" style="margin:-20px 0px;">
+                <i class="fas fa-search"></i>
                 รหัสรายวิชา
 	            <input type="text" name="course_ID">
                 ชื่อรายวิชา
-	            <input type="text" name="course_name" style="width:10%;">
+                <input type="text" name="course_name" style="width:10%;">
+                หมายเหตุ 
+                <input type="text" name="note" style="width:10%;">
             </div>
-            <input type="submit" value="ค้นหา" style="margin:-50px 600px; margin-bottom:50px;">
+            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 830px; margin-bottom:40px;">
 
         <?php
-           
+
+        if (empty($_POST["submit"]))  {
+            echo "<i class='fas fa-info-circle' style='font-size:20px; color:#e37aa1;'></i>";
+            echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา'</a>";
+            echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
+            exit() ;
+
+        } else { 
+            
             // ทางเลือกที่ 1 กำหนดเงื่อนไขการค้นหาตาม course_ID
-            if (isset($_POST['course_ID']) && empty($_POST['course_name']))
+            if (isset($_POST['course_ID']) && empty($_POST['course_name']) && empty($_POST['note']))
             {
                 $course_ID = $_POST['course_ID'];
                 $query = "select * from course WHERE course_ID like '%$course_ID%' ;";
             }	
             // ทางเลือกที่ 2 กำหนดเงื่อนไขการค้นหาตาม course_name
-            elseif (isset($_POST['course_name']) && empty($_POST['course_ID']))
+            elseif (isset($_POST['course_name']) && empty($_POST['course_ID']) && empty($_POST['note']))
             {
                 $course_name = $_POST['course_name'];
                 $query = "select * from course WHERE course_name like '%$course_name%' ;";
             }
-            elseif (isset($_POST['course_name']) && isset($_POST['course_ID']))
+            // ทางเลือกที่ 3 กำหนดเงื่อนไขการค้นหาตาม course_ID & course_name
+            elseif (isset($_POST['course_name']) && isset($_POST['course_ID']) && empty($_POST['note']))
             {
                 $course_ID = $_POST['course_ID'];
                 $course_name = $_POST['course_name'];
                 $query = "select * from course WHERE course_ID like '%$course_ID%' AND course_name like '%$course_name%' ;";
             }
-            // ทางเลือกที่ 3 ไม่ได้ใส่อะไรเลย;-;
+            // ทางเลือกที่ 4 กำหนดเงื่อนไขการค้นหาตาม note
+            elseif (isset($_POST['note']) && empty($_POST['course_ID']) && empty($_POST['course_name']))
+            {
+                $note = $_POST['note'];
+                $query = "select * from course WHERE note like '%$note%' ;";
+            }
+            // ทางเลือกที่ 5 กำหนดเงื่อนไขการค้นหาตาม ALL !!!
+            elseif (isset($_POST['note']) && isset($_POST['course_ID']) && isset($_POST['course_name']))
+            {
+                $course_ID = $_POST['course_ID'];
+                $course_name = $_POST['course_name'];
+                $note = $_POST['note'];
+                $query = "select * from course WHERE course_ID like '%$course_ID%' AND course_name like '%$course_name%' AND note like '%$note%' ;";
+            }
+            // ทางเลือกที่ 6 ไม่ได้ใส่อะไรเลย;-;
             else
             {
                 $query = "select * from course ORDER BY course_ID ASC;";
             }
-
+        
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -180,6 +207,7 @@
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
+                    <td><center><?php echo $rowpost['note']; ?></center></td>
                     <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
 
                     <?php if ($total_request_student == '0') { ?>
@@ -205,6 +233,7 @@
                 echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
                 exit() ; 
             }
+        }
         ?>
         <p></p><p></p><p></p>
     </div>

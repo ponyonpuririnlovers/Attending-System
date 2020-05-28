@@ -319,6 +319,22 @@ label #sidebar_btn:hover{
   padding: 15px 55px;
 }
 
+.content .table#attend_confirm_table th,
+.content .table#attend_confirm_table td {
+  padding: 15px 20px;
+}
+
+.content .table#student_history_table th,
+.content .table#student_history_table td {
+  padding: 15px 30px;
+}
+
+.content .table#opening_course_table th,
+.content .table#opening_course_table td {
+  padding: 15px 20px;
+}
+
+
 .content .table tbody tr {
   border-bottom: 1px solid #dddddd;
   border-top: 1px solid #dddddd;
@@ -519,4 +535,15 @@ input[type="submit"]:hover {
   border-radius: 5px;
   border: 1px solid #E096AC;
   color: #E096AC;
+}
+
+input[type="submit"]#search {
+  border: 3px solid #ffc2d8;
+  background-color: #ffc2d8;
+	color: white;
+}
+
+input[type="submit"]#search:hover {
+  border: 3px solid #e37aa1;
+  background-color: #e37aa1;
 }

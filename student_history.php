@@ -69,7 +69,7 @@
         </center>
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
-        <a href="student_attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
+        <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
         <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
@@ -85,11 +85,12 @@
     <div class="content">
         <h1>ประวัติการขออนุมัติเพิ่มรายวิชา</h1>
 
-        <table class="table" id="course_table">
+        <table class="table" id="student_history_table">
             <thead>
                 <tr>
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
+                    <th>ตอนเรียน</th>
                     <th>เวลา</th>
                     <th>วันที่</th>
                     <th>สถานะ</th>
@@ -124,6 +125,7 @@
 
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
+                    <td><center><?php echo $rowpost['section']; ?></center></td>
                     <td><center><?php echo $rowpost['request_time']; ?></center></td>
                     <td><center><?php echo $rowpost['request_date']; ?></center></td>
 
@@ -151,7 +153,7 @@
         <?php
             } else {
                 echo "ไม่มีประวัติการขออนุมัติเพิ่มรายวิชา";
-                echo "<script> document.getElementById('course_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('student_history_table').deleteRow(0); </script>";
             }
         ?>
 

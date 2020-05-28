@@ -69,7 +69,7 @@
         </center>
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
-        <a href="student_attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
+        <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
         <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
@@ -83,7 +83,7 @@
     <!--sidebar end-->
     
     <div class="content" >
-        <h1>ขออนุมัติเพิ่มรายวิชา</h1>
+        <h1>ยืนยันขออนุมัติเพิ่มรายวิชา</h1>
 
         <?php
             $id = $_SESSION['username'];
@@ -105,27 +105,66 @@
                     <aa>ชื่อ-นามสกุล</aa> <w><?php echo $name; ?></w>
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
-                <p style="margin-top: 50px; margin-bottom:-30px">
-                    <i class="fas fa-pen-nib" style="font-size:30px; color:#e37aa1;"></i>
-                    <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
-                </p>
             </div>
 
-        <form action="student_attend_db.php" method="post">
+        <?php //ดึงข้อมูลของ course&section นั้น!!
+            $course_ID = $_SESSION['course_ID'];
+            $section = $_SESSION['section'];
 
-            <div class="input-group-student">
-                <p>
-                    <label for="course_ID">รหัสรายวิชา</label> <input type="text" name="course_ID" class="form-control">
-                    <label for="section" style="margin-left:30px;">ตอนเรียน</label> <input type="text" name="section" class="form-control" style=" width: 3%;">
-                </p>
-            </div>
+            $query = "  SELECT c.*, t.name
+                        FROM course c , teacher_users t
+                        WHERE $course_ID = c.course_ID AND $section = c.section AND $course_ID = t.course_ID
+                     ";
+            $result = mysqli_query($conn, $query);
+                    
+            if (mysqli_num_rows($result) > 0) {
+                while($rowpost = mysqli_fetch_array($result)) { 
+                    $course_name = $rowpost['course_name'];
+                    $department = $rowpost['department'];
+                    $level = $rowpost['level']; 
+                    $credit = $rowpost['credit']; 
+                    $teacher_name = $rowpost['name'];
+                    $note = $rowpost['note'];
 
-                <p style="margin-left:20px; margin-top:20px;">
-                    <i class="fas fa-question-circle" style="font-size:20px;"></i>
-                    <w>หากท่านไม่ทราบ 'รหัสรายวิชา' สามารถตรวจสอบได้ที่ </w>
-                    <a href="opening_course.php" ><i class="fas fa-table"></i> <span>รายวิชาที่เปิดสอน</span></a>
-                </p>
+                }       
+        ?>          
 
+        <table class="table" id="attend_confirm_table">
+            <thead>
+                <tr>
+                    <th>รหัสรายวิชา</th>
+                    <th>ชื่อรายวิชา</th>
+                    <th>ตอนเรียน</th>
+                    <th>อาจารย์ที่สอน</th>
+                    <th>ภาควิชา</th>  
+                    <th>หน่วยกิต</th>
+                    <th>หมายเหตุ</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td><center><?php echo $course_ID; ?></center></td>
+                    <td><?php echo $course_name; ?></td>
+                    <td><center><?php echo $section; ?></center></td>
+                    <td><center><?php echo $teacher_name; ?></center></td>
+                    <td><center><?php echo $department; ?></center></td>
+                    <td><center><?php echo $credit; ?></center></td>
+                    <td><center><?php echo $note; ?></center></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <?php } ?> <br>
+            
+        <aa style="font-size:20px;">หากไม่ใช่รายวิชาที่ต้องการขออนุมัติเพิ่มรายวิชา</aa>
+        <a href="attend.php"><i class="fas fa-undo"></i> <span>กลับไปหน้าก่อน</span></a>
+        <br>
+        <aa style="font-size:20px;">หากตรวจสอบข้อมูลเรียบร้อยแล้ว กรุณากรอก 'รหัสผ่าน' และกดปุ่ม 'ยืนยัน'</aa>
+        
+
+        <form action="attend_confirm_db.php" method="post">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
@@ -149,7 +188,7 @@
 
                 <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin-left: 795px;">
         
-        </form>
+        </form> <br>
 
     </div>
 

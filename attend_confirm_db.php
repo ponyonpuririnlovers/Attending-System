@@ -40,7 +40,7 @@
             if ($result['course_ID'] === $course_ID) {
                 array_push($errors, "ท่านได้ขออนุมัติเพิ่มรายวิชานี้แล้ว");
                 $_SESSION['error'] = "ท่านได้ขออนุมัติเพิ่มรายวิชานี้แล้ว";
-                header("location: student_attend.php");
+                header("location: attend.php");
             }
         }
 
@@ -48,8 +48,8 @@
             array_push($errors, "กรุณากรอก'รหัสผ่าน'");
             $_SESSION['error'] = "กรุณากรอก'รหัสผ่าน'";
 
-            # link กลับไปหน้าก่อน student_attend.php !!! \(;-;)/ #
-            header("location: student_attend.php");
+            # link กลับไปหน้าก่อน attend.php !!! \(;-;)/ #
+            header("location: attend.php");
             
         }
 
@@ -80,17 +80,17 @@
         if (empty($course_ID)) {
             array_push($errors, "กรุณากรอก 'รหัสรายวิชา'");
             $_SESSION['error'] = "กรุณากรอก 'รหัสรายวิชา'";
-            header("location: student_attend.php");
+            header("location: attend.php");
         }
         if (empty($section)) {
             array_push($errors, "กรุณากรอก 'ตอนเรียน'");
             $_SESSION['error'] = "กรุณากรอก 'ตอนเรียน'";
-            header("location: student_attend.php");
+            header("location: attend.php");
         }
         if (empty($course_ID) && empty($section)){
             array_push($errors, "กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน'");
             $_SESSION['error'] = "กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน'";
-            header("location: student_attend.php");
+            header("location: attend.php");
         }
     }
 

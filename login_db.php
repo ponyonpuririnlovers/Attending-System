@@ -15,7 +15,6 @@
             /*--------- ถ้า username & password ตรงกัน ----------*/
             if (mysqli_num_rows($result) > 0) {
                 $_SESSION['username'] = $username;
-                $_SESSION['success'] = "Your are now logged in";
                 header("location: index.php");
 
             } else { /*--------- ถ้าไม่ใช่ teacher email ให้หา student email แทนจ้า ----------*/
@@ -24,13 +23,20 @@
 
                 if (mysqli_num_rows($result) > 0) {
                     $_SESSION['username'] = $username;
-                    $_SESSION['success'] = "Your are now logged in";
                     header("location: student_index.php");
-                }
-                else {
-                array_push($errors, "Wrong Username or Password");
-                $_SESSION['error'] = "Wrong Username or Password!";
-                header("location: login.php");
+
+                } else { /*--------- ถ้าไม่ใช่ student email ให้หา officer email แทนจ้า ----------*/
+                    $query = "SELECT * FROM officer_user WHERE username = '$username' AND password = '$password' ";
+                    $result = mysqli_query($conn, $query);
+    
+                    if (mysqli_num_rows($result) > 0) {
+                        $_SESSION['username'] = $username;
+                        header("location: officer_index.php");
+                    } else {
+                        array_push($errors, "Wrong Username or Password");
+                        $_SESSION['error'] = "Wrong Username or Password!";
+                        header("location: login.php");
+                    }
                 }
             }
 
@@ -57,3 +63,4 @@
     }
 
 ?>
+

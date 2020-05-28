@@ -78,3 +78,14 @@ CREATE TABLE student_status (
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE officer_user (
+  	username varchar(100) NOT NULL,
+    	password varchar(100) NOT NULL,
+  	name varchar(100),
+  	faculty varchar(100),
+	department varchar(100),
+	PRIMARY KEY(username)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

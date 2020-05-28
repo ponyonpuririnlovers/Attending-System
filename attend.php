@@ -110,6 +110,7 @@
                     <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
                 </p>
             </div>
+                
 
         <form action="attend_db.php" method="post">
 
@@ -120,19 +121,13 @@
                 </p>
             </div>
 
-                <p style="margin-left:20px; margin-top:40px;">
-                    <i class="fas fa-question-circle" style="font-size:20px;"></i>
-                    <w>หากท่านไม่ทราบ 'รหัสรายวิชา' สามารถตรวจสอบได้ที่ </w>
-                    <a href="opening_course.php" ><i class="fas fa-table"></i> <span>รายวิชาที่เปิดสอน</span></a>
-                </p>
-
             <br>
 
-                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -190px 700px;">
+                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -100px 700px;">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 68%; margin: 250px 18px; margin-botton:100px;">
+            <div class="error" style="width: 70%; margin: 130px 18px; margin-botton:100px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];

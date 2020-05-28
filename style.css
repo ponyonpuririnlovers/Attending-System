@@ -77,7 +77,7 @@ body {
 }
 
 .error {
-    height: 40px;
+    height: 50px;
     width: 89%;
     padding: 5px 20px;
     border: 1px solid #a94442;
@@ -164,6 +164,7 @@ header{
 
 .sidebar a{
   color: #838383;
+  font-size: 18px;
   display: block;
   width: 100%;
   line-height: 60px;
@@ -326,7 +327,7 @@ label #sidebar_btn:hover{
 
 .content .table#student_history_table th,
 .content .table#student_history_table td {
-  padding: 15px 30px;
+  padding: 20px 30px;
 }
 
 .content .table#opening_course_table th,
@@ -334,6 +335,10 @@ label #sidebar_btn:hover{
   padding: 15px 20px;
 }
 
+.content .table#history_course_table th,
+.content .table#history_course_table td {
+  padding: 15px 30px;
+}
 
 .content .table tbody tr {
   border-bottom: 1px solid #dddddd;

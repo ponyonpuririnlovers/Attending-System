@@ -24,9 +24,9 @@
     /*---------------------------------- INSERT to database ----------------------------------*/
 
     $errors = array();
-    if (isset($_POST['submit'])) {
-        $course_ID = mysqli_real_escape_string($conn, $_POST['course_ID']);
-        $section = mysqli_real_escape_string($conn, $_POST['section']);
+    if (isset($_POST['attend_submit'])) {
+        $course_ID = $_SESSION['course_ID'];
+        $section = $_SESSION['section'];
 
         $user_check_query = "   SELECT *
                                 FROM student_request 
@@ -36,20 +36,14 @@
         $query = mysqli_query($conn, $user_check_query);
         $result = mysqli_fetch_assoc($query);
 
-        if ($result) { // if user exists
-            if ($result['course_ID'] === $course_ID) {
-                array_push($errors, "ท่านได้ขออนุมัติเพิ่มรายวิชานี้แล้ว");
-                $_SESSION['error'] = "ท่านได้ขออนุมัติเพิ่มรายวิชานี้แล้ว";
-                header("location: attend.php");
-            }
-        }
-
         if (empty($password)) {
-            array_push($errors, "กรุณากรอก'รหัสผ่าน'");
-            $_SESSION['error'] = "กรุณากรอก'รหัสผ่าน'";
+            array_push($errors, "กรุณากรอก 'รหัสผ่าน'");
+            $_SESSION['error'] = "กรุณากรอก 'รหัสผ่าน'";
 
-            # link กลับไปหน้าก่อน attend.php !!! \(;-;)/ #
-            header("location: attend.php");
+            # link กลับไปหน้าก่อน attend_confirm.php !!! \(;-;)/ #
+            $_SESSION['course_ID'] = $course_ID;
+            $_SESSION['section'] = $section;
+            header("location: attend_confirm.php");
             
         }
 
@@ -74,24 +68,19 @@
 
                 header('location: finish_attend.php');
 
+            } else { /*--------- username & password ผิดด!!! ----------*/
+
+                array_push($errors, "รหัสผ่าน 'ผิด' กรุณากรอกใหม่อีกครั้ง!");
+                $_SESSION['error'] = "รหัสผ่าน 'ผิด' กรุณากรอกใหม่อีกครั้ง!";
+
+                 # link กลับไปหน้าก่อน attend_confirm.php !!! \(;-;)/ #
+                $_SESSION['course_ID'] = $course_ID;
+                $_SESSION['section'] = $section;
+                header("location: attend_confirm.php");
+
             }
         } 
         
-        if (empty($course_ID)) {
-            array_push($errors, "กรุณากรอก 'รหัสรายวิชา'");
-            $_SESSION['error'] = "กรุณากรอก 'รหัสรายวิชา'";
-            header("location: attend.php");
-        }
-        if (empty($section)) {
-            array_push($errors, "กรุณากรอก 'ตอนเรียน'");
-            $_SESSION['error'] = "กรุณากรอก 'ตอนเรียน'";
-            header("location: attend.php");
-        }
-        if (empty($course_ID) && empty($section)){
-            array_push($errors, "กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน'");
-            $_SESSION['error'] = "กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน'";
-            header("location: attend.php");
-        }
     }
 
 ?>

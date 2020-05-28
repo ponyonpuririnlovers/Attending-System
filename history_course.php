@@ -84,7 +84,7 @@
     
     <div class="content">
     
-        <table class="table" id="course_table">
+        <table class="table" id="history_course_table">
             <thead>
                 <tr>
                     <th>ลำดับที่</th>
@@ -92,12 +92,14 @@
                     <th>เวลา</th>
                     <th>รหัสนิสิต</th>
                     <th>ชื่อนิสิต</th> 
+                    <th>คณะ</th>
+                    <th>สาขา</th>
                 </tr>
             </thead>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT DISTINCT c.*, sa.*, su.name
+            $query = "  SELECT DISTINCT c.*, sa.*, su.*
                         FROM    course c, student_approven sa, student_users su
                         WHERE   c.course_ID = $course_ID    AND c.section = $section
                         AND     sa.course_ID = $course_ID   AND sa.section = $section   AND sa.student_ID = su.student_ID
@@ -130,6 +132,8 @@
                     <td><center><?php echo $rowpost['approven_time']; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
+                    <td><center><?php echo $rowpost['faculty']; ?></center></td>
+                    <td><center><?php echo $rowpost['major']; ?></center></td>
                     
                     
         <?php
@@ -153,7 +157,7 @@
         <?php
             } else {
                 echo "ไม่มีประวัติการอนุมัติเพิ่มรายวิชา";
-                echo "<script> document.getElementById('course_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('history_course_table').deleteRow(0); </script>";
             }
         ?>
 

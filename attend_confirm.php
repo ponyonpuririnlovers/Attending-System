@@ -126,7 +126,10 @@
                     $teacher_name = $rowpost['name'];
                     $note = $rowpost['note'];
 
-                }       
+                }  
+                
+            $_SESSION['course_ID'] = $course_ID;
+            $_SESSION['section'] = $section;
         ?>          
 
         <table class="table" id="attend_confirm_table">
@@ -161,14 +164,14 @@
         <aa style="font-size:20px;">หากไม่ใช่รายวิชาที่ต้องการขออนุมัติเพิ่มรายวิชา</aa>
         <a href="attend.php"><i class="fas fa-undo"></i> <span>กลับไปหน้าก่อน</span></a>
         <br>
-        <aa style="font-size:20px;">หากตรวจสอบข้อมูลเรียบร้อยแล้ว กรุณากรอก 'รหัสผ่าน' และกดปุ่ม 'ยืนยัน'</aa>
+        <aa style="font-size:20px;">หากตรวจสอบข้อมูลเรียบร้อยแล้ว กรุณากรอก 'รหัสผ่าน' และกดปุ่ม 'ยืนยันขออนุมัติ'</aa>
         
 
         <form action="attend_confirm_db.php" method="post">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 68%; margin-left:18px; margin-top:30px;">
+            <div class="error" style="width: 55%; margin-left:18px; margin-top:30px; margin-bottom:-100px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];
@@ -178,15 +181,13 @@
             </div>
             <?php endif ?>
 
-            <p></p>
-
             <div class="input-group" >
                 <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
                 <input  type="password" name="confirm_password" 
                         style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
             </div>
 
-                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin-left: 795px;">
+                <input type="submit" value="ยืนยันขออนุมัติ" name="attend_submit" id="attend_submit" style="margin-left: 795px;">
         
         </form> <br>
 

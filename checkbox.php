@@ -48,8 +48,8 @@
             if ($_POST["submit"]=="ยืนยันการอนุมัติ")  { 
 
                 if (empty($password)) {
-                    array_push($errors, "Password is required");
-                    $_SESSION['error'] = "Password is required";
+                    array_push($errors, "กรุณากรอก 'รหัสผ่าน'");
+                    $_SESSION['error'] = "กรุณากรอก 'รหัสผ่าน'";
 
                     # link กลับไปหน้าก่อน approve.php !!! \(;-;)/ #
                     header("location: approve.php ?id=$course_ID &sec=$section");
@@ -103,8 +103,8 @@
                         header("location: finish_approve.php");
                         
                     }  else { /*--------- password ผิดด!!! ----------*/
-                        array_push($errors, "Wrong Password");
-                        $_SESSION['error'] = "Wrong Password!";
+                        array_push($errors, "รหัสผ่าน 'ผิด' กรุณากรอกใหม่อีกครั้ง!");
+                        $_SESSION['error'] = "รหัสผ่าน 'ผิด' กรุณากรอกใหม่อีกครั้ง!";
                         
                         # link กลับไปหน้าก่อน approve.php !!! \(;-;)/ #
                         header("location: approve.php ?id=$course_ID &sec=$section");

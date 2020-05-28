@@ -130,7 +130,7 @@
 
         if (empty($_POST["submit"]))  {
             echo "<i class='fas fa-info-circle' style='font-size:20px; color:#e37aa1;'></i>";
-            echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา'</a>";
+            echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา' ทางด้านขวามือ</a>";
             echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
             exit() ;
 

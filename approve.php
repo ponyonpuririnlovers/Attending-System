@@ -184,7 +184,7 @@
         <p></p><p></p>
 
         <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 68%;">
+            <div class="error" style="width: 50%; margin-top: 25px; margin-bottom:-97px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];
@@ -205,7 +205,7 @@
                 $_SESSION['section'] = $section;
         ?>
 
-        <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit">
+        <input type="submit" value="ยืนยันการอนุมัติ" name="submit" id="submit" >
 
     <p></p><p></p><p></p>
     </form>

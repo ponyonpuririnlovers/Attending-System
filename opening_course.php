@@ -17,6 +17,14 @@
     date_default_timezone_set("Asia/Bangkok");
     $currentDate = date("j F Y h:i A") . "<br>";
 
+    /*!-- academic_year & semester --*/
+    $query = " SELECT * FROM course ";
+    $result = mysqli_query($conn, $query);
+    while ($row = mysqli_fetch_array($result)) {
+        $academic_year = $row['academic_year'];
+        $semester = $row['semester'];
+    }
+
     /*!-- no username --*/
     if (!isset($_SESSION['username'])) {
         $_SESSION['msg'] = "You must log in first";
@@ -96,11 +104,50 @@
                     <th>นิสิตที่รอขออนุมัติ</th> 
                 </tr>
             </thead>
+        
+        <form method="post" action="opening_course.php">
+
+            <div class="head_course">
+                <p>
+                    <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
+                    <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
+                </p> 
+            </div>
+
+            <div class="search">
+                รหัสรายวิชา
+	            <input type="text" name="course_ID">
+                ชื่อรายวิชา
+	            <input type="text" name="course_name" style="width:10%;">
+            </div>
+            <input type="submit" value="ค้นหา" style="margin:-50px 600px; margin-bottom:50px;">
 
         <?php
-            $query = "  SELECT *
-                        FROM course
-                        ORDER BY course_ID ASC";
+           
+            // ทางเลือกที่ 1 กำหนดเงื่อนไขการค้นหาตาม course_ID
+            if (isset($_POST['course_ID']) && empty($_POST['course_name']))
+            {
+                $course_ID = $_POST['course_ID'];
+                $query = "select * from course WHERE course_ID like '%$course_ID%' ;";
+            }	
+            // ทางเลือกที่ 2 กำหนดเงื่อนไขการค้นหาตาม course_name
+            elseif (isset($_POST['course_name']) && empty($_POST['course_ID']))
+            {
+                $course_name = $_POST['course_name'];
+                $query = "select * from course WHERE course_name like '%$course_name%' ;";
+            }
+            elseif (isset($_POST['course_name']) && isset($_POST['course_ID']))
+            {
+                $course_ID = $_POST['course_ID'];
+                $course_name = $_POST['course_name'];
+                $query = "select * from course WHERE course_ID like '%$course_ID%' AND course_name like '%$course_name%' ;";
+            }
+            // ทางเลือกที่ 3 ไม่ได้ใส่อะไรเลย;-;
+            else
+            {
+                $query = "select * from course ORDER BY course_ID ASC;";
+            }
+
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -146,24 +193,19 @@
                     $col_count++;
                     echo "</tr>"; 
                     echo "</tbody>"; 
-        }
+                }
         ?>
         
-            <div class="head_course">
-                <p>
-                    <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
-                    <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
-                </p> 
-            </div>
-
+            
+        </form>
+        </table>
         <?php
-            } else {
-                echo "ไม่มีรายวิชาที่เปิดสอนในภาคการศึกษานี้";
-                echo "<script> document.getElementById('course_table').deleteRow(0); </script>";
+            }  else {
+                echo "ไม่พบรายวิชาที่ต้องการค้นหา";
+                echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
+                exit() ; 
             }
         ?>
-
-        </table>
         <p></p><p></p><p></p>
     </div>
 

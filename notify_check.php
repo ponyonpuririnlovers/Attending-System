@@ -2,6 +2,10 @@
     session_start();
     include('server.php');
 
+    /*!-- course_ID from course user choose --*/
+    $course_ID = $_GET['id'];
+    $section = $_GET['sec'];
+
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
     $query = " SELECT * FROM officer_user WHERE username = '$id' ";
@@ -80,25 +84,24 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>แจ้งนิสิตที่เพิ่มรายวิชา <span>รายวิชาที่อนุมัตินิสิต</span></h1>
 
         <table class="table" id="officer_result_table">
             <thead>
                 <tr>
-                    <th>รหัสรายวิชา</th>
-                    <th>ชื่อรายวิชา</th>
-                    <th>ตอนเรียน</th>
-                    <th>จำนวนนิสิต</th> 
-                    <th>นิสิตที่อนุมัติแล้ว</th> 
+                    <th>ลำดับที่</th>
+                    <th>รหัสนิสิต</th>
+                    <th>ชื่อนิสิต</th> 
+                    <th>วันที่</th>
+                    <th style="padding-left:5px;">เวลา</th> 
                 </tr>
             </thead>
 
         <?php
-            $id = $_SESSION['username'];
-            $query = "  SELECT c.*
-                        FROM course c, student_status ss
-                        WHERE ss.status = 'อนุมัติแล้ว' AND ss.course_ID = c.course_ID AND ss.section = c.section
-                        ORDER BY c.course_ID ASC";
+            $query = "  SELECT DISTINCT c.*, sa.*, su.*
+                        FROM    course c, student_approven sa, student_users su
+                        WHERE   c.course_ID = $course_ID    AND c.section = $section
+                        AND     sa.course_ID = $course_ID   AND sa.section = $section   AND sa.student_ID = su.student_ID
+                        ORDER BY sa.approven_date ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -116,9 +119,13 @@
                     }
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester']; 
-                    $course_ID = $rowpost['course_ID'];
-                    $section = $rowpost['section'];
+                    $course_name = $rowpost['course_name'];  
+                    $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];
 
+                    # เก็บ student_ID ไว้ใน array ส่งต่อไป notify_check_db.php
+                    # EX array --> { [6140053622 , 6140053633] }
+                    $student_notify[] = $rowpost['student_ID'];
 
                     # จำนวนนิสิตที่อนุมัติแล้ว[ทั้งหมด!!!]
                     $query_total = "    SELECT  student_ID
@@ -129,32 +136,37 @@
                     $total_approven_student = mysqli_num_rows($result_total); 
 
         ?>          
-                    <td><center><?php echo $rowpost['course_ID']; ?></center></td>
-                    <td><?php echo $rowpost['course_name']; ?></td>
-                    <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
-
-                    <?php if ($total_approven_student == '0') { ?>
-                            <td style="padding: 10px 5px;"><center><a href="notify_check.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
-                                <?php echo $total_approven_student; ?></a><center></td> 
-                    <?php  } else { ?>
-                            <td style="padding: 10px 5px;"><center><a href="notify_check.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
-                                <?php echo $total_approven_student; ?></a><center></td>
-                    <?php } ?>
+                    <td><center><?php echo $row_count+1; ?></center></td>
+                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
+                    <td><?php echo $rowpost['name']; ?></td>
+                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
+                    <td style="padding-left:5px;"><center><?php echo $rowpost['approven_time']; ?></center></td>
                     
 
-        <?php
+        <?php       
                     $row_count++; 
                     $col_count++;
                     echo "</tr>"; 
                     echo "</tbody>"; 
         }
+
+        # เก็บใส่ SESSION ส่ง array ไปยัง notify_check_db.php
+        $_SESSION['student_notify'] = $student_notify;
+        $_SESSION['course_ID'] = $course_ID;
+        $_SESSION['section'] = $section;
+
         ?>
+
+
+        <h1>แจ้งนิสิตที่เพิ่มรายวิชา <span><?php echo $course_ID; echo $course_name; ?></span></h1>
         
             <div class="head_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
+                    <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
+                    <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
+                    <aa>นิสิตที่อนุมัติแล้ว</aa> <w><?php echo $total_approven_student; ?></w>
                 </p> 
             </div>
 
@@ -166,10 +178,33 @@
         ?>
 
         </table>
-    </div>
-    <br>
-    
+        
+        <form action="notify_check_db.php" method="post" style="padding-top:100px;">
 
+            <?php include('errors.php'); ?>
+            <?php if (isset($_SESSION['error'])) : ?>
+            <div class="error" style="width: 50%; margin-left:18px; margin-top:30px; margin-bottom:-100px;">
+                <h3>
+                    <?php 
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    ?>
+                </h3>
+            </div>
+            <?php endif ?>
+
+            <div class="input-group" >
+                <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
+                <input  type="password" name="confirm_password" 
+                        style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
+            </div>
+
+            <input type="submit" value="ยืนยันการแจ้งนิสิต" name="notify_submit" id="notify_submit" style="margin-left: 795px;">
+        
+        </form>
+
+    </div>
+    <br>  
 
 </body>
 </html>

@@ -70,7 +70,7 @@
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
         <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
-        <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
+        <a href="student_history.php"><i class="fas fa-history"></i><span>สถานะการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -83,7 +83,7 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>ประวัติการขออนุมัติเพิ่มรายวิชา</h1>
+        <h1>สถานะการขออนุมัติเพิ่มรายวิชา</h1>
 
         <table class="table" id="student_history_table">
             <thead>
@@ -152,7 +152,7 @@
 
         <?php
             } else {
-                echo "ไม่มีประวัติการขออนุมัติเพิ่มรายวิชา";
+                echo "ท่านยังไม่ได้ทำการขออนุมัติเพิ่มรายวิชา";
                 echo "<script> document.getElementById('student_history_table').deleteRow(0); </script>";
             }
         ?>

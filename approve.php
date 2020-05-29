@@ -213,7 +213,7 @@
 
         <?php
             } else {
-                echo "ไม่มีนิสิตขอเพิ่มรายวิชานี้";
+                echo "ไม่มีนิสิตขออนุมัติเพิ่มรายวิชานี้";
                 echo "<script> document.getElementById('student_request_table').deleteRow(0); </script>";
                 echo "<script> document.getElementById('submit').deleteRow(0); </script>";
             }

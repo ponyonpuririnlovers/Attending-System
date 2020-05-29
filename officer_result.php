@@ -73,9 +73,9 @@
             <h4>Chulalongkorn University</h4>
         </center>
         <a href="officer_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
-        <a href="officer_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
         <a href="notify.php"><i class="fas fa-check"></i><span>แจ้งนิสิตที่เพิ่มรายวิชา</span></a>
         <a href="officer_history.php"><i class="fas fa-history"></i><span>ประวัติการเพิ่มรายวิชา</span></a>
+        <a href="officer_result.php"><i class="fas fa-table"></i><span>แดชบอร์ด</span></a>
         <a href="officer_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -88,7 +88,7 @@
     <!--sidebar end-->
     
     <div class="content">
-    <h1>รายวิชาที่เปิดสอน</h1>
+    <h1>แดชบอร์ด</h1>
     
     <table class="table" id="opening_course_table">
         <thead>
@@ -99,10 +99,11 @@
                 <th>หมายเหตุ</th>
                 <th>จำนวนนิสิต</th> 
                 <th>นิสิตที่รอขออนุมัติ</th> 
+                <th>นิสิตที่อนุมัติแล้ว</th>
             </tr>
         </thead>
     
-    <form method="post" action="officer_course.php">
+    <form method="post" action="officer_result.php">
 
         <div class="head_course" style="margin:-95px 400px 30px;">
             <p>
@@ -119,8 +120,8 @@
             <input type="text" name="course_name" style="width:10%;">
             หมายเหตุ 
             <input type="text" name="note" style="width:10%;">
-        </div>
-        <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 830px; margin-bottom:40px;">
+        </div> 
+        <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 850px; margin-bottom:40px; ">
 
     <?php
 
@@ -199,6 +200,14 @@
                 $result_total = mysqli_query($conn, $query_total);
                 $total_request_student = mysqli_num_rows($result_total);
 
+                # จำนวนนิสิตที่อนุมัติแล้ว[ทั้งหมด!!!]
+                $query_total = "    SELECT  student_ID
+                                    FROM    student_status
+                                    WHERE   status = 'อนุมัติแล้ว' AND course_ID = $course_ID  AND section = $section
+                                ";
+                $result_total = mysqli_query($conn, $query_total);
+                $total_approven_student = mysqli_num_rows($result_total); 
+
     ?>          
                 <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                 <td><?php echo $rowpost['course_name']; ?></td>
@@ -207,9 +216,19 @@
                 <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
 
                 <?php if ($total_request_student == '0') { ?>
-                        <td style="padding: 10px 5px;"><center><a class="btn0"><?php echo $total_request_student; ?></a><center></td> 
+                        <td style="padding: 10px 5px;"><center><a href="student_request.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
+                            <?php echo $total_request_student; ?></></center></td> 
                 <?php  } else { ?>
-                        <td style="padding: 10px 5px;"><center><a class="btn1"><?php echo $total_request_student; ?></a><center></td>
+                        <td style="padding: 10px 5px;"><center><a href="student_request.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn1">
+                            <?php echo $total_request_student; ?></></center></td>
+                <?php } ?>
+
+                <?php if ($total_approven_student == '0') { ?>
+                        <td style="padding: 10px 5px;"><center><a href="student_approven.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
+                            <?php echo $total_approven_student; ?></a></center></td> 
+                <?php  } else { ?>
+                        <td style="padding: 10px 5px;"><center><a href="student_approven.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn1">
+                            <?php echo $total_approven_student; ?></a></center></td>
                 <?php } ?>
 
     <?php
@@ -232,7 +251,7 @@
     }
     ?>
     </div>
-    <br>
+    <br><br>
     
 
 

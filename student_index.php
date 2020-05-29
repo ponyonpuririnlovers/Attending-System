@@ -70,7 +70,7 @@
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
         <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
-        <a href="student_history.php"><i class="fas fa-history"></i><span>ประวัติการขออนุมัติ</span></a>
+        <a href="student_history.php"><i class="fas fa-history"></i><span>สถานะการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -85,7 +85,8 @@
     <div class="content">
         <h1>ยินดีต้อนรับเข้าสู่ <span>ระบบเพิ่มรายวิชา</span></h1>
         <p style="padding-top: 120px;"><a>กรุณาเพิ่มรายวิชาใน www2.reg.chula.ac.th มิเช่นนั้นการขอเพิ่มรายวิชาจะไม่เสร็จสมบูรณ์</a></p>
-        <p>หลังจากทำการขอเพิ่มรายวิชาท่านสามารถตรวจสอบผลการเพิ่มรายวิชาได้ใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i></p>
+        <p><a>หลังจากทำการขอเพิ่มรายวิชาท่านสามารถตรวจสอบผลการเพิ่มรายวิชาได้ใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i></a></p>
+        <p><a>หากพบปัญหาให้ติดต่อเจ้าหน้าที่ทันที ไม่เช่นนั้นจะถือว่าการดำเนินการนั้น... ;-;</a></p>
         <p></p>
         <p>กรุณาเลือกบริการที่ต้องการจากรายการด้านซ้ายมือ \ (^-^) /</p>
         <p><a>ท่านจะออกจากระบบโดยอัตโนมัติ เมื่อหยุดการติดต่อนานเกิน 10 นาที</a></p>

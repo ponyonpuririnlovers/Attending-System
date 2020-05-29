@@ -325,8 +325,8 @@ label #sidebar_btn:hover{
   padding: 15px 20px;
 }
 
-.content .table#student_history_table th,
-.content .table#student_history_table td {
+.content .table#student_status_table th,
+.content .table#student_status_table td {
   padding: 20px 30px;
 }
 

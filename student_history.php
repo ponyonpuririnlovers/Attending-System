@@ -70,7 +70,7 @@
         <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
         <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
-        <a href="student_history.php"><i class="fas fa-history"></i><span>สถานะการขออนุมัติ</span></a>
+        <a href="student_status.php"><i class="fas fa-history"></i><span>สถานะการขออนุมัติ</span></a>
         <a href="student_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -85,23 +85,25 @@
     <div class="content">
         <h1>สถานะการขออนุมัติเพิ่มรายวิชา</h1>
 
-        <table class="table" id="student_history_table">
+        <table class="table" id="student_status_table">
             <thead>
                 <tr>
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
                     <th>ตอนเรียน</th>
+                    <th>สถานะ</th>
                     <th>เวลา</th>
                     <th>วันที่</th>
-                    <th>สถานะ</th>
+                    <th>ประวัติ</th>
+                    
                 </tr>
             </thead>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT  ss.*, c.*
-                        FROM course c, student_status ss
-                        WHERE $student_ID = ss.student_ID 
+            $query = "  SELECT  ss.*, c.*, sa.*
+                        FROM course c, student_status ss, student_approven sa
+                        WHERE $student_ID = ss.student_ID AND $student_ID = sa.student_ID
                         AND c.course_ID = ss.course_ID AND c.section = ss.section
                         ORDER BY ss.request_date ASC ";
             $result = mysqli_query($conn, $query);
@@ -126,14 +128,22 @@
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $rowpost['request_time']; ?></center></td>
-                    <td><center><?php echo $rowpost['request_date']; ?></center></td>
 
                     <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
                         <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
+                        <td><?php echo $rowpost['approven_time']; ?></td>
+                        <td><?php echo $rowpost['approven_date']; ?></td>
+
                     <?php  } else { ?>
                         <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
+                        <td><?php echo $rowpost['request_time']; ?></td>
+                        <td><?php echo $rowpost['request_date']; ?></td>
+
                     <?php } ?>
+
+                    <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-history" style="font-size: 40px;"></i></a><center></td>
+
+
 
         <?php
                     $row_count++; 
@@ -153,7 +163,7 @@
         <?php
             } else {
                 echo "ท่านยังไม่ได้ทำการขออนุมัติเพิ่มรายวิชา";
-                echo "<script> document.getElementById('student_history_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('student_status_table').deleteRow(0); </script>";
             }
         ?>
 

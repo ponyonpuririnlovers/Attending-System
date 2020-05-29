@@ -2,10 +2,6 @@
     session_start();
     include('server.php');
 
-    /*!-- course_ID from course user choose --*/
-    $course_ID = $_GET['id'];
-    $section = $_GET['sec'];
-
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
     $query = " SELECT * FROM student_users WHERE username = '$id' ";
@@ -87,107 +83,113 @@
     <!--sidebar end-->
     
     <div class="content">
+        <h1>สถานะการขออนุมัติ</h1>
+
+        <table class="table" id="student_status_table">
+            <thead>
+                <tr>
+                    <th>รหัสรายวิชา</th>
+                    <th>ชื่อรายวิชา</th>
+                    <th>ตอนเรียน</th>
+                    <th>สถานะ</th>
+                    <th>เวลา</th>
+                    <th>วันที่</th>
+                    <th>ประวัติ</th>
+                    
+                </tr>
+            </thead>
 
         <?php
-            $query = "  SELECT  ss.*, c.*
+            $query = "  SELECT ss.*, c.*
                         FROM course c, student_status ss
                         WHERE $student_ID = ss.student_ID 
-                        AND c.course_ID = $course_ID AND c.section = $section AND ss.course_ID = $course_ID AND ss.section = $section
-                     ";
+                        AND c.course_ID = ss.course_ID AND c.section = ss.section
+                    ";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
-
+                
+                $row_count=0;
+                $col_count=0;
                 while($rowpost = mysqli_fetch_array($result)) { 
-
+                    if($row_count%2!=0){
+                        echo "<tbody>";
+                        echo "<tr class='active-row'>";
+                    } 
+                    else {
+                        echo "<tbody>";
+                        echo "<tr>";
+                    }
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester']; 
-                    $course_name = $rowpost['course_name'];  
-                    $current_student = $rowpost['current_student'];
-                    $open_student_number = $rowpost['open_student_number'];
-                    
-                    $status = $rowpost['status']; 
+                    # สำหรับใช้หา approven_time & date
+                    $course_ID_ap = $rowpost['course_ID']; 
+                    $section_ap = $rowpost['section']; 
 
-                    /* ----- date&time ขออนุมัติ -----*/
-                    $request_time = $rowpost['request_time'];
-                    $request_date = $rowpost['request_date']; 
+        ?>
 
-                    if ( $rowpost['status'] == 'อนุมัติแล้ว') { 
+                    <td><center><?php echo $rowpost['course_ID']; ?></center></td>
+                    <td><?php echo $rowpost['course_name']; ?></td>
+                    <td><center><?php echo $rowpost['section']; ?></center></td>
+
+                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { 
                         # ดึง apprven_time & date จาก table['student_approven']
                         $query_approven = " SELECT *
                                             FROM student_approven 
-                                            WHERE $student_ID = student_ID AND $course_ID = course_ID AND $section = section
+                                            WHERE $student_ID = student_ID AND $course_ID_ap = course_ID AND $section_ap = section
                                           ";
                         $result_approven = mysqli_query($conn, $query_approven);
+
                         if (mysqli_num_rows($result_approven) > 0) {
                             while($row_approven = mysqli_fetch_array($result_approven)) { 
-
-                                /* ----- date&time อนุมัติแล้ว ----- */
                                 $approven_time = $row_approven['approven_time'];
                                 $approven_date = $row_approven['approven_date']; 
                             }
                         }
-                    }
-                }
+                    ?>
+                        <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
+                        <td><?php echo $approven_time; ?></td>
+                        <td><?php echo $approven_date; ?></td>
+       
+                    <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
+                        <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
+                        <td><?php echo $rowpost['request_time']; ?></td>
+                        <td><?php echo $rowpost['request_date']; ?></td>
+
+                    <?php } else { # status = 'ดำเนินการแล้ว' ?> 
+                        <td><center><proceed><?php echo $rowpost['status']; ?></proceed></center></td>
+                        <td><?php echo $rowpost['proceed_time']; ?></td>
+                        <td><?php echo $rowpost['proceed_date']; ?></td>
+
+                    <?php } ?>
+
+                    <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-history" style="font-size: 40px;"></i></a><center></td>
+
+
+
+        <?php
+                    $row_count++; 
+                    $col_count++;
+                    echo "</tr>"; 
+                    echo "</tbody>"; 
+        }
         ?>
         
-        <h1>สถานะการขออนุมัติ <span> <?php echo $course_ID; ?><?php echo $course_name; ?> </span></h1>
-
             <div class="head_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
-                    <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
-                    <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
                 </p> 
-            </div>
-
-            <o style="padding-right:20px">สถานะปัจจุบัน</o>
-            <?php
-                if ($status == 'รออนุมัติ') {
-                    echo '<waiting>'; echo $status; echo'</waiting>';
-
-                } elseif ($status == 'อนุมัติแล้ว') {
-                    echo '<approven>'; echo $status; echo'</approven>';
-
-                } else {
-                    echo '<proceed>'; echo $status; echo'</proceed>';
-                }
-            ?>
-
-            <div class="head_course" style="background:none; margin-top:-20px" id="student_history"> <br>
-
-                <p>
-                    <aaa><i class="fas fa-check-circle"></i> ขออนุมัติเพิ่มรายวิชา</aaa> 
-                    <w><i class="far fa-clock"></i> <?php echo $request_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $request_date; ?></w>
-                </p>
-
-                <?php if (isset($approven_time) && isset($approven_date)) { ?>
-                    <p>
-                        <aaa><i class="fas fa-check-circle"></i> อนุมัติการขอเพิ่มรายวิชาแล้ว</aaa> 
-                        <w><i class="far fa-clock"></i> <?php echo $approven_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $approven_date; ?></w>
-                    </p>
-                <?php } else {?>
-                    <p><aaa><i class="far fa-check-circle"></i> ยังไม่ได้รับการอนุมัติขอเพิ่มรายวิชา</aaa></p>
-                <?php } ?>
-
-                <?php if (isset($proceed_time) && isset($proceed_date)) { ?>
-                    <p>
-                        <aaa><i class="fas fa-check-circle"></i> ดำเนินการเพิ่มรายวิชาแล้ว</aaa> 
-                        <w><i class="far fa-clock"></i> <?php echo $proceed_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $proceed_date; ?></w>
-                    </p>
-                <?php } else {?>
-                    <p><aaa><i class="far fa-check-circle"></i> ยังไม่ได้ดำเนินการเพิ่มรายวิชา</aaa></p>
-                <?php } ?>
-                                
             </div>
 
         <?php
             } else {
                 echo "ท่านยังไม่ได้ทำการขออนุมัติเพิ่มรายวิชา";
+                echo "<script> document.getElementById('student_status_table').deleteRow(0); </script>";
             }
         ?>
 
+        </table>
     </div>
 
 

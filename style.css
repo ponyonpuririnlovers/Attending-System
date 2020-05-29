@@ -42,7 +42,7 @@ body {
 
 .input-group {
     margin: 10px 0px 10px 0px;
-    color: rgb(114, 114, 114);
+    color: #838383;
     margin-left: 8px;
 }
 
@@ -423,8 +423,6 @@ label #sidebar_btn:hover{
   padding: 20px 20px;
 }
 
-
-
 /* ;----------------------------------- approve ------------------------------------------; */
 
 input[type="checkbox"] {
@@ -514,7 +512,7 @@ input[type="submit"]:hover {
   color: #E096AC;
 }
 
-.table approven{
+approven{
   padding: 8px 20px;
   color: white;
   background: #e37aa1;
@@ -523,7 +521,7 @@ input[type="submit"]:hover {
   text-decoration: none;
 }
 
-.table waiting{ /* botton link ไปหน้า approve */
+waiting{ /* botton link ไปหน้า approve */
   padding: 8px 18px;
   color: gray;
   background: #e6e6e6;

@@ -12,6 +12,7 @@
     <title>Login Page</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
     
 </head>
@@ -38,11 +39,11 @@
             </div>
         <?php endif ?>
         <div class="input-group">
-            <label for="username">Username</label>
+            <label for="username"><i class="fas fa-user-circle"></i> Username</label>
             <input type="text" name="username">
         </div>
         <div class="input-group">
-            <label for="password">Password</label>
+            <label for="password"><i class="fas fa-lock"></i> Password</label>
             <input type="password" name="password">
         </div>
         <div class="input-group">

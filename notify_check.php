@@ -124,7 +124,7 @@
                     $open_student_number = $rowpost['open_student_number'];
 
                     # เก็บ student_ID ไว้ใน array ส่งต่อไป notify_check_db.php
-                    # EX array --> { [6140053622 , 6140053633] }
+                    # EX array --> { [ [0] => 6140053622 ,  [1] => 6140053633] }
                     $student_notify[] = $rowpost['student_ID'];
 
                     # จำนวนนิสิตที่อนุมัติแล้ว[ทั้งหมด!!!]
@@ -170,13 +170,6 @@
                 </p> 
             </div>
 
-        <?php
-            } else {
-                echo "ไม่มีรายวิชาที่ผ่านการอนุมัติขอเพิ่มรายวิชาในภาคการศึกษานี้";
-                echo "<script> document.getElementById('officer_result_table').deleteRow(0); </script>";
-            }
-        ?>
-
         </table>
         
         <form action="notify_check_db.php" method="post" style="padding-top:100px;">
@@ -193,13 +186,20 @@
             </div>
             <?php endif ?>
 
-            <div class="input-group" >
+            <div class="input-group" id="pass&submit">
                 <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
                 <input  type="password" name="confirm_password" 
                         style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
             </div>
 
             <input type="submit" value="ยืนยันการแจ้งนิสิต" name="notify_submit" id="notify_submit" style="margin-left: 795px;">
+
+        <?php
+            } else {
+                echo "ไม่มีนิสิตที่ผ่านการอนุมัติขอเพิ่มรายวิชาในภาคการศึกษานี้";
+                echo "<script> document.getElementById('officer_result_table').deleteRow(0); </script>";
+            }
+        ?>
         
         </form>
 

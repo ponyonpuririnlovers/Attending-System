@@ -7,8 +7,8 @@
     /*-------------------------------- GET data from student_users.php ---------------------------*/
 
     date_default_timezone_set("Asia/Bangkok");
-        $request_date = date("d/m/Y") ;
-        $request_time = date("h:i:s") ;
+    $proceed_date = date("d/m/Y") ;
+    $proceed_time = date("h:i:s") ;
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
@@ -25,7 +25,10 @@
 
         $course_ID = $_SESSION['course_ID'];
         $section = $_SESSION['section'];
-        $student_ID[] = $_SESSION['student_notify'];
+        # EX student_ID --> { [ [0] => 6140053622 ,  [1] => 6140053633] }
+        $student_ID = $_SESSION['student_notify'];
+        $proceed_student_num = count($student_ID); 
+        
 
         if (empty($password)) {
             array_push($errors, "กรุณากรอก 'รหัสผ่าน'");
@@ -46,15 +49,31 @@
                 
                 for ($i=0; $i< sizeof ($student_ID) ;$i++) { 
 
-                    # update status in table["student_status"] #
-                    $update = " UPDATE student_status SET status='ดำเนินการแล้ว' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
-                    mysqli_query($conn, $update);
+                    # UPDATE status // in table["student_status"] #
+                    $update_status = " UPDATE student_status SET status='ดำเนินการแล้ว' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                    mysqli_query($conn, $update_status);
+
+                    # UPDATE proceed_time // in table["student_status"] #
+                    $update_time = " UPDATE student_status SET proceed_time='$proceed_time' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                    mysqli_query($conn, $update_time);
+
+                    # UPDATE proceed_date // in table["student_status"] #
+                    $update_date = " UPDATE student_status SET proceed_date='$proceed_date' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                    mysqli_query($conn, $update_date);
+
+                    # DELETE data student from table["student_approven"] #
+                    $del = " DELETE FROM student_approven WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
+                    mysqli_query($conn, $del);
                 
                 }
 
                 $_SESSION['student_ID'] = $student_ID;
                 $_SESSION['course_ID'] = $course_ID;
                 $_SESSION['section'] = $section;
+                $_SESSION['proceed_time'] = $proceed_time;
+                $_SESSION['proceed_date'] = $proceed_date;
+                $_SESSION['proceed_student_num'] = $proceed_student_num;
+
 
                 header('location: finish_notify.php');
                 

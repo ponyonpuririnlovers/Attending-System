@@ -71,10 +71,12 @@ CREATE TABLE student_approven (
 CREATE TABLE student_status (
 	student_ID varchar(100) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
-	section varchar(100) REFERENCES course(section),	
+	section varchar(100) REFERENCES course(section),
+	status varchar(100),	
 	request_time varchar(100),
 	request_date varchar(100),
-	status varchar(100),
+	proceed_time varchar(100),
+	proceed_date varchar(100),
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

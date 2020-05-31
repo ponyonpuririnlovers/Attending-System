@@ -388,7 +388,7 @@ label #sidebar_btn:hover{
 /* ;----------------------------------- course info ------------------------------------------; */
 
 .content .head_course { /* tag ข้อมูลของรายวิชา */
-  padding-top: 25px;
+  padding-top: 15px;
   padding-bottom: 50px;
 }
 
@@ -513,18 +513,27 @@ input[type="submit"]:hover {
 }
 
 approven{
-  padding: 8px 20px;
+  padding: 8px 35px;
   color: white;
-  background: #e37aa1;
+  background: #ffb5d0;
   border-radius: 100px;
   font-weight: bold;
   text-decoration: none;
 }
 
-waiting{ /* botton link ไปหน้า approve */
-  padding: 8px 18px;
+waiting{ 
+  padding: 8px 40px;
   color: gray;
   background: #e6e6e6;
+  border-radius: 100px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+proceed{ 
+  padding: 8px 18px;
+  color: white;
+  background: #e37aa1;
   border-radius: 100px;
   font-weight: bold;
   text-decoration: none;
@@ -549,4 +558,14 @@ input[type="submit"]#search {
 input[type="submit"]#search:hover {
   border: 3px solid #e37aa1;
   background-color: #e37aa1;
+}
+
+.status_history {
+  border: #e37aa1;
+  border-style: outset ;
+  border-width: 5px;
+  width: 30%;
+  padding: 30px;
+  margin-top: -30px;
+  border-radius: 50px;
 }

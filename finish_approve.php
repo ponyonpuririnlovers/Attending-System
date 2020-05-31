@@ -113,8 +113,8 @@
 
         <?php # จำนวนนิสิตที่อนุมัติ[ทั้งหมด!!!]
             $query = "  SELECT  student_ID
-                        FROM    student_approven
-                        WHERE   course_ID = $course_ID  AND section = $section
+                        FROM    student_status
+                        WHERE   course_ID = $course_ID  AND section = $section AND (status = 'อนุมัติแล้ว' OR status = 'ดำเนินการแล้ว')
                     ";
             $result = mysqli_query($conn, $query);
             $total_approven_student = mysqli_num_rows($result); 
@@ -135,6 +135,7 @@
             
             <a href="index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
     </div>
+    <br>
 
 </body>
 </html>

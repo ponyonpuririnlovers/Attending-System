@@ -124,7 +124,7 @@
                 หมายเหตุ 
                 <input type="text" name="note" style="width:10%;">
             </div>
-            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 830px; margin-bottom:40px;">
+            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 830px; margin-bottom:20px;">
 
         <?php
 

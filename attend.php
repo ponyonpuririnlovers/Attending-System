@@ -105,7 +105,7 @@
                     <aa>ชื่อ-นามสกุล</aa> <w><?php echo $name; ?></w>
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
-                <p style="margin-top: 50px; margin-bottom:-30px">
+                <p style="margin-top: 30px; margin-bottom:-30px">
                     <i class="fas fa-pen-nib" style="font-size:20px; color:#e37aa1;"></i>
                     <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
                 </p>

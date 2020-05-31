@@ -6,7 +6,7 @@ CREATE TABLE teacher_users (
   	faculty varchar(100),
 	department varchar(100),
 	course_ID int(7),
-	section varchar(100),
+	section int(2),
 	PRIMARY KEY(row_id,username)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -15,10 +15,10 @@ CREATE TABLE teacher_users (
 CREATE TABLE course (
 	course_ID int(7) NOT NULL,
 	course_name varchar(100),
-    	section varchar(100) NOT NULL,
+    	section int(2) NOT NULL,
 	department varchar(100) REFERENCES teacher_users(department),
-  	semester varchar(100),
-  	academic_year varchar(100),
+  	semester int(2),
+  	academic_year int(4),
 	level varchar(100),
 	credit int(2),
 	current_student int(3),
@@ -33,7 +33,7 @@ CREATE TABLE course (
 CREATE TABLE student_users (
 	username varchar(100) NOT NULL,
 	password varchar(100) NOT NULL,
-	student_ID varchar(100) NOT NULL,
+	student_ID int(10) NOT NULL,
   	name varchar(100),
   	faculty varchar(100),
 	major varchar(100),
@@ -45,9 +45,9 @@ CREATE TABLE student_users (
 
 
 CREATE TABLE student_request (
-	student_ID varchar(100) NOT NULL,
+	student_ID int(10) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
-	section varchar(100) REFERENCES course(section),	
+	section int(2) REFERENCES course(section),	
 	request_time varchar(100) REFERENCES student_status(request_time),
 	request_date varchar(100) REFERENCES student_status(request_date),
 	PRIMARY KEY(student_ID,course_ID)
@@ -56,9 +56,9 @@ CREATE TABLE student_request (
 
 
 CREATE TABLE student_approven (
-	student_ID varchar(100) NOT NULL,
+	student_ID int(10) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
-	section varchar(100) REFERENCES course(section),	
+	section int(2) REFERENCES course(section),	
 	approven_time varchar(100) REFERENCES student_status(approven_time),
 	approven_date varchar(100) REFERENCES student_status(approven_date),
 	PRIMARY KEY(student_ID,course_ID)
@@ -67,9 +67,9 @@ CREATE TABLE student_approven (
 
 
 CREATE TABLE student_status (
-	student_ID varchar(100) NOT NULL,
+	student_ID int(10) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
-	section varchar(100) REFERENCES course(section),
+	section int(2) REFERENCES course(section),
 	status varchar(100),	
 	request_time varchar(100),
 	request_date varchar(100),

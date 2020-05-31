@@ -159,7 +159,7 @@
 
         </table>
 
-        <?php } ?> <br>
+        <br>
             
         <aa style="font-size:20px;">หากไม่ใช่รายวิชาที่ต้องการขออนุมัติเพิ่มรายวิชา</aa>
         <a href="attend.php"><i class="fas fa-undo"></i> <span>กลับไปหน้าก่อน</span></a>
@@ -181,7 +181,7 @@
             </div>
             <?php endif ?>
 
-            <div class="input-group" >
+            <div class="input-group" id="pass&submit" >
                 <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
                 <input  type="password" name="confirm_password" 
                         style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
@@ -190,6 +190,15 @@
                 <input type="submit" value="ยืนยันขออนุมัติ" name="attend_submit" id="attend_submit" style="margin-left: 795px;">
         
         </form> <br>
+
+        <?php
+            } else {
+                echo "ไม่มีรายวิชานี้ในระบบ กรุณากรอกข้อมูลรายวิชาให้ถูกต้อง";
+                echo "<script> document.getElementById('attend_confirm_table').deleteRow(0); </script>";
+                echo "<p><a href='attend.php'><i class='fas fa-undo'></i> <span>กลับไปหน้าก่อน</span></a></p>";
+            }
+        ?>
+        
 
     </div>
 

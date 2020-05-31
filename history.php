@@ -94,10 +94,10 @@
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT  DISTINCT c.*
-                        FROM course c, teacher_users t, student_approven sa
+            $query = "  SELECT c.*
+                        FROM course c, teacher_users t, student_status ss
                         WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
-                        AND sa.course_ID = t.course_ID AND sa.section = t.section 
+                        AND ss.course_ID = t.course_ID AND ss.section = t.section AND (status = 'อนุมัติแล้ว' OR status = 'ดำเนินการแล้ว')
                         ORDER BY c.course_ID ASC ";
             $result = mysqli_query($conn, $query);
                     
@@ -124,8 +124,8 @@
         
         <?php # จำนวนนิสิตที่อนุมัติ[ทั้งหมด!!!]
             $query_total = "    SELECT  student_ID
-                                FROM    student_approven
-                                WHERE   course_ID = $course_ID  AND section = $section
+                                FROM    student_status
+                                WHERE   course_ID = $course_ID  AND section = $section AND (status = 'อนุมัติแล้ว' OR status = 'ดำเนินการแล้ว')
                             ";
             $result_total = mysqli_query($conn, $query_total);
             $total_approven_student = mysqli_num_rows($result_total); 

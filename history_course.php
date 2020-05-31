@@ -102,7 +102,7 @@
             $query = "  SELECT DISTINCT c.*, ss.*, su.*
                         FROM    course c, student_status ss, student_users su
                         WHERE   c.course_ID = $course_ID    AND c.section = $section
-                        AND     ss.course_ID = $course_ID   AND ss.section = $section   AND ss.student_ID = su.student_ID AND ss.status = 'อนุมัติแล้ว'
+                        AND     ss.course_ID = $course_ID   AND ss.section = $section   AND ss.student_ID = su.student_ID AND (status = 'อนุมัติแล้ว' OR status = 'ดำเนินการแล้ว')
                         ORDER BY ss.approven_time ASC";
             $result = mysqli_query($conn, $query);
                     

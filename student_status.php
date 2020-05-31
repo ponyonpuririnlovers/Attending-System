@@ -83,7 +83,7 @@
     <!--sidebar end-->
     
     <div class="content">
-        <h1>สถานะการขออนุมัติ</h1>
+        <h1>สถานะการขออนุมัติ</h1> 
 
         <table class="table" id="student_status_table">
             <thead>
@@ -122,9 +122,6 @@
                     }
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester']; 
-                    # สำหรับใช้หา approven_time & date
-                    $course_ID_ap = $rowpost['course_ID']; 
-                    $section_ap = $rowpost['section']; 
 
         ?>
 
@@ -132,24 +129,10 @@
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
 
-                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { 
-                        # ดึง apprven_time & date จาก table['student_approven']
-                        $query_approven = " SELECT *
-                                            FROM student_approven 
-                                            WHERE $student_ID = student_ID AND $course_ID_ap = course_ID AND $section_ap = section
-                                          ";
-                        $result_approven = mysqli_query($conn, $query_approven);
-
-                        if (mysqli_num_rows($result_approven) > 0) {
-                            while($row_approven = mysqli_fetch_array($result_approven)) { 
-                                $approven_time = $row_approven['approven_time'];
-                                $approven_date = $row_approven['approven_date']; 
-                            }
-                        }
-                    ?>
+                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
                         <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
-                        <td><?php echo $approven_time; ?></td>
-                        <td><?php echo $approven_date; ?></td>
+                        <td><?php echo $rowpost['approven_time']; ?></td>
+                        <td><?php echo  $rowpost['approven_date']; ; ?></td>
        
                     <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
                         <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
@@ -164,8 +147,6 @@
                     <?php } ?>
 
                     <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-history" style="font-size: 40px;"></i></a><center></td>
-
-
 
         <?php
                     $row_count++; 
@@ -182,15 +163,36 @@
                 </p> 
             </div>
 
+        </table> <br>
+
+        <div class="status_detail" style="font-size:70%;" >
+            <h2><i class="fas fa-info-circle"></i> รายละเอียด <span>สถานะการขออนุมัติเพิ่มรายวิชา</span></h2>
+            <p>
+                <waiting>รออนุมัติ</waiting> 
+                <l style="padding:0 40px;">ส่งคำขออนุมัติเพิ่มรายวิชาแล้ว อยู่ระหว่างการรออาจารย์อนุมัติเพิ่มรายวิชา </l>
+            </p> <br>
+            <p>
+                <approven>อนุมัติแล้ว</approven> 
+                <l style="padding:0 40px;">อาจารย์อนุมัติการขอเพิ่มรายวิชาแล้ว อยู่ระหว่างการรอเจ้าหน้าที่ดำเนินการเพิ่มรายวิชาในระบบ reg chula </l> 
+                <p style="padding:0 200px;"><span><i class="fas fa-asterisk"></i> กรุณาเพิ่มรายวิชาใน www2.reg.chula.ac.th มิเช่นนั้นการขอเพิ่มรายวิชาจะไม่เสร็จสมบูรณ์</span></p>
+            </p>
+            <p>
+                <proceed>ดำเนินการแล้ว</proceed> 
+                <l style="padding:0 40px;">เจ้าหน้าที่ดำเนินการเพิ่มรายวิชาในระบบ reg chula เรียบร้อยแล้ว</l> 
+                <p style="padding:0 200px;"><span><i class="fas fa-asterisk"></i> กรุณาตรวจสอบผลการเพิ่มรายวิชาได้ใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i> หากพบปัญหากรุณาติดต่อเจ้าหน้าที่ทันที</span></p>
+            </p>
+
+        </div>
+        
         <?php
             } else {
                 echo "ท่านยังไม่ได้ทำการขออนุมัติเพิ่มรายวิชา";
                 echo "<script> document.getElementById('student_status_table').deleteRow(0); </script>";
             }
         ?>
-
-        </table>
+        
     </div>
+    <br><br>
 
 
 </body>

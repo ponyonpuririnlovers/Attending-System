@@ -100,33 +100,32 @@
 
                 while($rowpost = mysqli_fetch_array($result)) { 
 
+                    # table['course']
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester']; 
                     $course_name = $rowpost['course_name'];  
                     $current_student = $rowpost['current_student'];
                     $open_student_number = $rowpost['open_student_number'];
                     
+                    # table['student_status']
                     $status = $rowpost['status']; 
-
-                    /* ----- date&time ขออนุมัติ -----*/
+                    /* ----- date&time request -----*/
                     $request_time = $rowpost['request_time'];
                     $request_date = $rowpost['request_date']; 
 
                     if ( $rowpost['status'] == 'อนุมัติแล้ว') { 
-                        # ดึง apprven_time & date จาก table['student_approven']
-                        $query_approven = " SELECT *
-                                            FROM student_approven 
-                                            WHERE $student_ID = student_ID AND $course_ID = course_ID AND $section = section
-                                          ";
-                        $result_approven = mysqli_query($conn, $query_approven);
-                        if (mysqli_num_rows($result_approven) > 0) {
-                            while($row_approven = mysqli_fetch_array($result_approven)) { 
-
-                                /* ----- date&time อนุมัติแล้ว ----- */
-                                $approven_time = $row_approven['approven_time'];
-                                $approven_date = $row_approven['approven_date']; 
-                            }
-                        }
+                        /* ----- date&time approven -----*/
+                        $approven_time = $rowpost['approven_time'];
+                        $approven_date = $rowpost['approven_date'];    
+                        
+                    }
+                    if ( $rowpost['status'] == 'ดำเนินการแล้ว') { 
+                        $approven_time = $rowpost['approven_time'];
+                        $approven_date = $rowpost['approven_date']; 
+                        /* ----- date&time proceed -----*/
+                        $proceed_time = $rowpost['proceed_time'];
+                        $proceed_date = $rowpost['proceed_date'];    
+                        
                     }
                 }
         ?>
@@ -142,30 +141,34 @@
                 </p> 
             </div>
 
-            <o style="padding-right:20px">สถานะปัจจุบัน</o>
-            <?php
-                if ($status == 'รออนุมัติ') {
-                    echo '<waiting>'; echo $status; echo'</waiting>';
+            <br>
 
-                } elseif ($status == 'อนุมัติแล้ว') {
-                    echo '<approven>'; echo $status; echo'</approven>';
+            <div class="status_history">
+                <o style="padding-right:20px">สถานะปัจจุบัน</o>
+                <?php
+                    if ($status == 'รออนุมัติ') {
+                        echo '<waiting>'; echo $status; echo'</waiting>';
 
-                } else {
-                    echo '<proceed>'; echo $status; echo'</proceed>';
-                }
-            ?>
+                    } elseif ($status == 'อนุมัติแล้ว') {
+                        echo '<approven>'; echo $status; echo'</approven>';
+
+                    } else {
+                        echo '<proceed>'; echo $status; echo'</proceed>';
+                    }
+                ?>
+            </div>
 
             <div class="head_course" style="background:none; margin-top:-20px" id="student_history"> <br>
 
                 <p>
                     <aaa><i class="fas fa-check-circle"></i> ขออนุมัติเพิ่มรายวิชา</aaa> 
-                    <w><i class="far fa-clock"></i> <?php echo $request_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $request_date; ?></w>
+                    <w style="padding: 0 120px;"><i class="far fa-clock"></i> <?php echo $request_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $request_date; ?></w>
                 </p>
 
                 <?php if (isset($approven_time) && isset($approven_date)) { ?>
                     <p>
                         <aaa><i class="fas fa-check-circle"></i> อนุมัติการขอเพิ่มรายวิชาแล้ว</aaa> 
-                        <w><i class="far fa-clock"></i> <?php echo $approven_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $approven_date; ?></w>
+                        <w style="padding: 0 53px;"><i class="far fa-clock"></i> <?php echo $approven_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $approven_date; ?></w>
                     </p>
                 <?php } else {?>
                     <p><aaa><i class="far fa-check-circle"></i> ยังไม่ได้รับการอนุมัติขอเพิ่มรายวิชา</aaa></p>
@@ -174,7 +177,7 @@
                 <?php if (isset($proceed_time) && isset($proceed_date)) { ?>
                     <p>
                         <aaa><i class="fas fa-check-circle"></i> ดำเนินการเพิ่มรายวิชาแล้ว</aaa> 
-                        <w><i class="far fa-clock"></i> <?php echo $proceed_time; ?> <i class="far fa-calendar-alt"></i> <?php echo $proceed_date; ?></w>
+                        <w style="padding: 0 75px;"><i class="far fa-clock"></i> <?php echo $proceed_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $proceed_date; ?></w>
                     </p>
                 <?php } else {?>
                     <p><aaa><i class="far fa-check-circle"></i> ยังไม่ได้ดำเนินการเพิ่มรายวิชา</aaa></p>

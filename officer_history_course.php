@@ -2,6 +2,10 @@
     session_start();
     include('server.php');
 
+    /*!-- course_ID from course user choose --*/
+    $course_ID = $_GET['id'];
+    $section = $_GET['sec'];
+
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];
     $query = " SELECT * FROM officer_user WHERE username = '$id' ";
@@ -79,26 +83,28 @@
     </div>    
     <!--sidebar end-->
     
-    <div class="content">
-        <h1>แจ้งนิสิตที่เพิ่มรายวิชา <span>รายวิชาที่อนุมัตินิสิต</span></h1>
+    <div class="content"> 
 
-        <table class="table" id="officer_result_table">
+        <table class="table" id="history_course_table">
             <thead>
                 <tr>
-                    <th>รหัสรายวิชา</th>
-                    <th>ชื่อรายวิชา</th>
-                    <th>ตอนเรียน</th>
-                    <th>จำนวนนิสิต</th> 
-                    <th>นิสิตที่รอดำเนินการ</th> 
+                    <th>ลำดับที่</th>
+                    <th>วันที่</th>
+                    <th>เวลา</th>
+                    <th>รหัสนิสิต</th>
+                    <th>ชื่อนิสิต</th> 
+                    <th>คณะ</th>
+                    <th>สาขา</th>
                 </tr>
             </thead>
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.*
-                        FROM course c, student_status ss
-                        WHERE ss.status = 'อนุมัติแล้ว' AND ss.course_ID = c.course_ID AND ss.section = c.section
-                        ORDER BY c.course_ID ASC";
+            $query = "  SELECT DISTINCT c.*, ss.*, su.*
+                        FROM    course c, student_status ss, student_users su
+                        WHERE   c.course_ID = $course_ID    AND c.section = $section
+                        AND     ss.course_ID = $course_ID   AND ss.section = $section   AND ss.student_ID = su.student_ID AND status = 'ดำเนินการแล้ว'
+                        ORDER BY ss.approven_time ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -116,33 +122,21 @@
                     }
                     $academic_year = $rowpost['academic_year'];
                     $semester = $rowpost['semester']; 
-                    $course_ID = $rowpost['course_ID'];
-                    $section = $rowpost['section'];
-
-
-                    # จำนวนนิสิตที่อนุมัติแล้ว[ทั้งหมด!!!]
-                    $query_total = "    SELECT  student_ID
-                                        FROM    student_status
-                                        WHERE   status = 'อนุมัติแล้ว' AND course_ID = $course_ID  AND section = $section
-                                    ";
-                    $result_total = mysqli_query($conn, $query_total);
-                    $total_approven_student = mysqli_num_rows($result_total); 
-
-        ?>          
-                    <td><center><?php echo $rowpost['course_ID']; ?></center></td>
-                    <td><?php echo $rowpost['course_name']; ?></td>
-                    <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
-
-                    <?php if ($total_approven_student == '0') { ?>
-                            <td style="padding: 10px 5px;"><center><a href="notify_check.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
-                                <?php echo $total_approven_student; ?></a><center></td> 
-                    <?php  } else { ?>
-                            <td style="padding: 10px 5px;"><center><a href="notify_check.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
-                                <?php echo $total_approven_student; ?></a><center></td>
-                    <?php } ?>
+                    $course_name = $rowpost['course_name'];  
+                    $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];
                     
-
+                
+        ?>
+                    <td><center><?php echo $row_count+1; ?></center></td>
+                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
+                    <td><center><?php echo $rowpost['approven_time']; ?></center></td>
+                    <td><center><?php echo $rowpost['student_ID']; ?></center></td>
+                    <td><?php echo $rowpost['name']; ?></td>
+                    <td><center><?php echo $rowpost['faculty']; ?></center></td>
+                    <td><center><?php echo $rowpost['major']; ?></center></td>
+                    
+                    
         <?php
                     $row_count++; 
                     $col_count++;
@@ -151,25 +145,26 @@
         }
         ?>
         
+        <h1>ประวัติการแจ้งนิสิต <o style="color: #e37aa1;"><?php echo $course_ID; ?> <?php echo $course_name; ?></o></h1>
             <div class="head_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
+                    <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
+                    <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
                 </p> 
             </div>
 
         <?php
             } else {
-                echo "ไม่มีรายวิชาที่ผ่านการอนุมัติขอเพิ่มรายวิชาในภาคการศึกษานี้";
-                echo "<script> document.getElementById('officer_result_table').deleteRow(0); </script>";
+                echo "ไม่มีประวัติการแจ้งการดำเนินการเพิ่มรายวิชา";
+                echo "<script> document.getElementById('history_course_table').deleteRow(0); </script>";
             }
         ?>
 
         </table>
     </div>
-    <br>
-    
-
+    <br><br>
 
 </body>
 </html>

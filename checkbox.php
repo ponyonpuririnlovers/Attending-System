@@ -74,21 +74,23 @@
 
                         # เก็บข้อมูลการอนุมัติเพิ่มรายวิชาลง database [tabel="student_approven"] #
                         for ($i=0; $i< sizeof ($student_ID) ;$i++) {  
-                            $query="INSERT INTO student_approven(student_ID, course_ID, section, approven_time, approven_date, updated_current_students, approven_student_num) 
-                                    VALUES ('".$student_ID[$i]."','".$course_ID."','".$section."','".$approven_time."','".$approven_date."','".$updated_current_students."','".$approven_student_num."') ";
-                            mysqli_query($conn, $query) ;
 
-                            # del data student from table["student_request"] #
+                            # INSERT data student // table["student_approven"] #
+                            $insert = "INSERT INTO student_approven(student_ID, course_ID, section, approven_time, approven_date) 
+                                                VALUES ('".$student_ID[$i]."','".$course_ID."','".$section."','".$approven_time."','".$approven_date."') ";
+                            mysqli_query($conn, $insert) ;
+
+                            # DELETE data student // from table["student_request"] #
                             $del = " DELETE FROM student_request WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
                             mysqli_query($conn, $del);
 
-                            # update current_student in table["course"] #
-                            $update = " UPDATE course SET current_student='.$updated_current_students.' WHERE course_ID=$course_ID AND section=$section ";
-                            mysqli_query($conn, $update);
+                            # UPDATE current_student // in table["course"] #
+                            $update_course = " UPDATE course SET current_student='$updated_current_students' WHERE course_ID=$course_ID AND section=$section ";
+                            mysqli_query($conn, $update_course);
 
-                            # update status in table["student_status"] #
-                            $update = " UPDATE student_status SET status='อนุมัติแล้ว' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
-                            mysqli_query($conn, $update);
+                            # UPDATE status & approven_time & date // in table["student_status"] #
+                            $update_status = " UPDATE student_status SET status='อนุมัติแล้ว', approven_time='$approven_time', approven_date='$approven_date' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                            mysqli_query($conn, $update_status);
 
                         }
 
@@ -97,7 +99,7 @@
                         $_SESSION['approven_time'] = $approven_time;
                         $_SESSION['approven_date'] = $approven_date;
                         $_SESSION['updated_current_students'] = $updated_current_students;
-                        $_SESSION['approven_student_num'] = $approven_student_num;
+                        $_SESSION['approven_student_num'] = $approven_student_num; // จำนวนนิสิตที่อนุมัติ(ต่อครั้ง)
 
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #
                         header("location: finish_approve.php");

@@ -97,11 +97,11 @@
             </thead>
 
         <?php
-            $query = "  SELECT DISTINCT c.*, sa.*, su.*
-                        FROM    course c, student_approven sa, student_users su
+            $query = "  SELECT DISTINCT c.*, ss.*, su.*
+                        FROM    course c, student_status ss, student_users su
                         WHERE   c.course_ID = $course_ID    AND c.section = $section
-                        AND     sa.course_ID = $course_ID   AND sa.section = $section   AND sa.student_ID = su.student_ID
-                        ORDER BY sa.approven_date ASC";
+                        AND     ss.course_ID = $course_ID   AND ss.section = $section   AND ss.student_ID = su.student_ID AND ss.status = 'อนุมัติแล้ว'
+                        ORDER BY ss.approven_date ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {
@@ -166,7 +166,7 @@
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                     <aa>ตอนเรียน</aa> <w><?php echo $section; ?></w>
                     <aa>จำนวนนิสิตปัจจุบัน</aa> <w><?php echo $current_student; ?> / <?php echo $open_student_number; ?></w>
-                    <aa>นิสิตที่อนุมัติแล้ว</aa> <w><?php echo $total_approven_student; ?></w>
+                    <aa>นิสิตที่รอดำเนินการ</aa> <w><?php echo $total_approven_student; ?></w>
                 </p> 
             </div>
 

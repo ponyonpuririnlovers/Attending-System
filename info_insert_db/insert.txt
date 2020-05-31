@@ -48,8 +48,8 @@ CREATE TABLE student_request (
 	student_ID varchar(100) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
 	section varchar(100) REFERENCES course(section),	
-	request_time varchar(100),
-	request_date varchar(100),
+	request_time varchar(100) REFERENCES student_status(request_time),
+	request_date varchar(100) REFERENCES student_status(request_date),
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,10 +59,8 @@ CREATE TABLE student_approven (
 	student_ID varchar(100) NOT NULL,
 	course_ID int(7) NOT NULL REFERENCES course(course_ID),
 	section varchar(100) REFERENCES course(section),	
-	approven_time varchar(100),
-	approven_date varchar(100),
-	updated_current_students varchar(100),
-	approven_student_num varchar(100),
+	approven_time varchar(100) REFERENCES student_status(approven_time),
+	approven_date varchar(100) REFERENCES student_status(approven_date),
 	PRIMARY KEY(student_ID,course_ID)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -75,6 +73,8 @@ CREATE TABLE student_status (
 	status varchar(100),	
 	request_time varchar(100),
 	request_date varchar(100),
+	approven_time varchar(100),
+	approven_date varchar(100),
 	proceed_time varchar(100),
 	proceed_date varchar(100),
 	PRIMARY KEY(student_ID,course_ID)

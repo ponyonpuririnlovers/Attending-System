@@ -99,11 +99,11 @@
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT DISTINCT c.*, sa.*, su.*
-                        FROM    course c, student_approven sa, student_users su
+            $query = "  SELECT DISTINCT c.*, ss.*, su.*
+                        FROM    course c, student_status ss, student_users su
                         WHERE   c.course_ID = $course_ID    AND c.section = $section
-                        AND     sa.course_ID = $course_ID   AND sa.section = $section   AND sa.student_ID = su.student_ID
-                        ORDER BY sa.approven_time ASC";
+                        AND     ss.course_ID = $course_ID   AND ss.section = $section   AND ss.student_ID = su.student_ID AND ss.status = 'อนุมัติแล้ว'
+                        ORDER BY ss.approven_time ASC";
             $result = mysqli_query($conn, $query);
                     
             if (mysqli_num_rows($result) > 0) {

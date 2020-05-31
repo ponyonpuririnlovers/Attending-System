@@ -49,19 +49,11 @@
                 
                 for ($i=0; $i< sizeof ($student_ID) ;$i++) { 
 
-                    # UPDATE status // in table["student_status"] #
-                    $update_status = " UPDATE student_status SET status='ดำเนินการแล้ว' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
+                    # UPDATE status & proceed_time & date // in table["student_status"] #
+                    $update_status = " UPDATE student_status SET status='ดำเนินการแล้ว', proceed_time='$proceed_time', proceed_date='$proceed_date' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
                     mysqli_query($conn, $update_status);
 
-                    # UPDATE proceed_time // in table["student_status"] #
-                    $update_time = " UPDATE student_status SET proceed_time='$proceed_time' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
-                    mysqli_query($conn, $update_time);
-
-                    # UPDATE proceed_date // in table["student_status"] #
-                    $update_date = " UPDATE student_status SET proceed_date='$proceed_date' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
-                    mysqli_query($conn, $update_date);
-
-                    # DELETE data student from table["student_approven"] #
+                    # DELETE data student // from table["student_approven"] #
                     $del = " DELETE FROM student_approven WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
                     mysqli_query($conn, $del);
                 
@@ -72,7 +64,7 @@
                 $_SESSION['section'] = $section;
                 $_SESSION['proceed_time'] = $proceed_time;
                 $_SESSION['proceed_date'] = $proceed_date;
-                $_SESSION['proceed_student_num'] = $proceed_student_num;
+                $_SESSION['proceed_student_num'] = $proceed_student_num; // จำนวนนิสิตที่แจ้ง(ต่อครั้ง)
 
 
                 header('location: finish_notify.php');

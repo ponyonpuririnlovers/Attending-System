@@ -33,7 +33,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Approve</title>
+    <title>อนุมัติเพิ่มรายวิชา</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
@@ -64,7 +64,7 @@
             <h4>Chulalongkorn University</h4>
         </center>
         <a href="index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
-        <a href="course.php"><i class="fas fa-table"></i><span style="regu">อนุมัติเพิ่มรายวิชา</span></a>
+        <div class="choose"><a href="course.php"><i class="fas fa-table"></i><span style="regu">อนุมัติเพิ่มรายวิชา</span></a></div>
         <a href="history.php"><i class="fas fa-history"></i><span>ประวัติการอนุมัติ</span></a>
         <a href="index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         

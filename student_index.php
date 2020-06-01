@@ -37,7 +37,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>หน้าหลัก</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
@@ -67,7 +67,7 @@
             <img src="chula_logo_index.jpg" class="profile_image" alt="">
             <h4>Chulalongkorn University</h4>
         </center>
-        <a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
+        <div class="choose"><a href="student_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a></div>
         <a href="opening_course.php"><i class="fas fa-table"></i><span>รายวิชาที่เปิดสอน</span></a>
         <a href="attend.php"><i class="fas fa-user-plus"></i><span>ขออนุมัติเพิ่มรายวิชา</span></a>
         <a href="student_status.php"><i class="fas fa-history"></i><span>สถานะการขออนุมัติ</span></a>

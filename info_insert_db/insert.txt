@@ -17,7 +17,7 @@ CREATE TABLE course (
 	course_name varchar(100),
     	section int(2) NOT NULL,
 	department varchar(100) REFERENCES teacher_users(department),
-  	semester int(2),
+  	semester varchar(100),
   	academic_year int(4),
 	level varchar(100),
 	credit int(2),

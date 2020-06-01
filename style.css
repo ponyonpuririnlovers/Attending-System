@@ -173,7 +173,17 @@ header{
   box-sizing: border-box;
   transition: 0.5s;
   transition-property: background;
-  border-radius: 100px;
+  border-radius: -100px;
+}
+
+.sidebar .choose a{
+  background: white;
+ 
+}
+
+.sidebar .choose a:hover{
+  background: white;
+  color: #838383;
 }
 
 .sidebar a:hover{

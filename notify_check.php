@@ -71,7 +71,7 @@
         <a href="officer_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <div class="choose"><a href="notify.php"><i class="fas fa-check"></i><span>แจ้งนิสิตที่เพิ่มรายวิชา</span></a></div>
         <a href="officer_history.php"><i class="fas fa-history"></i><span>ประวัติการแจ้งนิสิต</span></a>
-        <a href="officer_result.php"><i class="fas fa-table"></i><span>แดชบอร์ด</span></a>
+        <a href="dashboard.php"><i class="fas fa-table"></i><span>แดชบอร์ด</span></a>
         <a href="officer_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -85,7 +85,7 @@
     
     <div class="content">
 
-        <table class="table" id="officer_result_table">
+        <table class="table" id="dashboard_table">
             <thead>
                 <tr>
                     <th>ลำดับที่</th>
@@ -198,7 +198,7 @@
         <?php
             } else {
                 echo "ไม่มีนิสิตที่ผ่านการอนุมัติขอเพิ่มรายวิชาในภาคการศึกษานี้";
-                echo "<script> document.getElementById('officer_result_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('dashboard_table').deleteRow(0); </script>";
             }
         ?>
         

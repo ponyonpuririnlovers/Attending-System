@@ -144,7 +144,7 @@
             <br>
 
             <div class="status_history">
-                <o style="padding-right:20px">สถานะปัจจุบัน</o>
+                <o style="padding: 0 20px 30px">สถานะปัจจุบัน</o>
                 <?php
                     if ($status == 'รออนุมัติ') {
                         echo '<waiting>'; echo $status; echo'</waiting>';

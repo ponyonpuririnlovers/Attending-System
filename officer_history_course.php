@@ -71,7 +71,7 @@
         <a href="officer_index.php"><i class="fas fa-home"></i><span>หน้าหลัก</span></a>
         <a href="notify.php"><i class="fas fa-check"></i><span>แจ้งนิสิตที่เพิ่มรายวิชา</span></a>
         <div class="choose"><a href="officer_history.php"><i class="fas fa-history"></i><span>ประวัติการแจ้งนิสิต</span></a></div>
-        <a href="officer_result.php"><i class="fas fa-table"></i><span>แดชบอร์ด</span></a>
+        <a href="dashboard.php"><i class="fas fa-table"></i><span>แดชบอร์ด</span></a>
         <a href="officer_index.php?logout='1'" style="color: #e37aa1;"><i class="fas fa-power-off"></i><span>ออกจากระบบ</span></a>
         <div class="sidebar_info_user" style="margin-top:-50px;">
             <p><?php echo $currentDate; ?></p>
@@ -129,8 +129,8 @@
                 
         ?>
                     <td><center><?php echo $row_count+1; ?></center></td>
-                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
-                    <td><center><?php echo $rowpost['approven_time']; ?></center></td>
+                    <td><?php echo $rowpost['proceed_date']; ?></ce></td>
+                    <td><center><?php echo $rowpost['proceed_time']; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
                     <td><center><?php echo $rowpost['faculty']; ?></center></td>

@@ -75,15 +75,14 @@
             <p><?php echo $department; ?></p>
             <p><?php echo $faculty; ?></p>
         </div>
-
-    </>    
+        
+    </div> 
     <!--sidebar end-->
     
     <div class="content" >
         <h1><i class="fas fa-check-circle" style="color:#e37aa1;"></i> แจ้งนิสิตที่เพิ่มรายวิชาเสร็จสมบูรณ์</h1>
 
         <?php
-
             $course_ID = $_SESSION['course_ID'];
             $section = $_SESSION['section'];
             $proceed_time = $_SESSION['proceed_time'];
@@ -92,7 +91,7 @@
 
             $query = "  SELECT  *
                         FROM    course
-                        WHERE   course_ID = $course_ID 
+                        WHERE   course_ID = $course_ID AND section = $section
                     ";
             
             $result = mysqli_query($conn, $query); 
@@ -104,7 +103,9 @@
                     # from table['course']
                     $course_name = $rowpost['course_name'];
                     $academic_year = $rowpost['academic_year'];
-                    $semester = $rowpost['semester'];  
+                    $semester = $rowpost['semester']; 
+                    $current_student = $rowpost['current_student'];
+                    $open_student_number = $rowpost['open_student_number'];  
 
                 }
             } 
@@ -125,12 +126,13 @@
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
                 <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
-                <p><aaa>วันที่แจ้งนิสิต</aaa> <w><?php echo $proceed_date; ?></w>
-                <p><aaa>เวลาที่แจ้งนิสิต</aaa> <w><?php echo $proceed_time; ?></w></p>
-                <p><aaa>จำนวนนิสิตที่แจ้ง</aaa> <w><?php echo $proceed_student_num; ?></w></p>
-                <p><aaa>จำนวนนิสิตที่แจ้งในรายวิชานี้</aaa> <w><?php echo $total_proceed_student; ?></w></p>
+                <p><aaa>วันที่แจ้งนิสิต</aaa> <w><i class="far fa-calendar-alt"></i> <?php echo $proceed_date; ?></w>
+                <p><aaa>เวลาที่แจ้งนิสิต</aaa> <w><i class="far fa-clock"></i> <?php echo $proceed_time; ?></w></p>
+                <p><aaa>จำนวนนิสิตปัจจุบัน</aaa> <w><?php echo $current_student; ?> /<?php echo $open_student_number; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่แจ้งในครั้งนี้</aaa> <w><?php echo $proceed_student_num; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่แจ้งในรายวิชานี้ทั้งหมด</aaa> <w><?php echo $total_proceed_student; ?></w></p>
             </div>
-            
+
             <a href="officer_index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
 
     </div>

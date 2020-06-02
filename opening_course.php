@@ -108,7 +108,7 @@
         
         <form method="post" action="opening_course.php">
 
-            <div class="head_course" style="margin:-95px 400px 30px;">
+            <div class="head_course" style="margin:-85px 400px 30px;">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>

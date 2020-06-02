@@ -164,7 +164,8 @@
         <aa style="font-size:20px;">หากไม่ใช่รายวิชาที่ต้องการขออนุมัติเพิ่มรายวิชา</aa>
         <a href="attend.php"><i class="fas fa-undo"></i> <span>กลับไปหน้าก่อน</span></a>
         <br>
-        <aa style="font-size:20px;">หากตรวจสอบข้อมูลเรียบร้อยแล้ว กรุณากรอก 'รหัสผ่าน' และกดปุ่ม 'ยืนยันขออนุมัติ'</aa>
+        <a><i class="fas fa-asterisk"></i> กรุณาเพิ่มรายวิชาใน www2.reg.chula.ac.th ก่อนทำการกดยืนยัน <br>
+        <i class="fas fa-asterisk"></i> มิเช่นนั้นการขอเพิ่มรายวิชาจะไม่เสร็จสมบูรณ์</a>
         
 
         <form action="attend_confirm_db.php" method="post">

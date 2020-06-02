@@ -25,10 +25,13 @@
 
         $course_ID = $_SESSION['course_ID'];
         $section = $_SESSION['section'];
+        $current_student = $_SESSION['current_student'];
         # EX student_ID --> { [ [0] => 6140053622 ,  [1] => 6140053633] }
         $student_ID = $_SESSION['student_notify'];
         $proceed_student_num = count($student_ID); 
-        
+
+        # จำนวนนิสิตทั้งหมดในตอนเรียน[update]
+        $updated_current_students = $current_student + $proceed_student_num;
 
         if (empty($password)) {
             array_push($errors, "กรุณากรอก 'รหัสผ่าน'");
@@ -56,6 +59,10 @@
                     # DELETE data student // from table["student_approven"] #
                     $del = " DELETE FROM student_approven WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
                     mysqli_query($conn, $del);
+
+                    # UPDATE current_student // in table["course"] #
+                    $update_course = " UPDATE course SET current_student='$updated_current_students' WHERE course_ID=$course_ID AND section=$section ";
+                    mysqli_query($conn, $update_course);
                 
                 }
 

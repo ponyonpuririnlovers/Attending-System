@@ -126,11 +126,11 @@
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
                 <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
-                <p><aaa>วันที่อนุมัติ</aaa> <w><?php echo $approven_date; ?></w>
-                <p><aaa>เวลาอนุมัติ</aaa> <w><?php echo $approven_time; ?></w></p>
+                <p><aaa>วันที่อนุมัติ</aaa> <w><i class="far fa-calendar-alt"></i> <?php echo $approven_date; ?></w>
+                <p><aaa>เวลาที่อนุมัติ</aaa> <w><i class="far fa-clock"></i> <?php echo $approven_time; ?></w></p>
                 <p><aaa>จำนวนนิสิตปัจจุบัน</aaa> <w><?php echo $current_student; ?> /<?php echo $open_student_number; ?></w></p>
-                <p><aaa>จำนวนนิสิตที่อนุมัติ</aaa> <w><?php echo $approven_student_num; ?></w></p>
-                <p><aaa>จำนวนนิสิตที่อนุมัติในรายวิชานี้</aaa> <w><?php echo $total_approven_student; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่อนุมัติในครั้งนี้</aaa> <w><?php echo $approven_student_num; ?></w></p>
+                <p><aaa>จำนวนนิสิตที่อนุมัติในรายวิชานี้ทั้งหมด</aaa> <w><?php echo $total_approven_student; ?></w></p>
             </div>
             
             <a href="index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>

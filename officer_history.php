@@ -83,14 +83,13 @@
 
         <h1>ประวัติการแจ้งนิสิต</h1> 
 
-        <table class="table" id="history_course_table">
+        <table class="table" id="officer_history_table">
             <thead>
                 <tr>
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
                     <th style="padding: 12px 5px;">ตอนเรียน</th>
-                    <th>จำนวนนิสิตที่ดำเนินการ</th> 
-                    <th>เพิ่มเติม</th> 
+                    <th>นิสิตที่ดำเนินการ</th> 
                     
                 </tr>
             </thead>
@@ -134,8 +133,8 @@
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td><center><?php echo $total_proceed_student; ?></center></td>
-                    <td><center><a href="officer_history_course.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-info-circle" style="font-size: 40px;"></i></a><center></td>
+                    <td><center><a href="officer_history_course.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
+                        <?php echo $total_proceed_student; ?></a></center></td>
 
         <?php
                     $row_count++; 
@@ -157,7 +156,7 @@
         <?php
             } else {
                 echo "ท่านยังไม่ได้ทำการแจ้งนิสิตที่ดำเนินการเพิ่มรายวิชาเรียบร้อยแล้ว";
-                echo "<script> document.getElementById('history_course_table').deleteRow(0); </script>";
+                echo "<script> document.getElementById('officer_history_table').deleteRow(0); </script>";
             }
         ?>
         

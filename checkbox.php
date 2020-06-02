@@ -39,9 +39,6 @@
 
             # จำนวนนิสิตที่อนุมัติ/ครั้ง
             $approven_student_num = sizeof ($student_ID);
-            # จำนวนนิสิตทั้งหมดในตอนเรียน[update]
-            $updated_current_students = $current_student + $approven_student_num;
-
 
             /*---------------------------------- INSERT to database ----------------------------------*/
             $errors = array();
@@ -84,10 +81,6 @@
                             $del = " DELETE FROM student_request WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID ";
                             mysqli_query($conn, $del);
 
-                            # UPDATE current_student // in table["course"] #
-                            $update_course = " UPDATE course SET current_student='$updated_current_students' WHERE course_ID=$course_ID AND section=$section ";
-                            mysqli_query($conn, $update_course);
-
                             # UPDATE status & approven_time & date // in table["student_status"] #
                             $update_status = " UPDATE student_status SET status='อนุมัติแล้ว', approven_time='$approven_time', approven_date='$approven_date' WHERE student_ID=$student_ID[$i] AND course_ID=$course_ID AND section=$section ";
                             mysqli_query($conn, $update_status);
@@ -98,7 +91,6 @@
                         $_SESSION['section'] = $section;
                         $_SESSION['approven_time'] = $approven_time;
                         $_SESSION['approven_date'] = $approven_date;
-                        $_SESSION['updated_current_students'] = $updated_current_students;
                         $_SESSION['approven_student_num'] = $approven_student_num; // จำนวนนิสิตที่อนุมัติ(ต่อครั้ง)
 
                         # link ไปยังหน้า finish_approve.php !!! \(^-^)/ #

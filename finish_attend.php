@@ -118,8 +118,8 @@
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
                 <p><aaa>ภาคการศึกษา</aaa> <w><?php echo $semester; ?></w></p>
-                <p><aaa>วันที่ขออนุมัติ</aaa> <w><?php echo $request_date; ?></w>
-                <p><aaa>เวลาที่ขออนุมัติ</aaa> <w><?php echo $request_time; ?></w></p>
+                <p><aaa>วันที่ขออนุมัติ</aaa> <w><i class="far fa-calendar-alt"></i> <?php echo $request_date; ?></w>
+                <p><aaa>เวลาที่ขออนุมัติ</aaa> <w><i class="far fa-clock"></i> <?php echo $request_time; ?></w></p>
             </div>
             
             <a href="student_index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>

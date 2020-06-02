@@ -347,7 +347,7 @@ label #sidebar_btn:hover{
 
 .content .table#history_course_table th,
 .content .table#history_course_table td {
-  padding: 15px 30px;
+  padding: 20px 20px;
 }
 
 .content .table tbody tr {
@@ -522,15 +522,6 @@ input[type="submit"]:hover {
   color: #E096AC;
 }
 
-approven{
-  padding: 8px 35px;
-  color: white;
-  background: #ffb5d0;
-  border-radius: 100px;
-  font-weight: bold;
-  text-decoration: none;
-}
-
 waiting{ 
   padding: 8px 40px;
   color: gray;
@@ -538,6 +529,19 @@ waiting{
   border-radius: 100px;
   font-weight: bold;
   text-decoration: none;
+  border: outset;
+  border-color: #e6e6e6;
+}
+
+approven{
+  padding: 8px 35px;
+  color: white;
+  background: #ffb5d0;
+  border-radius: 100px;
+  font-weight: bold;
+  text-decoration: none;
+  border: outset;
+  border-color: #ffb5d0;
 }
 
 proceed{ 
@@ -547,6 +551,38 @@ proceed{
   border-radius: 100px;
   font-weight: bold;
   text-decoration: none;
+  border: outset;
+  border-color: #e37aa1;
+}
+
+.table#student_status_table waiting {
+  background: white;
+}
+.table#student_status_table approven {
+  background: white;
+  color: #ffb5d0;
+}
+.table#student_status_table proceed {
+  background: white;
+  color: #e37aa1;
+}
+
+.table#student_status_table waiting:hover{
+  color: gray;
+  background: #e6e6e6;
+  transition: 0.3s;
+}
+
+.table#student_status_table approven:hover{
+  color: white;
+  background: #ffb5d0;
+  transition: 0.3s;
+}
+
+.table#student_status_table proceed:hover{
+  color: white;
+  background: #e37aa1;
+  transition: 0.3s;
 }
 
 .search input{

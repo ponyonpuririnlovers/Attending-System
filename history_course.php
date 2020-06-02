@@ -94,6 +94,7 @@
                     <th>ชื่อนิสิต</th> 
                     <th>คณะ</th>
                     <th>สาขา</th>
+                    <th>สถานะ</th>
                 </tr>
             </thead>
 
@@ -124,6 +125,7 @@
                     $course_name = $rowpost['course_name'];  
                     $current_student = $rowpost['current_student'];
                     $open_student_number = $rowpost['open_student_number'];
+                    $status = $rowpost['status'];
                     
                 
         ?>
@@ -134,7 +136,16 @@
                     <td><?php echo $rowpost['name']; ?></td>
                     <td><center><?php echo $rowpost['faculty']; ?></center></td>
                     <td><center><?php echo $rowpost['major']; ?></center></td>
-                    
+                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
+                        <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
+       
+                    <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
+                        <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
+
+                    <?php } else { # status = 'ดำเนินการแล้ว' ?> 
+                        <td><center><proceed><?php echo $rowpost['status']; ?></proceed></center></td>
+
+                    <?php } ?>                    
                     
         <?php
                     $row_count++; 

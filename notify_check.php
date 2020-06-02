@@ -154,6 +154,7 @@
         $_SESSION['student_notify'] = $student_notify;
         $_SESSION['course_ID'] = $course_ID;
         $_SESSION['section'] = $section;
+        $_SESSION['current_student'] = $current_student;
 
         ?>
 

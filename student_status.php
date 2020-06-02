@@ -91,10 +91,9 @@
                     <th>รหัสรายวิชา</th>
                     <th>ชื่อรายวิชา</th>
                     <th>ตอนเรียน</th>
-                    <th>สถานะ</th>
                     <th>เวลา</th>
                     <th>วันที่</th>
-                    <th>ประวัติ</th>
+                    <th>สถานะ</th>
                     
                 </tr>
             </thead>
@@ -130,24 +129,24 @@
                     <td><center><?php echo $rowpost['section']; ?></center></td>
 
                     <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
-                        <td><center><approven><?php echo $rowpost['status']; ?></approven></center></td> 
                         <td><?php echo $rowpost['approven_time']; ?></td>
                         <td><?php echo  $rowpost['approven_date']; ; ?></td>
-       
+                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                            <approven><?php echo $rowpost['status']; ?></approven></a></center></td> 
+                        
                     <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
-                        <td><center><waiting><?php echo $rowpost['status']; ?></waiting></center></td>
                         <td><?php echo $rowpost['request_time']; ?></td>
                         <td><?php echo $rowpost['request_date']; ?></td>
-
+                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                            <waiting><?php echo $rowpost['status']; ?></waiting></a></center></td>
+                        
                     <?php } else { # status = 'ดำเนินการแล้ว' ?> 
-                        <td><center><proceed><?php echo $rowpost['status']; ?></proceed></center></td>
                         <td><?php echo $rowpost['proceed_time']; ?></td>
                         <td><?php echo $rowpost['proceed_date']; ?></td>
+                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                            <proceed><?php echo $rowpost['status']; ?></proceed></a></center></td>
 
                     <?php } ?>
-
-                    <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button"><i class="fas fa-history" style="font-size: 40px;"></i></a><center></td>
-
         <?php
                     $row_count++; 
                     $col_count++;
@@ -167,6 +166,7 @@
 
         <div class="status_detail" style="font-size:70%;" >
             <h2><i class="fas fa-info-circle"></i> รายละเอียด <span>สถานะการขออนุมัติเพิ่มรายวิชา</span></h2>
+            <br>
             <p>
                 <waiting>รออนุมัติ</waiting> 
                 <l style="padding:0 40px;">ส่งคำขออนุมัติเพิ่มรายวิชาแล้ว อยู่ระหว่างการรออาจารย์อนุมัติเพิ่มรายวิชา </l>

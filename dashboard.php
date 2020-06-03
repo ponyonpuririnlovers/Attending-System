@@ -88,22 +88,7 @@
     <!--sidebar end-->
     
     <div class="content">
-    <h1>แดชบอร์ด</h1>
-    
-    <table class="table" id="opening_course_table">
-        <thead>
-            <tr>
-                <th>รหัสรายวิชา</th>
-                <th>ชื่อรายวิชา</th>
-                <th>ตอนเรียน</th>
-                <th>หมายเหตุ</th>
-                <th>จำนวนนิสิต</th> 
-                <th>นิสิตที่รอขออนุมัติ</th> 
-                <th>นิสิตที่อนุมัติแล้ว</th>
-            </tr>
-        </thead>
-    
-    <form method="post" action="dashboard.php">
+        <h1>แดชบอร์ด</h1>
 
         <div class="head_course" style="margin:-95px 400px 30px;">
             <p>
@@ -112,148 +97,15 @@
             </p> 
         </div>
 
-        <div class="search" style="margin:-20px 0px;">
-            <i class="fas fa-search"></i>
-            รหัสรายวิชา
-            <input type="text" name="course_ID">
-            ชื่อรายวิชา
-            <input type="text" name="course_name" style="width:10%;">
-            หมายเหตุ 
-            <input type="text" name="note" style="width:10%;">
-        </div> 
-        <input type="submit" name="submit" value="ค้นหา" id="search" style=" margin:-55px 900px; margin-bottom:40px;">
-
-    <?php
-
-    if (empty($_POST["submit"]))  {
-        echo "<i class='fas fa-info-circle' style='font-size:20px; color:#e37aa1;'></i>";
-        echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา' ทางด้านขวามือ</a>";
-        echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
-        exit() ;
-
-    } else { 
+        <form method="post" action="dashboard_export.php">
+            <input type="submit" name="export" class="btn btn-success" value="Export" />
+        </form>
         
-        // ทางเลือกที่ 1 กำหนดเงื่อนไขการค้นหาตาม course_ID
-        if (isset($_POST['course_ID']) && empty($_POST['course_name']) && empty($_POST['note']))
-        {
-            $course_ID = $_POST['course_ID'];
-            $query = "select * from course WHERE course_ID like '%$course_ID%' ;";
-        }	
-        // ทางเลือกที่ 2 กำหนดเงื่อนไขการค้นหาตาม course_name
-        elseif (isset($_POST['course_name']) && empty($_POST['course_ID']) && empty($_POST['note']))
-        {
-            $course_name = $_POST['course_name'];
-            $query = "select * from course WHERE course_name like '%$course_name%' ;";
-        }
-        // ทางเลือกที่ 3 กำหนดเงื่อนไขการค้นหาตาม course_ID & course_name
-        elseif (isset($_POST['course_name']) && isset($_POST['course_ID']) && empty($_POST['note']))
-        {
-            $course_ID = $_POST['course_ID'];
-            $course_name = $_POST['course_name'];
-            $query = "select * from course WHERE course_ID like '%$course_ID%' AND course_name like '%$course_name%' ;";
-        }
-        // ทางเลือกที่ 4 กำหนดเงื่อนไขการค้นหาตาม note
-        elseif (isset($_POST['note']) && empty($_POST['course_ID']) && empty($_POST['course_name']))
-        {
-            $note = $_POST['note'];
-            $query = "select * from course WHERE note like '%$note%' ;";
-        }
-        // ทางเลือกที่ 5 กำหนดเงื่อนไขการค้นหาตาม ALL !!!
-        elseif (isset($_POST['note']) && isset($_POST['course_ID']) && isset($_POST['course_name']))
-        {
-            $course_ID = $_POST['course_ID'];
-            $course_name = $_POST['course_name'];
-            $note = $_POST['note'];
-            $query = "select * from course WHERE course_ID like '%$course_ID%' AND course_name like '%$course_name%' AND note like '%$note%' ;";
-        }
-        // ทางเลือกที่ 6 ไม่ได้ใส่อะไรเลย;-;
-        else
-        {
-            $query = "select * from course ORDER BY course_ID ASC;";
-        }
-    
-        $result = mysqli_query($conn, $query);
-                
-        if (mysqli_num_rows($result) > 0) {
-            
-            $row_count=0;
-            $col_count=0;
-            while($rowpost = mysqli_fetch_array($result)) { 
-                if($row_count%2!=0){
-                    echo "<tbody>";
-                    echo "<tr class='active-row'>";
-                } 
-                else {
-                    echo "<tbody>";
-                    echo "<tr>";
-                }
-                $academic_year = $rowpost['academic_year'];
-                $semester = $rowpost['semester']; 
-                $course_ID = $rowpost['course_ID'];
-                $section = $rowpost['section'];
-                
-                # จำนวนนิสิตที่ขออนุมัติ[ทั้งหมด!!!]
-                $query_total = "    SELECT  student_ID
-                                    FROM    student_request
-                                    WHERE   course_ID = $course_ID  AND section = $section
-                                ";
-                $result_total = mysqli_query($conn, $query_total);
-                $total_request_student = mysqli_num_rows($result_total);
 
-                # จำนวนนิสิตที่อนุมัติแล้ว[ทั้งหมด!!!]
-                $query_total = "    SELECT  student_ID
-                                    FROM    student_status
-                                    WHERE   status = 'อนุมัติแล้ว' AND course_ID = $course_ID  AND section = $section
-                                ";
-                $result_total = mysqli_query($conn, $query_total);
-                $total_approven_student = mysqli_num_rows($result_total); 
 
-    ?>          
-                <td><center><?php echo $rowpost['course_ID']; ?></center></td>
-                <td><?php echo $rowpost['course_name']; ?></td>
-                <td><center><?php echo $rowpost['section']; ?></center></td>
-                <td><center><?php echo $rowpost['note']; ?></center></td>
-                <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
 
-                <?php if ($total_request_student == '0') { ?>
-                        <td style="padding: 10px 5px;"><center><a href="student_request.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
-                            <?php echo $total_request_student; ?></></center></td> 
-                <?php  } else { ?>
-                        <td style="padding: 10px 5px;"><center><a href="student_request.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn1">
-                            <?php echo $total_request_student; ?></></center></td>
-                <?php } ?>
-
-                <?php if ($total_approven_student == '0') { ?>
-                        <td style="padding: 10px 5px;"><center><a href="student_approven.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
-                            <?php echo $total_approven_student; ?></a></center></td> 
-                <?php  } else { ?>
-                        <td style="padding: 10px 5px;"><center><a href="student_approven.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn1">
-                            <?php echo $total_approven_student; ?></a></center></td>
-                <?php } ?>
-
-    <?php
-                $row_count++; 
-                $col_count++;
-                echo "</tr>"; 
-                echo "</tbody>"; 
-            }
-    ?>
-    
-        
-    </form>
-    </table>
-    <?php
-        }  else {
-            echo "ไม่พบรายวิชาที่ต้องการค้นหา";
-            echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
-            exit() ; 
-        }
-    }
-    ?>
     </div>
     <br><br>
-    
-
 
 </body>
 </html>

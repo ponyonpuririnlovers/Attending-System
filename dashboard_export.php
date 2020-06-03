@@ -1,0 +1,55 @@
+<?php  //export.php  
+    session_start();
+    include('server.php');
+    
+    $output = '';
+    if(isset($_POST["export"])) {
+
+        $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as ii
+                    FROM course c , student_status ss
+                    WHERE c.course_ID = ss.course_ID
+                    GROUP BY c.course_ID
+                    ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+                    
+                ";
+        $result = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($result) > 0) {
+            $output .= '
+                        <table class="table" bordered="1">  
+                            <tr>  
+                                <th>ลำดับที่</th>  
+                                <th>รหัสรายวิชา</th>  
+                                <th>ชื่อวิชา</th>  
+                                <th>จำนวนนิสิตที่ขอเพิ่มรายวิชา</th>
+
+                            </tr>
+                        ';
+
+            $row_count=0;
+            $col_count=0;
+            while($row = mysqli_fetch_array($result)) {
+               
+                $row_count_new = $row_count+1 ;
+
+                $output .= '
+                            <tr>  
+                                <td>'.$row_count_new.'</td>  
+                                <td>'.$row["course_ID"].'</td>  
+                                <td>'.$row["course_name"].'</td>  
+                                <td>'.$row['ii'].'</td>  
+
+                            </tr>
+
+                            ';
+                $row_count++; 
+                $col_count++;
+            }
+            
+            $output .= '</table>';
+            header('Content-Type: application/xls');
+            header('Content-Disposition: attachment; filename=download.xls');
+            echo $output;
+        }
+    }
+?>

@@ -5,7 +5,7 @@
     $output = '';
     if(isset($_POST["export"])) {
 
-        $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as ii
+        $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                     FROM course c , student_status ss
                     WHERE c.course_ID = ss.course_ID
                     GROUP BY c.course_ID
@@ -37,7 +37,7 @@
                                 <td>'.$row_count_new.'</td>  
                                 <td>'.$row["course_ID"].'</td>  
                                 <td>'.$row["course_name"].'</td>  
-                                <td>'.$row['ii'].'</td>  
+                                <td>'.$row['total_student'].'</td>  
 
                             </tr>
 

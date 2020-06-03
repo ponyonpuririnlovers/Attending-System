@@ -108,14 +108,16 @@
         
         <form method="post" action="opening_course.php">
 
-            <div class="head_course" style="margin:-85px 400px 30px;">
+            <div class="head_course" style="margin:-70px 400px 30px;">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 </p> 
             </div>
 
-            <div class="search" style="margin:-20px 0px;">
+            <br>
+
+            <div class="search" style="margin-top:0px;">
                 <i class="fas fa-search"></i>
                 รหัสรายวิชา
 	            <input type="text" name="course_ID">
@@ -124,7 +126,7 @@
                 หมายเหตุ 
                 <input type="text" name="note" style="width:10%;">
             </div>
-            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 830px; margin-bottom:20px;">
+            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 850px; margin-bottom:20px;">
 
         <?php
 

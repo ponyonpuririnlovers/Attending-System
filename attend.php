@@ -105,7 +105,7 @@
                     <aa>ชื่อ-นามสกุล</aa> <w><?php echo $name; ?></w>
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
-                <p style="margin-top: 30px; margin-bottom:-30px">
+                <p style="margin-top: 40px; margin-bottom:-35px">
                     <i class="fas fa-pen-nib" style="font-size:20px; color:#e37aa1;"></i>
                     <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
                 </p>
@@ -123,7 +123,7 @@
 
             <br>
 
-                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -100px 700px;">
+                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -100px 700px;" OnClick="return confirm('หากท่านได้ทำการเพิ่มรายวิชาใน www.reg.chula.ac.th แล้ว กรุณากด OK')">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>

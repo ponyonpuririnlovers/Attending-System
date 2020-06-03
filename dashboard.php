@@ -90,22 +90,221 @@
     <div class="content">
         <h1>แดชบอร์ด</h1>
 
-        <div class="head_course" style="margin:-95px 400px 30px;">
+        <div class="head_course" style="margin:-70px 250px;">
             <p>
                 <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                 <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
             </p> 
         </div>
 
-        <form method="post" action="dashboard_export.php">
-            <input type="submit" name="export" class="btn btn-success" value="Export" />
-        </form>
+        <br><br><br>
+
+
+        <?php // จำนวนนิสิตที่ขอเพิ่มรายวิชาทั้งหมด ------------------------------------------------------------------------
+            
+            $query = "  SELECT COUNT(DISTINCT ss.student_ID) as total_student_request
+                        FROM student_status ss
+                        
+                    ";
+            $result = mysqli_query($conn, $query); 
+ 
+            while($rs = mysqli_fetch_array($result)){ 
+                $total_student_request = $rs['total_student_request']; 
+            }
+
+            $query = "  SELECT c.*
+                        FROM course c , student_status ss
+                        WHERE c.course_ID = ss.course_ID
+                        GROUP BY c.course_ID
+                        ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+                        LIMIT 1
+                    ";
+            $result = mysqli_query($conn, $query); 
+ 
+            while($rs = mysqli_fetch_array($result)){ 
+                $course_name = $rs['course_name']; 
+            }
+
+        ?>
+
+        <div class="card" id="card1">
+            <a>นิสิตที่ขอเพิ่มรายวิชา</a>
+            <h2><?php echo $total_student_request; ?> <i class="fas fa-users"></i></h2>
+        </div>
+
+        <div class="card" id="card2">
+            <a>รายวิชาที่ขอเพิ่มมากที่สุด</a>
+            <h2><?php echo $course_name; ?> <i class="fas fa-star"></i></h2>
+        </div>
+
+        <?php  // CHART 1 DOUGHTNUT ------------------------------------------------------------------------------------
+            $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
+                        FROM course c , student_status ss
+                        WHERE c.course_ID = ss.course_ID
+                        GROUP BY c.course_ID
+                        ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+                        LIMIT 5
+                    ";
+            $result = mysqli_query($conn, $query); 
+
+            //for chart
+            $course_ID = array();
+            $total_student = array();
+ 
+            while($rs = mysqli_fetch_array($result)){ 
+                $course_ID[] = "\"".$rs['course_name']."\""; 
+                $total_student[] = "\"".$rs['total_student']."\""; 
+            }
+            
+            $course_ID = implode(",", $course_ID); 
+            $total_student = implode(",", $total_student); 
+ 
+        ?>
+ 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+        <div class="table_chart">
+            <div class="legend_cell">
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="legend_cell">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+
+        <script>
+            var ctx1 = document.getElementById("myChart1").getContext('2d');
+            var myChart1 = new Chart(ctx1, {
+
+               
+                type: 'doughnut',
+                data: {
+
+                    labels: [<?php echo $course_ID;?> 
+                    ],
+                    datasets: [{
+                        
+                        data: [<?php echo $total_student;?>
+                            ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        hoverBackgroundColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                       
+                    }]
+                },
+                
+                options: {  legend: {
+                                        position: 'right',
+                                        labels: {   
+                                                    fontSize: 15 ,
+                                                    fontFamily: 'Prompt'	
+                                                },
+                                    }
+                        }
+                
+            });
+        </script>  
+
+    
+        <?php  // CHART 2 LINE ---------------------------------------------------------------------------------------------
+            $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
+                        FROM student_status ss, course c
+                        WHERE c.course_ID = ss.course_ID 
+                        GROUP BY c.department
+                        ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+                    ";
+            $result = mysqli_query($conn, $query); 
+ 
+ 
+            //for chart
+            $department = array();
+            $total_student = array();
+ 
+            while($rs = mysqli_fetch_array($result)){ 
+                $department[] = "\"".$rs['department']."\""; 
+                $total_student[] = "\"".$rs['total_student']."\""; 
+            }
+            
+            $department = implode(",", $department); 
+            $total_student = implode(",", $total_student); 
+ 
+        ?>
+ 
+        
         
 
 
+        <script>
+            var ctx2 = document.getElementById("myChart2").getContext('2d');
+            var myChart2 = new Chart(ctx2, {
+                type: 'pie',
+                data: {
 
+                    datasets: [{
+                        data: [<?php echo $total_student;?>
+                            ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        hoverBackgroundColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                    }],
+                    labels: [<?php echo $department;?> 
+                    ]
+                },
+                options: {  legend: {
+                                        position: 'right',
+                                        labels: {   
+                                                    fontSize: 15 ,
+                                                    fontFamily: 'Prompt'	
+                                                },
+                                    }
+                            
+                        }
+                
+            });
+        </script>  
+
+        
+
+        
+
+
+        <form method="post" action="dashboard_export.php">
+            <input type="submit" name="export" class="btn btn-success" value="Export" />
+        </form>
+
+
+
+
+        
     </div>
     <br><br>
 
 </body>
+
 </html>

@@ -134,10 +134,10 @@
                     <td><center><?php echo $rowpost['current_student']; ?> / <?php echo $rowpost['open_student_number']; ?></center></td>
 
                     <?php if ($total_request_student == '0') { ?>
-                            <td style="padding: 10px 5px;"><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
+                            <td style="padding: 10px 5px;"><center><a href="approve.php?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn0">
                                 <?php echo $total_request_student; ?></a><center></td> 
                     <?php  } else { ?>
-                            <td style="padding: 10px 5px;"><center><a href="approve.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
+                            <td style="padding: 10px 5px;"><center><a href="approve.php?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
                                 <?php echo $total_request_student; ?></a><center></td>
                     <?php } ?>
                     

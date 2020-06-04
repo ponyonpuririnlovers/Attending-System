@@ -29,7 +29,7 @@
     <div class="form_login">
     <form action="login_db.php" method="post" class="form_login">
         <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error">
+            <div class="error" style="margin-left:10px; width:87%; margin-bottom:20px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];

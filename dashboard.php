@@ -125,12 +125,16 @@
 
         <div class="card" id="card1">
             <a>นิสิตที่ขอเพิ่มรายวิชา</a>
-            <h2><?php echo $total_student_request; ?> <l>คน</l> <i class="fas fa-users"></i></h2>
+            <h2>    <?php echo $total_student_request; ?> <l>คน</l> 
+                    <i class="fas fa-users"></i>
+            </h2>
         </div>
 
         <div class="card" id="card2">
             <a>รายวิชาที่ขอเพิ่มมากที่สุด</a>
-            <h2><?php echo $course_name; ?> <i class="fas fa-star"></i></h2>
+            <h2>    <?php echo $course_name; ?> 
+                    <i class="fas fa-star"></i>
+            </h2>
         </div>
 
 

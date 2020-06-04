@@ -120,8 +120,8 @@
             $total_proceed_student = mysqli_num_rows($result); 
         ?>
 
-            <div class="head_course" style="background:none">
-                <p></p>
+            <br>
+            <div class="finish" style="background:none">
                 <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
@@ -132,8 +132,8 @@
                 <p><aaa>จำนวนนิสิตที่แจ้งในครั้งนี้</aaa> <w><?php echo $proceed_student_num; ?></w></p>
                 <p><aaa>จำนวนนิสิตที่แจ้งในรายวิชานี้ทั้งหมด</aaa> <w><?php echo $total_proceed_student; ?></w></p>
             </div>
-
-            <a href="officer_index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
+            <br>
+            <a href="officer_history.php"><i class="fas fa-history"></i> <span>ประวัติการแจ้งนิสิต</span></a>
 
     </div>
     <br>  

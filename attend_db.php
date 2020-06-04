@@ -21,7 +21,7 @@
         $section = mysqli_real_escape_string($conn, $_POST['section']);
 
         $user_check_query = "   SELECT *
-                                FROM student_request 
+                                FROM student_status
                                 WHERE student_ID = '$student_ID' AND course_ID = '$course_ID'
                                 LIMIT 1
                             ";

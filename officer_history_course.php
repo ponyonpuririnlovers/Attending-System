@@ -95,6 +95,7 @@
                     <th>ชื่อนิสิต</th> 
                     <th>คณะ</th>
                     <th>สาขา</th>
+                    <th>สถานะ</th>
                 </tr>
             </thead>
 
@@ -135,15 +136,35 @@
                     <td><?php echo $rowpost['name']; ?></td>
                     <td><center><?php echo $rowpost['faculty']; ?></center></td>
                     <td><center><?php echo $rowpost['major']; ?></center></td>
-                    
+                    <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
+                        <td><center><a href="officer_history_course_status.php?id=<?php echo $rowpost['student_ID'];?>" role="button" style="text-decoration: none;">
+                            <approven><?php echo $rowpost['status']; ?></approven></a></center></td>
+       
+                    <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
+                        <td><center><a href="officer_history_course_status.php?id=<?php echo $rowpost['student_ID'];?>" role="button" style="text-decoration: none;">
+                            <waiting><?php echo $rowpost['status']; ?></waiting></a></center></td>
+
+                    <?php } else { # status = 'ดำเนินการแล้ว' ?> 
+                        <td><center><a href="officer_history_course_status.php?id=<?php echo $rowpost['student_ID'];?>" role="button" style="text-decoration: none;">
+                            <proceed><?php echo $rowpost['status']; ?></proceed></a></center></td>
+                    <?php } ?>    
                     
         <?php
                     $row_count++; 
                     $col_count++;
                     echo "</tr>"; 
                     echo "</tbody>"; 
-        }
+                }
         ?>
+
+        <form action="officer_history_course_status.php" method="post"> 
+            <?php // ส่งข้อมูลไปที่ history_course_status.php
+        
+                $_SESSION['course_ID'] = $course_ID;
+                $_SESSION['section'] = $section;
+
+            ?>
+        </form>
         
         <h1>ประวัติการแจ้งนิสิต <o style="color: #e37aa1;"><?php echo $course_ID; ?> <?php echo $course_name; ?></o></h1>
             <div class="head_course">

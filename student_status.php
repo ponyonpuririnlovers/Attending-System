@@ -131,19 +131,19 @@
                     <?php if ( $rowpost['status'] == 'อนุมัติแล้ว') { ?>
                         <td><?php echo $rowpost['approven_time']; ?></td>
                         <td><?php echo  $rowpost['approven_date']; ; ?></td>
-                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                        <td><center><a href="student_history.php?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
                             <approven><?php echo $rowpost['status']; ?></approven></a></center></td> 
                         
                     <?php  } elseif ( $rowpost['status'] == 'รออนุมัติ') { ?>
                         <td><?php echo $rowpost['request_time']; ?></td>
                         <td><?php echo $rowpost['request_date']; ?></td>
-                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                        <td><center><a href="student_history.php?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
                             <waiting><?php echo $rowpost['status']; ?></waiting></a></center></td>
                         
                     <?php } else { # status = 'ดำเนินการแล้ว' ?> 
                         <td><?php echo $rowpost['proceed_time']; ?></td>
                         <td><?php echo $rowpost['proceed_date']; ?></td>
-                        <td><center><a href="student_history.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
+                        <td><center><a href="student_history.php?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" style="text-decoration: none;">
                             <proceed><?php echo $rowpost['status']; ?></proceed></a></center></td>
 
                     <?php } ?>

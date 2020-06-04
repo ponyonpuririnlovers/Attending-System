@@ -120,8 +120,8 @@
             $total_approven_student = mysqli_num_rows($result); 
         ?>
 
-            <div class="head_course" style="background:none; margin-top:-20px">
-                <p></p>
+            <br>
+            <div class="finish" style="background:none; margin-top:-20px">
                 <p><aaa>รายวิชา</aaa> <w><?php echo $course_ID; ?> <?php echo $course_name; ?></w></p>
                 <p><aaa>ตอนเรียน</aaa> <w><?php echo $section; ?></w></p>
                 <p><aaa>ปีการศึกษา</aaa> <w><?php echo $academic_year; ?></w></p>
@@ -132,8 +132,8 @@
                 <p><aaa>จำนวนนิสิตที่อนุมัติในครั้งนี้</aaa> <w><?php echo $approven_student_num; ?></w></p>
                 <p><aaa>จำนวนนิสิตที่อนุมัติในรายวิชานี้ทั้งหมด</aaa> <w><?php echo $total_approven_student; ?></w></p>
             </div>
-            
-            <a href="index.php"><i class="fas fa-home"></i> <span>กลับหน้าหลัก</span></a>
+            <br>
+            <a href="history.php"><i class="fas fa-history"></i> <span>ประวัติการอนุมัติ</span></a>
     </div>
     <br>
 

@@ -133,7 +133,7 @@
                     <td><center><?php echo $rowpost['course_ID']; ?></center></td>
                     <td><?php echo $rowpost['course_name']; ?></td>
                     <td><center><?php echo $rowpost['section']; ?></center></td>
-                    <td style="padding: 10px 5px;"><center><a href="history_course.php ?id=<?php echo $rowpost['course_ID'];?> &sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
+                    <td style="padding: 10px 5px;"><center><a href="history_course.php?id=<?php echo $rowpost['course_ID'];?>&sec=<?php echo $rowpost['section'];?>" role="button" class="btn2">
                                 <?php echo $total_approven_student; ?></a><center></td> 
         <?php
                     $row_count++; 

@@ -120,7 +120,7 @@
     <!--head info coruse END-->
     
     <!--student request list table START-->
-    <div class="content" style="margin: -100px; margin-left: 370px;">
+    <div class="content">
 
     <form action="checkbox.php" method="post"> 
 

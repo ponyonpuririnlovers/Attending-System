@@ -105,29 +105,26 @@
                     <aa>ชื่อ-นามสกุล</aa> <w><?php echo $name; ?></w>
                     <aa>เลขประจำตัวนิสิต</aa> <w><?php echo $student_ID; ?></w>
                 </p>
-                <p style="margin-top: 40px; margin-bottom:-35px">
-                    <i class="fas fa-pen-nib" style="font-size:20px; color:#e37aa1;"></i>
-                    <aaa>กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
+                <p>
+                    <i class="fas fa-pen-nib" style="font-size:30px; color:#e37aa1; float:left;"></i>
+                    <aaa> กรุณากรอก 'รหัสรายวิชา' และ 'ตอนเรียน' ที่ต้องการขออนุมัติเพิ่มรายวิชา</aaa>
                 </p>
             </div>
                 
-
+            <br><br>
+            
         <form action="attend_db.php" method="post">
 
             <div class="input-group-student">
-                <p>
-                    <label for="course_ID">รหัสรายวิชา</label> <input type="text" name="course_ID" class="form-control">
-                    <label for="section" style="margin-left:30px;">ตอนเรียน</label> <input type="text" name="section" class="form-control" style=" width: 3%;">
-                </p>
+                    <label for="course_ID">รหัสรายวิชา</label> <input type="text" name="course_ID" class="form-control" style=" width: 15%;">
+                    <label for="section" style="margin-left:30px;">ตอนเรียน</label> <input type="text" name="section" class="form-control" style=" width: 10%;">
             </div>
 
-            <br>
-
-                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -100px 700px;" OnClick="return confirm('หากท่านได้ทำการเพิ่มรายวิชาใน www.reg.chula.ac.th แล้ว กรุณากด OK')">
+                <input type="submit" value="ยืนยัน" name="submit" id="submit" style="margin: -60px 730px;" OnClick="return confirm('หากท่านได้ทำการเพิ่มรายวิชาใน www.reg.chula.ac.th แล้ว กรุณากด OK')">
 
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 70%; margin: 130px 18px; margin-botton:100px;">
+            <div class="error" style="width: 70%; margin-top:50px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];

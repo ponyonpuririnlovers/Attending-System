@@ -108,31 +108,29 @@
         
         <form method="post" action="opening_course.php">
 
-            <div class="head_course" style="margin:-70px 400px 30px;">
+            <div class="head_course" id="opening_course">
                 <p>
                     <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                     <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
                 </p> 
             </div>
 
-            <br>
-
-            <div class="search" style="margin-top:0px;">
+            <div class="search">
                 <i class="fas fa-search"></i>
                 รหัสรายวิชา
 	            <input type="text" name="course_ID">
                 ชื่อรายวิชา
-                <input type="text" name="course_name" style="width:10%;">
+                <input type="text" name="course_name" style="width:13%;">
                 หมายเหตุ 
                 <input type="text" name="note" style="width:10%;">
             </div>
-            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 850px; margin-bottom:20px;">
+            <input type="submit" name="submit" value="ค้นหา" id="search" style="margin:-55px 900px; margin-bottom:30px;">
 
         <?php
 
         if (empty($_POST["submit"]))  {
-            echo "<i class='fas fa-info-circle' style='font-size:20px; color:#e37aa1;'></i>";
-            echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา' ทางด้านขวามือ</a>";
+            echo "<div class='search'><i class='fas fa-info-circle' style='font-size:20px; color:#e37aa1;'></i>";
+            echo "<a> กรุณาเลือกกรอกข้อมูล และกดปุ่ม 'ค้นหา' ทางด้านขวามือ</a></div>";
             echo "<script> document.getElementById('opening_course_table').deleteRow(0); </script>";
             exit() ;
 

@@ -162,9 +162,9 @@
                 </p> 
             </div>
 
-        </table> <br>
+        </table> 
 
-        <div class="status_detail" style="font-size:70%;" >
+        <div class="status_detail" style="font-size:70%; float:left;" >
             <h2><i class="fas fa-info-circle"></i> รายละเอียด <span>สถานะการขออนุมัติเพิ่มรายวิชา</span></h2>
             <br>
             <p>
@@ -181,7 +181,7 @@
                 <l style="padding:0 40px;">เจ้าหน้าที่ดำเนินการเพิ่มรายวิชาในระบบ reg chula เรียบร้อยแล้ว</l> 
                 <p style="padding:0 200px;"><span><i class="fas fa-asterisk"></i> กรุณาตรวจสอบผลการเพิ่มรายวิชาได้ใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i> หากพบปัญหากรุณาติดต่อเจ้าหน้าที่ทันที</span></p>
             </p>
-
+            <br><br>
         </div>
         
         <?php
@@ -190,9 +190,9 @@
                 echo "<script> document.getElementById('student_status_table').deleteRow(0); </script>";
             }
         ?>
-        
+
     </div>
-    <br><br>
+    
 
 
 </body>

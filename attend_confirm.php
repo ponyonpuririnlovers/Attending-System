@@ -159,8 +159,8 @@
 
         </table>
 
-        <br>
-            
+        <br><br><br><br>
+
         <aa style="font-size:20px;">หากไม่ใช่รายวิชาที่ต้องการขออนุมัติเพิ่มรายวิชา</aa>
         <a href="attend.php"><i class="fas fa-undo"></i> <span>กลับไปหน้าก่อน</span></a>
         <br>
@@ -170,9 +170,18 @@
 
         <form action="attend_confirm_db.php" method="post">
 
+
+            <div class="input-group" id="pass&submit" style="margin-top:20px;">
+                <lable for="password" style="font-size: 20px; margin-left: 800px;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
+                <input  type="password" name="confirm_password" 
+                        style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
+            </div>
+
+                <input type="submit" value="ยืนยันขออนุมัติ" name="attend_submit" id="attend_submit" style="margin-left: 795px;">
+            
             <?php include('errors.php'); ?>
             <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error" style="width: 55%; margin-left:18px; margin-top:30px; margin-bottom:-100px;">
+            <div class="error" style="width: 50%; margin-top:-70px;">
                 <h3>
                     <?php 
                         echo $_SESSION['error'];
@@ -182,14 +191,6 @@
             </div>
             <?php endif ?>
 
-            <div class="input-group" id="pass&submit" >
-                <lable for="password" style="font-size: 20px; margin-left: 800px; display: inline;" ><i class="fas fa-key" style="color: #e37aa1;"></i> กรุณากรอกรหัสผ่าน</lable>
-                <input  type="password" name="confirm_password" 
-                        style="font-size: 30px; margin-left: 790px; width: 220px;  border-radius: 100px;  border:2px solid;">
-            </div>
-
-                <input type="submit" value="ยืนยันขออนุมัติ" name="attend_submit" id="attend_submit" style="margin-left: 795px;">
-        
         </form> <br>
 
         <?php

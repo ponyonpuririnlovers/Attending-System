@@ -158,7 +158,9 @@
                 ?>
             </div>
 
-            <div class="head_course" style="background:none; margin-top:-20px" id="student_history"> <br>
+            <br><br>
+
+            <div class="head_course" style="background:none; margin-top:-20px" id="student_history">
 
                 <p>
                     <aaa><i class="fas fa-check-circle"></i> ขออนุมัติเพิ่มรายวิชา</aaa> 

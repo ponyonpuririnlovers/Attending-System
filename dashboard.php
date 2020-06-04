@@ -90,27 +90,24 @@
     <div class="content">
         <h1>แดชบอร์ด</h1>
 
-        <div class="head_course" style="margin:-70px 250px;">
-            <p>
+            <div class="head_course" id="dashboard">
+    
                 <a>ปีการศึกษา</a> <w><?php echo $academic_year; ?></w>
                 <a>ภาคการศึกษา</a> <w><?php echo $semester; ?></w>
-            </p> 
-        </div>
-
-        <br><br><br>
-
+            
+            </div>
+            <br>
 
         <?php // จำนวนนิสิตที่ขอเพิ่มรายวิชาทั้งหมด ------------------------------------------------------------------------
             
             $query = "  SELECT COUNT(DISTINCT ss.student_ID) as total_student_request
-                        FROM student_status ss
-                        
+                        FROM student_status ss    
                     ";
             $result = mysqli_query($conn, $query); 
- 
             while($rs = mysqli_fetch_array($result)){ 
                 $total_student_request = $rs['total_student_request']; 
             }
+
 
             $query = "  SELECT c.*
                         FROM course c , student_status ss
@@ -120,7 +117,6 @@
                         LIMIT 1
                     ";
             $result = mysqli_query($conn, $query); 
- 
             while($rs = mysqli_fetch_array($result)){ 
                 $course_name = $rs['course_name']; 
             }
@@ -129,7 +125,7 @@
 
         <div class="card" id="card1">
             <a>นิสิตที่ขอเพิ่มรายวิชา</a>
-            <h2><?php echo $total_student_request; ?> <i class="fas fa-users"></i></h2>
+            <h2><?php echo $total_student_request; ?> <l>คน</l> <i class="fas fa-users"></i></h2>
         </div>
 
         <div class="card" id="card2">
@@ -137,13 +133,14 @@
             <h2><?php echo $course_name; ?> <i class="fas fa-star"></i></h2>
         </div>
 
+
         <?php  // CHART 1 DOUGHTNUT ------------------------------------------------------------------------------------
             $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                         FROM course c , student_status ss
                         WHERE c.course_ID = ss.course_ID
                         GROUP BY c.course_ID
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
-                        LIMIT 5
+                        LIMIT 7
                     ";
             $result = mysqli_query($conn, $query); 
 
@@ -164,11 +161,22 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
         <div class="table_chart">
-            <div class="legend_cell">
-                <canvas id="myChart1"></canvas>
+            <div class="card_chart">
+                <h2>7 รายวิชาที่ขอเพิ่มรายวิชามากที่สุด 
+                    <a href="dashboard_1.php" style="float:right; margin-top:-20px;"> <i class="fas fa-external-link-alt" style="font-size:20px;"></i> </a>
+                </h2>
+                
+                <div class="legend_cell">
+                    <canvas id="myChart1"></canvas>
+                </div>
             </div>
-            <div class="legend_cell">
-                <canvas id="myChart2"></canvas>
+            <div class="card_chart">
+                <h2>7 ภาคสาขาที่ขอเพิ่มรายวิชามากที่สุด                     
+                    <a href="dashboard_2.php" style="float:right; margin-top:-20px;"> <i class="fas fa-external-link-alt" style="font-size:20px;"></i> </a>
+                </h2>
+                <div class="legend_cell">
+                    <canvas id="myChart2"></canvas>
+                </div>
             </div>
         </div>
 
@@ -225,6 +233,7 @@
                         WHERE c.course_ID = ss.course_ID 
                         GROUP BY c.department
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+                        LIMIT 7
                     ";
             $result = mysqli_query($conn, $query); 
  
@@ -242,10 +251,6 @@
             $total_student = implode(",", $total_student); 
  
         ?>
- 
-        
-        
-
 
         <script>
             var ctx2 = document.getElementById("myChart2").getContext('2d');
@@ -290,21 +295,15 @@
         </script>  
 
         
+        <i class="fas fa-file-download"></i> ดาวน์โหลดข้อมูลแดชบอร์ด
 
-        
-
+        <br><br><br>
 
         <form method="post" action="dashboard_export.php">
-            <input type="submit" name="export" class="btn btn-success" value="Export" />
+            <input type="submit" name="export" class="btn btn-success" value="Export" style="margin:0px 350px;"/>
         </form>
 
-
-
-
-        
     </div>
-    <br><br>
 
 </body>
-
 </html>

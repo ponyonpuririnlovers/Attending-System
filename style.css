@@ -588,31 +588,37 @@ proceed{
   border-color: #e37aa1;
 }
 
-.table#student_status_table waiting {
+.table#student_status_table waiting,
+.table#history_course_table waiting{
   background: white;
 }
-.table#student_status_table approven {
+.table#student_status_table approven, 
+.table#history_course_table approven{
   background: white;
   color: #ffb5d0;
 }
-.table#student_status_table proceed {
+.table#student_status_table proceed,
+.table#history_course_table proceed{
   background: white;
   color: #e37aa1;
 }
 
-.table#student_status_table waiting:hover{
+.table#student_status_table waiting:hover,
+.table#history_course_table waiting:hover{
   color: gray;
   background: #e6e6e6;
   transition: 0.3s;
 }
 
-.table#student_status_table approven:hover{
+.table#student_status_table approven:hover,
+.table#history_course_table approven:hover{
   color: white;
   background: #ffb5d0;
   transition: 0.3s;
 }
 
-.table#student_status_table proceed:hover{
+.table#student_status_table proceed:hover,
+.table#history_course_table proceed:hover{
   color: white;
   background: #e37aa1;
   transition: 0.3s;

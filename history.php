@@ -93,7 +93,7 @@
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.*
+            $query = "  SELECT DISTINCT c.*
                         FROM course c, teacher_users t, student_status ss
                         WHERE t.username = '$id' AND c.course_ID = t.course_ID AND c.section = t.section
                         AND ss.course_ID = t.course_ID AND ss.section = t.section AND (status = 'อนุมัติแล้ว' OR status = 'ดำเนินการแล้ว')

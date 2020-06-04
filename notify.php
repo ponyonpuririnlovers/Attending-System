@@ -95,7 +95,7 @@
 
         <?php
             $id = $_SESSION['username'];
-            $query = "  SELECT c.*
+            $query = "  SELECT DISTINCT c.*
                         FROM course c, student_status ss
                         WHERE ss.status = 'อนุมัติแล้ว' AND ss.course_ID = c.course_ID AND ss.section = c.section
                         ORDER BY c.course_ID ASC";
@@ -160,7 +160,7 @@
 
         <?php
             } else {
-                echo "ไม่มีรายวิชาที่ผ่านการอนุมัติขอเพิ่มรายวิชาในภาคการศึกษานี้";
+                echo "ไม่มีรายวิชาที่ผ่านการอนุมัติขอเพิ่มรายวิชาในตอนนี้";
                 echo "<script> document.getElementById('dashboard_table').deleteRow(0); </script>";
             }
         ?>

@@ -45,10 +45,29 @@
                 $row_count++; 
                 $col_count++;
             }
+
+            $query = "  SELECT COUNT(ss.student_ID) as total_student_request
+                        FROM student_status ss    
+                    ";
+            $result = mysqli_query($conn, $query); 
+            while($rs = mysqli_fetch_array($result)){ 
+                $total_student_request = $rs['total_student_request']; 
+            }
+
+            $output .= '
+                            <tr>  
+                                <td></td>  
+                                <td></td>  
+                                <td>จำนวนการขอเพิ่มรายวิชาทั้งหมด</td>  
+                                <td>'.$total_student_request.'</td>  
+
+                            </tr>
+
+                            ';
             
             $output .= '</table>';
             header('Content-Type: application/xls');
-            header('Content-Disposition: attachment; filename=download.xls');
+            header('Content-Disposition: attachment; filename=dashboard.xls');
             echo $output;
         }
     }

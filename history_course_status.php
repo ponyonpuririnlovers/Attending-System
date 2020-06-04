@@ -129,7 +129,7 @@
                 }
         ?>
         
-        <h1>สถานะการขออนุมัติ <span> <?php echo $course_ID; ?><?php echo $course_name; ?> </span></h1>
+        <h1>สถานะการขออนุมัติ <span> <?php echo $course_ID; ?> <?php echo $course_name; ?> </span></h1>
 
             <div class="head_course">
                 <p style="margin-bottom:40px;">

@@ -95,7 +95,7 @@
             </thead>
 
         <?php
-            $query = "  SELECT ss.*, c.*
+            $query = "  SELECT DISTINCT c.*
                         FROM course c, student_status ss
                         WHERE ss.status = 'ดำเนินการแล้ว' 
                         AND c.course_ID = ss.course_ID AND c.section = ss.section 

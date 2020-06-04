@@ -100,7 +100,7 @@
 
         <?php // จำนวนนิสิตที่ขอเพิ่มรายวิชาทั้งหมด ------------------------------------------------------------------------
             
-            $query = "  SELECT COUNT(DISTINCT ss.student_ID) as total_student_request
+            $query = "  SELECT COUNT(ss.student_ID) as total_student_request
                         FROM student_status ss    
                     ";
             $result = mysqli_query($conn, $query); 
@@ -124,8 +124,8 @@
         ?>
 
         <div class="card" id="card1">
-            <a>นิสิตที่ขอเพิ่มรายวิชา</a>
-            <h2>    <?php echo $total_student_request; ?> <l>คน</l> 
+            <a>ขอเพิ่มรายวิชาทั้งหมด</a>
+            <h2>    <?php echo $total_student_request; ?> <l>ครั้ง</l> 
                     <i class="fas fa-users"></i>
             </h2>
         </div>

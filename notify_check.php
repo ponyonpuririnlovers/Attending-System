@@ -159,7 +159,7 @@
         ?>
 
 
-        <h1>แจ้งนิสิตที่เพิ่มรายวิชา <span><?php echo $course_ID; echo $course_name; ?></span></h1>
+        <h1>แจ้งนิสิตที่เพิ่มรายวิชา <span><?php echo $course_ID;?> <?php echo $course_name; ?></span></h1>
         
             <div class="head_course">
                 <p>

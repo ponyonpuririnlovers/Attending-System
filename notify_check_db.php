@@ -64,14 +64,19 @@
                     $update_course = " UPDATE course SET current_student='$updated_current_students' WHERE course_ID=$course_ID AND section=$section ";
                     mysqli_query($conn, $update_course);
 
-                    ## เก็บข้อมูล course_name เพื่อใช้ SENT MAIL ##
-                        $query_course = "   SELECT  c.*
-                                            FROM    course c
-                                            WHERE   $course_ID = c.course_ID AND $section = c.section
+                    ## เก็บข้อมูล course_name & teacher_mail เพื่อใช้ SENT MAIL ##
+                        $query_course = "   SELECT  c.*, t.*
+                                            FROM    course c, teacher_users t
+                                            WHERE   $course_ID = c.course_ID AND $section = c.section AND  $course_ID = t.course_ID
                                         ";
                         $result_course = mysqli_query($conn, $query_course);
                         while($rowpost_course = mysqli_fetch_array($result_course)) {
+                            # course table
                             $course_name = $rowpost_course['course_name'];
+                            #teacher_users table
+                            $tusername = $rowpost_course['username'];
+                            $teacher_name = $rowpost_course['name'];
+
                         }
 
                     # SENT MAIL #
@@ -167,6 +172,86 @@
                         }
 
                     }
+
+                    # -------------------------------------------------------------------------- SENT MAIL #
+                    
+                        $mail = new PHPMailer;
+                        $mail->CharSet = "utf-8";
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.gmail.com';
+                        $mail->Port = 587;
+                        $mail->SMTPSecure = 'tls';
+                        $mail->SMTPAuth = true;
+
+                        $gmail_username = "attendingsystem@gmail.com"; // gmail ที่ใช้ส่ง
+                        $gmail_password = "projectforhuman"; // รหัสผ่าน gmail
+                        // ตั้งค่าอนุญาตการใช้งานได้ที่นี่ https://myaccount.google.com/lesssecureapps?pli=1
+
+
+                        $sender = "เจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์"; // ชื่อผู้ส่ง
+                        $email_sender = "noreply@officerofarts.com"; // เมล์ผู้ส่ง 
+                        $temail_receiver = $tusername; // เมล์ผู้รับ ***
+                        $treceiver = $teacher_name; // ชื่อผู้รับ
+
+                        $subject = "แจ้งการดำเนินการขอเพิ่มรายวิชา $course_ID $course_name"; // หัวข้อเมล์
+
+                        $mail->Username = $gmail_username;
+                        $mail->Password = $gmail_password;
+                        $mail->setFrom($email_sender, $sender);
+                        $mail->addAddress($temail_receiver, $treceiver);
+                        $mail->Subject = $subject;
+                        
+                        $temail_content = "
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset=utf-8'/>
+		</head>
+        <body>
+
+            <div>
+                <div>
+                    <h2>อาจารย์(instructor) : $teacher_name</h2>
+                    <h2>เจ้าหน้าที่ฝ่ายทะเบียนได้ดำเนินการเพิ่มรายวิชาให้นิสิตที่ทำการขอเพิ่มรายวิชา $course_ID $course_name ในระบบ reg chula เรียบร้อยแล้ว</h2>
+					<h2>กรุณาตรวจสอบผลการเพิ่มรายวิชาที่ <strong style='color:#0000ff;'></strong></h2>
+					<a href='www2.reg.chula.ac.th' target='_blank'>
+						<h2><strong style='color:#e37aa1;'> >> www2.reg.chula.ac.th << </strong> </h2>
+                    </a>
+                    <h2 style='color:red;'>หากพบปัญหาโปรดติดต่อเจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์ โดยทันที</h2>
+                </div>
+                
+				<div style='margin-top:30px;'>
+					<hr>
+					<address>
+						<p>เจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์</p>
+						<p>ห้องฝ่ายทะเบียน อาคารเทวาลัย</p>
+					</address>
+                </div>
+                
+            </div>
+            
+		</body>
+	</html>
+";
+
+                        //  ถ้ามี email ผู้รับ
+                        if($temail_receiver){
+	                        $mail->msgHTML($temail_content);
+
+	                        if (!$mail->send()) {  // สั่งให้ส่ง email
+
+                                // กรณีส่ง email ไม่สำเร็จ
+                                $_SESSION['mail_error'] = "ระบบมีปัญหา กรุณาลองใหม่อีกครั้ง";
+                                
+	                        } else {
+
+                                // กรณีส่ง email สำเร็จ
+                                $_SESSION['mail_success'] = "ระบบได้ส่งข้อความไปเรียบร้อย";
+                                
+	                        }	
+                        }
+
+                    
 
                 }
                 

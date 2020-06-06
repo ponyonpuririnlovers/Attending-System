@@ -64,6 +64,16 @@
                     $update_course = " UPDATE course SET current_student='$updated_current_students' WHERE course_ID=$course_ID AND section=$section ";
                     mysqli_query($conn, $update_course);
 
+                    ## เก็บข้อมูล course_name เพื่อใช้ SENT MAIL ##
+                        $query_course = "   SELECT  c.*
+                                            FROM    course c
+                                            WHERE   $course_ID = c.course_ID AND $section = c.section
+                                        ";
+                        $result_course = mysqli_query($conn, $query_course);
+                        while($rowpost_course = mysqli_fetch_array($result_course)) {
+                            $course_name = $rowpost_course['course_name'];
+                        }
+
                     # SENT MAIL #
                     $query = "  SELECT  su.username, su.name
                                 FROM    student_users su
@@ -71,9 +81,11 @@
                              ";
                     $result = mysqli_query($conn, $query);
                     while($rowpost = mysqli_fetch_array($result)) { 
+
                         $stusername = $rowpost['username'];
                         $student_name = $rowpost['name'];
 
+                        /* --------------------------- SENT MAIL ---------------------------------*/
                         require($_SERVER['DOCUMENT_ROOT']."/attending_system/phpmailer/PHPMailerAutoload.php");
 
                         header('Content-Type: text/html; charset=utf-8');
@@ -91,12 +103,12 @@
                         // ตั้งค่าอนุญาตการใช้งานได้ที่นี่ https://myaccount.google.com/lesssecureapps?pli=1
 
 
-                        $sender = "เจ้าหน้าที่ฝ่ายทะเบียน คณะอักษรศาสตร์"; // ชื่อผู้ส่ง
+                        $sender = "เจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์"; // ชื่อผู้ส่ง
                         $email_sender = "noreply@officerofarts.com"; // เมล์ผู้ส่ง 
                         $email_receiver = $stusername; // เมล์ผู้รับ ***
                         $receiver = $student_name; // ชื่อผู้รับ
 
-                        $subject = "แจ้งการดำเนินการขอเพิ่มรายวิชา"; // หัวข้อเมล์
+                        $subject = "แจ้งการดำเนินการขอเพิ่มรายวิชา $course_ID $course_name"; // หัวข้อเมล์
 
                         $mail->Username = $gmail_username;
                         $mail->Password = $gmail_password;
@@ -113,28 +125,24 @@
         <body>
 
             <div>
-				<div>				
-					<h2>กรุณาตรวจสอบผลการเพิ่มรายวิชาที่ <strong style='color:#0000ff;'></strong></h2>
+                <div>
+                    <h2>นิสิต(student) : $student_ID[$i] - $student_name</h2>
+                    <h2>เจ้าหน้าที่ฝ่ายทะเบียนได้ดำเนินการเพิ่มรายวิชา $course_ID $course_name ในระบบ reg chula เรียบร้อยแล้ว</h2>
+					<h2>กรุณาตรวจสอบผลการเพิ่มรายวิชาใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i> ที่ <strong style='color:#0000ff;'></strong></h2>
 					<a href='www2.reg.chula.ac.th' target='_blank'>
 						<h2><strong style='color:#e37aa1;'> >> www2.reg.chula.ac.th << </strong> </h2>
-					</a>
+                    </a>
+                    <h2 style='color:red;'>หากพบปัญหาโปรดติดต่อเจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์ โดยทันที</h2>
                 </div>
                 
 				<div style='margin-top:30px;'>
 					<hr>
 					<address>
-						<h4>ติดต่อสอบถาม</h4>
-						<p>Apple Thailand</p>
-						<p>www.facebook.com/apple</p>
+						<p>เจ้าหน้าที่ฝ่ายงานทะเบียน คณะอักษรศาสตร์</p>
+						<p>ห้องฝ่ายทะเบียน อาคารเทวาลัย</p>
 					</address>
                 </div>
                 
-            </div>
-            
-			<div style='background: #3b434c;color: #a2abb7;padding:30px;'>
-				<div style='text-align:center'> 
-					2016 © Apple Thailand
-				</div>
             </div>
             
 		</body>

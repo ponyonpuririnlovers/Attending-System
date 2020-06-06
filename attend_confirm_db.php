@@ -8,7 +8,7 @@
 
     date_default_timezone_set("Asia/Bangkok");
         $request_date = date("d/m/Y") ;
-        $request_time = date("h:i:s") ;
+        $request_time = date("h:i:s A") ;
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];

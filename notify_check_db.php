@@ -8,7 +8,7 @@
 
     date_default_timezone_set("Asia/Bangkok");
     $proceed_date = date("d/m/Y") ;
-    $proceed_time = date("h:i:s") ;
+    $proceed_time = date("h:i:s A") ;
 
     /*!-- logged in user information --*/
     $id = $_SESSION['username'];

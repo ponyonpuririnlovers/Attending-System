@@ -8,7 +8,7 @@
 
             date_default_timezone_set("Asia/Bangkok");
             $approven_date = date("d/m/Y") ;
-            $approven_time = date("h:i:s") ;
+            $approven_time = date("h:i:s A") ;
 
             $checkbox = $_POST['approven_studentid'];
             foreach ($checkbox as $allstudentid => $info_array) {

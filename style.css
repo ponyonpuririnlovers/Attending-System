@@ -469,6 +469,12 @@ label #sidebar_btn:hover{
 
 /* ;----------------------------------- approve ------------------------------------------; */
 
+input[type="checkbox"]#checked_all:before {
+  margin-left: -20px;
+  border-color: white;
+  
+}
+
 input[type="checkbox"] {
   position: relative;
   top: 5px;

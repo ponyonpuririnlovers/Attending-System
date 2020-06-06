@@ -106,6 +106,15 @@
                 }
             }    
         ?>
+		<script language="JavaScript">
+		function toggle(source) {
+			var checkboxes = document.querySelectorAll('input[type="checkbox"][id="check_approved"]');
+			for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i] != source)
+					checkboxes[i].checked = source.checked;
+			}
+		}
+		</script>
 
         <h1>อนุมัติเพิ่มรายวิชา <o style="color: #e37aa1;"><?php echo $course_ID; ?> <?php echo $course_name; ?></o></h1>
         <div class="head_course">
@@ -125,6 +134,7 @@
     <form action="checkbox.php" method="post"> 
 
         <table class="table" id="student_request_table" >
+		
          
             <thead>
                 <tr>
@@ -133,7 +143,7 @@
                     <th style="padding-left: 20px;">ชื่อนิสิต</th> 
                     <th style="padding-left: 15px;">เวลา</th>
                     <th style="padding-left: 15px;">วันที่</th>
-                    <th style="padding-left: 20px;">อนุมัติ</th> 
+                    <th style="padding-left: 20px;">อนุมัติ <br><input id="checked_all" type="checkbox" onClick="toggle(this)" /> check all<br/></td></th> 
                 </tr>
             </thead>    
 
@@ -158,20 +168,19 @@
                         echo "<tr>";
                     }   
                     
-        ?>          
+        ?>  
                     <td><center><?php echo $row_count+1; ?></center></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['student_ID']; ?></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['name']; ?></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['request_time']; ?></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['request_date']; ?></td>
-                    
-                    <td style="padding-left: 10px;"><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>"></td>
+                    <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>" id="check_approved"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][current_student]" value="<?php echo $rowpost['current_student']; ?>" >
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][username]" value="<?php echo $username; ?>" >
                     
-        
+		
         <?php
                     $row_count++; 
                     $col_count++;

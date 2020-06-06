@@ -65,13 +65,14 @@
                     mysqli_query($conn, $update_course);
 
                     # SENT MAIL #
-                    $query = "  SELECT  su.username
+                    $query = "  SELECT  su.username, su.name
                                 FROM    student_users su
                                 WHERE   $student_ID[$i] = su.student_ID 
                              ";
                     $result = mysqli_query($conn, $query);
                     while($rowpost = mysqli_fetch_array($result)) { 
                         $stusername = $rowpost['username'];
+                        $student_name = $rowpost['name'];
 
                         require($_SERVER['DOCUMENT_ROOT']."/attending_system/phpmailer/PHPMailerAutoload.php");
 
@@ -85,21 +86,22 @@
                         $mail->SMTPSecure = 'tls';
                         $mail->SMTPAuth = true;
 
-                        $gmail_username = "khaopoon2543@gmail.com"; // gmail ที่ใช้ส่ง
-                        $gmail_password = "0876757648"; // รหัสผ่าน gmail
+                        $gmail_username = "attendingsystem@gmail.com"; // gmail ที่ใช้ส่ง
+                        $gmail_password = "projectforhuman"; // รหัสผ่าน gmail
                         // ตั้งค่าอนุญาตการใช้งานได้ที่นี่ https://myaccount.google.com/lesssecureapps?pli=1
 
 
                         $sender = "เจ้าหน้าที่ฝ่ายทะเบียน คณะอักษรศาสตร์"; // ชื่อผู้ส่ง
                         $email_sender = "noreply@officerofarts.com"; // เมล์ผู้ส่ง 
                         $email_receiver = $stusername; // เมล์ผู้รับ ***
+                        $receiver = $student_name; // ชื่อผู้รับ
 
                         $subject = "แจ้งการดำเนินการขอเพิ่มรายวิชา"; // หัวข้อเมล์
 
                         $mail->Username = $gmail_username;
                         $mail->Password = $gmail_password;
                         $mail->setFrom($email_sender, $sender);
-                        $mail->addAddress($email_receiver);
+                        $mail->addAddress($email_receiver, $receiver);
                         $mail->Subject = $subject;
                         
                         $email_content = "

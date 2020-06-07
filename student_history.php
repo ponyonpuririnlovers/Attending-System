@@ -164,10 +164,19 @@
 
                 <p>
                     <aaa><i class="fas fa-check-circle"></i> ขออนุมัติเพิ่มรายวิชา</aaa> 
+                    <?php
+                        # FORMAT DATE #
+                        $date = date_create($request_date);
+                        $request_date = date_format($date,"d M Y");
+                    ?>
                     <w style="padding: 0 120px;"><i class="far fa-clock"></i> <?php echo $request_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $request_date; ?></w>
                 </p>
 
-                <?php if (isset($approven_time) && isset($approven_date)) { ?>
+                <?php if (isset($approven_time) && isset($approven_date)) { 
+                    # FORMAT DATE #
+                    $date = date_create($approven_date);
+                    $approven_date = date_format($date,"d M Y");
+                ?>
                     <p>
                         <aaa><i class="fas fa-check-circle"></i> อนุมัติการขอเพิ่มรายวิชาแล้ว</aaa> 
                         <w style="padding: 0 53px;"><i class="far fa-clock"></i> <?php echo $approven_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $approven_date; ?></w>
@@ -176,7 +185,11 @@
                     <p><aaa><i class="far fa-check-circle"></i> ยังไม่ได้รับการอนุมัติขอเพิ่มรายวิชา</aaa></p>
                 <?php } ?>
 
-                <?php if (isset($proceed_time) && isset($proceed_date)) { ?>
+                <?php if (isset($proceed_time) && isset($proceed_date)) { 
+                    # FORMAT DATE #
+                    $date = date_create($proceed_date);
+                    $proceed_date = date_format($date,"d M Y");    
+                ?>
                     <p>
                         <aaa><i class="fas fa-check-circle"></i> ดำเนินการเพิ่มรายวิชาแล้ว</aaa> 
                         <w style="padding: 0 75px;"><i class="far fa-clock"></i> <?php echo $proceed_time; ?> &ensp; <i class="far fa-calendar-alt"></i> <?php echo $proceed_date; ?></w>

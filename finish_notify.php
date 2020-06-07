@@ -89,6 +89,10 @@
             $proceed_date = $_SESSION['proceed_date'];
             $proceed_student_num = $_SESSION['proceed_student_num'];
 
+            # FORMAT DATE #
+            $date = date_create($proceed_date);
+            $proceed_date = date_format($date,"d M Y");
+
             $query = "  SELECT  *
                         FROM    course
                         WHERE   course_ID = $course_ID AND section = $section

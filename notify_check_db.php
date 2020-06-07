@@ -7,7 +7,7 @@
     /*-------------------------------- GET data from student_users.php ---------------------------*/
 
     date_default_timezone_set("Asia/Bangkok");
-    $proceed_date = date("d/m/Y") ;
+    $proceed_date = date("Y-m-d") ;
     $proceed_time = date("h:i:s A") ;
 
     /*!-- logged in user information --*/

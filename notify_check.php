@@ -122,6 +122,9 @@
                     $course_name = $rowpost['course_name'];  
                     $current_student = $rowpost['current_student'];
                     $open_student_number = $rowpost['open_student_number'];
+                    # FORMAT DATE #
+                    $date = date_create($rowpost['approven_date']);
+                    $approven_date = date_format($date,"d M Y");
 
                     # เก็บ student_ID ไว้ใน array ส่งต่อไป notify_check_db.php
                     # EX array --> { [ [0] => 6140053622 ,  [1] => 6140053633] }
@@ -139,7 +142,7 @@
                     <td><center><?php echo $row_count+1; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>
-                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
+                    <td><?php echo $approven_date; ?></ce></td>
                     <td style="padding-left:5px;"><center><?php echo $rowpost['approven_time']; ?></center></td>
                     
 

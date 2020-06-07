@@ -126,11 +126,14 @@
                     $current_student = $rowpost['current_student'];
                     $open_student_number = $rowpost['open_student_number'];
                     $status = $rowpost['status'];
+                    # FORMAT DATE #
+                    $date = date_create($rowpost['approven_date']);
+                    $approven_date = date_format($date,"d M Y");
                     
                 
         ?>
                     <td><center><?php echo $row_count+1; ?></center></td>
-                    <td><?php echo $rowpost['approven_date']; ?></ce></td>
+                    <td><?php echo $approven_date; ?></ce></td>
                     <td><center><?php echo $rowpost['approven_time']; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>

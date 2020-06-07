@@ -126,11 +126,14 @@
                     $course_name = $rowpost['course_name'];  
                     $current_student = $rowpost['current_student'];
                     $open_student_number = $rowpost['open_student_number'];
+                    # FORMAT DATE #
+                    $date = date_create($rowpost['proceed_date']);
+                    $proceed_date = date_format($date,"d M Y"); 
                     
                 
         ?>
                     <td><center><?php echo $row_count+1; ?></center></td>
-                    <td><?php echo $rowpost['proceed_date']; ?></ce></td>
+                    <td><?php echo $proceed_date; ?></ce></td>
                     <td><center><?php echo $rowpost['proceed_time']; ?></center></td>
                     <td><center><?php echo $rowpost['student_ID']; ?></center></td>
                     <td><?php echo $rowpost['name']; ?></td>

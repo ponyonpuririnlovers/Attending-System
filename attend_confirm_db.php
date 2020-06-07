@@ -7,7 +7,7 @@
     /*-------------------------------- GET data from student_users.php ---------------------------*/
 
     date_default_timezone_set("Asia/Bangkok");
-        $request_date = date("d/m/Y") ;
+        $request_date = date("Y-m-d") ;
         $request_time = date("h:i:s A") ;
 
     /*!-- logged in user information --*/

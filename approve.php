@@ -167,13 +167,16 @@
                         echo "<tbody>";
                         echo "<tr>";
                     }   
+                    # FORMAT DATE #
+                    $date = date_create($rowpost['request_date']);
+                    $request_date = date_format($date,"d M Y");
                     
         ?>  
                     <td><center><?php echo $row_count+1; ?></center></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['student_ID']; ?></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['name']; ?></td>
                     <td style="padding-left: 20px;"><?php echo $rowpost['request_time']; ?></td>
-                    <td style="padding-left: 20px;"><?php echo $rowpost['request_date']; ?></td>
+                    <td style="padding-left: 20px;"><?php echo $request_date; ?></td>
                     <td><input type="checkbox" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][student_ID]" value="<?php echo $rowpost['student_ID']; ?>" id="check_approved"></td>
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][course_ID]" value="<?php echo $course_ID; ?>">
                     <input type="hidden" name="approven_studentid[<?php echo $rowpost['student_ID']; ?>][section]" value="<?php echo $section; ?>" >

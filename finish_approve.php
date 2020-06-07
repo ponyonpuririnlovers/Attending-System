@@ -89,6 +89,10 @@
             $approven_date = $_SESSION['approven_date'];
             $approven_student_num = $_SESSION['approven_student_num'];
 
+            # FORMAT DATE #
+            $date = date_create($approven_date);
+            $approven_date = date_format($date,"d M Y");
+
             $query = "  SELECT  *
                         FROM    course
                         WHERE   course_ID = $course_ID AND section = $section

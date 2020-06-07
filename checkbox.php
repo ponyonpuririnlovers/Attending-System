@@ -7,7 +7,7 @@
             /*-------------------------------- GET data from approve.php ---------------------------*/
 
             date_default_timezone_set("Asia/Bangkok");
-            $approven_date = date("d/m/Y") ;
+            $approven_date = date("Y-m-d") ;
             $approven_time = date("h:i:s A") ;
 
             $checkbox = $_POST['approven_studentid'];

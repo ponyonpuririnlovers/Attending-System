@@ -92,6 +92,10 @@
             $request_time = $_SESSION['request_time'];
             $request_date = $_SESSION['request_date'];
 
+            # FORMAT DATE #
+            $date = date_create($request_date);
+            $request_date = date_format($date,"d M Y");
+
             $query = "  SELECT  *
                         FROM    course
                         WHERE   course_ID = $course_ID 

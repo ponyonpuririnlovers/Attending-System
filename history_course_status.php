@@ -111,19 +111,33 @@
                     /* ----- date&time request -----*/
                     $request_time = $rowpost['request_time'];
                     $request_date = $rowpost['request_date']; 
+                    # FORMAT DATE #
+                    $date = date_create($rowpost['request_date']);
+                    $request_date = date_format($date,"d M Y");  
 
                     if ( $rowpost['status'] == 'อนุมัติแล้ว') { 
                         /* ----- date&time approven -----*/
                         $approven_time = $rowpost['approven_time'];
-                        $approven_date = $rowpost['approven_date'];    
+                        $approven_date = $rowpost['approven_date'];
+                        # FORMAT DATE #
+                        $date = date_create($rowpost['approven_date']);
+                        $approven_date = date_format($date,"d M Y");    
                         
                     }
                     if ( $rowpost['status'] == 'ดำเนินการแล้ว') { 
+                        /* ----- date&time approven -----*/
                         $approven_time = $rowpost['approven_time'];
                         $approven_date = $rowpost['approven_date']; 
+                        # FORMAT DATE #
+                        $date = date_create($rowpost['approven_date']);
+                        $approven_date = date_format($date,"d M Y");  
+
                         /* ----- date&time proceed -----*/
                         $proceed_time = $rowpost['proceed_time'];
-                        $proceed_date = $rowpost['proceed_date'];    
+                        $proceed_date = $rowpost['proceed_date'];  
+                        # FORMAT DATE #
+                        $date = date_create($rowpost['proceed_date']);
+                        $proceed_date = date_format($date,"d M Y");     
                         
                     }
                 }

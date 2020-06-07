@@ -99,7 +99,7 @@
 
         <h2 style="color:#e37aa1; font-weight: lighter; margin-top:70px; margin-bottom:10px;"> 
             <i class="fas fa-table"></i> 
-            ภาคสาขาที่มีการขอเพิ่มรายวิชา
+            ภาคสาขาที่ดำเนินการเพิ่มมากที่สุด 
         </h2>
 
         <table class="table" bordered="1">
@@ -114,7 +114,7 @@
         <?php
             $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                         FROM student_status ss, course c
-                        WHERE c.course_ID = ss.course_ID 
+                        WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.department
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
                     ";

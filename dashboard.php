@@ -101,7 +101,8 @@
         <?php // จำนวนนิสิตที่ขอเพิ่มรายวิชาทั้งหมด ------------------------------------------------------------------------
             
             $query = "  SELECT COUNT(ss.student_ID) as total_student_request
-                        FROM student_status ss    
+                        FROM student_status ss 
+                        WHERE ss.status = 'ดำเนินการแล้ว'   
                     ";
             $result = mysqli_query($conn, $query); 
             while($rs = mysqli_fetch_array($result)){ 
@@ -111,27 +112,31 @@
 
             $query = "  SELECT c.*
                         FROM course c , student_status ss
-                        WHERE c.course_ID = ss.course_ID
+                        WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.course_ID
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
                         LIMIT 1
                     ";
             $result = mysqli_query($conn, $query); 
-            while($rs = mysqli_fetch_array($result)){ 
-                $course_name = $rs['course_name']; 
+            if (mysqli_num_rows($result) > 0) {
+                while($rs = mysqli_fetch_array($result)){ 
+                    $course_name = $rs['course_name']; 
+                }
+            } else {
+                $course_name = 'ไม่มีการดำเนินการขอเพิ่มรายวิชา'; 
             }
 
         ?>
 
         <div class="card" id="card1">
-            <a>ขอเพิ่มรายวิชาทั้งหมด</a>
+            <a>ดำเนินการเพิ่มแล้วทั้งหมด</a>
             <h2>    <?php echo $total_student_request; ?> <l>ครั้ง</l> 
                     <i class="fas fa-users"></i>
             </h2>
         </div>
 
         <div class="card" id="card2">
-            <a>รายวิชาที่ขอเพิ่มมากที่สุด</a>
+            <a>รายวิชาที่ดำเนินการเพิ่มมากที่สุด</a>
             <h2>    <?php echo $course_name; ?> 
                     <i class="fas fa-star"></i>
             </h2>
@@ -141,7 +146,7 @@
         <?php  // CHART 1 DOUGHTNUT ------------------------------------------------------------------------------------
             $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                         FROM course c , student_status ss
-                        WHERE c.course_ID = ss.course_ID
+                        WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.course_ID
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
                         LIMIT 7
@@ -166,7 +171,7 @@
 
         <div class="table_chart">
             <div class="card_chart">
-                <h2>7 รายวิชาที่ขอเพิ่มรายวิชามากที่สุด 
+                <h2>รายวิชาที่ดำเนินการเพิ่มมากที่สุด
                     <a href="dashboard_1.php" style="float:right; margin-top:-20px;"> <i class="fas fa-external-link-alt" style="font-size:20px;"></i> </a>
                 </h2>
                 
@@ -175,7 +180,7 @@
                 </div>
             </div>
             <div class="card_chart">
-                <h2>7 ภาคสาขาที่ขอเพิ่มรายวิชามากที่สุด                     
+                <h2>ภาคสาขาที่ดำเนินการเพิ่มมากที่สุด                  
                     <a href="dashboard_2.php" style="float:right; margin-top:-20px;"> <i class="fas fa-external-link-alt" style="font-size:20px;"></i> </a>
                 </h2>
                 <div class="legend_cell">
@@ -234,7 +239,7 @@
         <?php  // CHART 2 LINE ---------------------------------------------------------------------------------------------
             $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                         FROM student_status ss, course c
-                        WHERE c.course_ID = ss.course_ID 
+                        WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.department
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
                         LIMIT 7

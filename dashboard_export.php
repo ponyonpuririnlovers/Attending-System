@@ -12,7 +12,7 @@
 
         $query = "  SELECT c.* , COUNT(DISTINCT ss.student_ID) as total_student
                     FROM course c , student_status ss
-                    WHERE c.course_ID = ss.course_ID
+                    WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                     GROUP BY c.course_ID
                     ORDER BY COUNT(DISTINCT ss.student_ID) DESC
                     
@@ -27,7 +27,7 @@
 			$sheet->setCellValue('A1', 'ลำดับที่'); // กำหนดค่าใน cell A1
 			$sheet->setCellValue('B1', "รหัสรายวิชา"); // กำหนดค่าใน cell B1
 			$sheet->setCellValue('C1', "ชื่อวิชา");
-			$sheet->setCellValue('D1', "จำนวนนิสิตที่ได้รับอนุมัติเพิ่มรายวิชา");
+			$sheet->setCellValue('D1', "จำนวนนิสิตที่เพิ่มรายวิชาแล้ว");
 			$row_count=1;
             $col_count=0;
             while($row = mysqli_fetch_array($result)) {
@@ -45,7 +45,8 @@
 			$last_change_int_to_st = strval($last_row);
 			
             $query = "  SELECT COUNT(ss.student_ID) as total_student_request
-                        FROM student_status ss    
+                        FROM student_status ss  
+						WHERE ss.status = 'ดำเนินการแล้ว'
                     ";
             $result = mysqli_query($conn, $query); 
             while($rs = mysqli_fetch_array($result)){ 
@@ -61,12 +62,14 @@
 			$sheet2 = $spreadsheet->getActiveSheet()->setTitle('แบ่งตามภาควิชา');
 			$sheet2->setCellValue('A1', 'ลำดับที่'); // กำหนดค่าใน cell A1
 			$sheet2->setCellValue('B1', "ภาควิชา"); // กำหนดค่าใน cell B1
-			$sheet2->setCellValue('C1', "จำนวนนิสิตที่ได้รับอนุมัติเพิ่มรายวิชา");
+			$sheet2->setCellValue('C1', "จำนวนนิสิตที่เพิ่มรายวิชาแล้ว");
 			$row_count=1;
 			$col_count=0;
-			$query = "  SELECT c.* , COUNT(ss.student_ID) as total_student
-                        FROM student_status ss, course c
-                        WHERE c.course_ID = ss.course_ID 
+			$query = "  SELECT c.department, COUNT(c.department) as total_student
+						FROM student_status ss
+						LEFT JOIN course c 
+						ON ss.course_ID = c.course_ID  AND ss.section = c.section
+						WHERE ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.department
                         ORDER BY COUNT(ss.student_ID) DESC
                     ";

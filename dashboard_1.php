@@ -118,6 +118,7 @@
                         WHERE c.course_ID = ss.course_ID AND ss.status = 'ดำเนินการแล้ว'
                         GROUP BY c.course_ID
                         ORDER BY COUNT(DISTINCT ss.student_ID) DESC
+						LIMIT 7
                     ";
             $result = mysqli_query($conn, $query); 
  

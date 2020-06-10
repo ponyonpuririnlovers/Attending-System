@@ -38,7 +38,7 @@
             $_SESSION['error'] = "กรุณากรอก 'รหัสผ่าน'";
 
             # link กลับไปหน้าก่อน notify_check.php !!! \(;-;)/ #
-            header("location: notify_check.php ?id=$course_ID &sec=$section");
+            header("location: notify_check.php?id=$course_ID &sec=$section");
             
         }
 
@@ -85,16 +85,18 @@
                                 WHERE   $student_ID[$i] = su.student_ID 
                              ";
                     $result = mysqli_query($conn, $query);
+
+                    # file require sent mail
+                    require_once '/xampp/htdocs/attending_system/phpmailer/PHPMailerAutoload.php';
+                    header('Content-Type: text/html; charset=utf-8');
+
                     while($rowpost = mysqli_fetch_array($result)) { 
 
                         $stusername = $rowpost['username'];
                         $student_name = $rowpost['name'];
 
-                        /* --------------------------- SENT MAIL ---------------------------------*/
-                        require($_SERVER['DOCUMENT_ROOT']."/attending_system/phpmailer/PHPMailerAutoload.php");
-
-                        header('Content-Type: text/html; charset=utf-8');
-
+                        /* STUDENT SENT MAIL ------------------------------------------------------------*/
+                        
                         $mail = new PHPMailer;
                         $mail->CharSet = "utf-8";
                         $mail->isSMTP();
@@ -132,7 +134,7 @@
             <div>
                 <div>
                     <h2>นิสิต(student) : $student_ID[$i] - $student_name</h2>
-                    <h2>หน่วยตารางสอนตารางสอบได้ดำเนินการเพิ่มรายวิชา $course_ID $course_name ในระบบ reg chula เรียบร้อยแล้ว</h2>
+                    <h2>หน่วยตารางสอนตารางสอบได้ดำเนินการเพิ่มรายวิชา $course_ID $course_name ตอนเรียน $section ในระบบ reg chula เรียบร้อยแล้ว</h2>
 					<h2>กรุณาตรวจสอบผลการเพิ่มรายวิชาใน <i>รายงานผลการลงทะเบียนเรียนรายบุคคล(CR54)</i> ที่ <strong style='color:#0000ff;'></strong></h2>
 					<a href='www2.reg.chula.ac.th' target='_blank'>
 						<h2><strong style='color:#e37aa1;'> >> www2.reg.chula.ac.th << </strong> </h2>
@@ -174,8 +176,7 @@
 
                     }
 
-                    # -------------------------------------------------------------------------- SENT MAIL #
-                    
+                    # TEACHER SENT MAIL --------------------------------------------------------------------- #
                         $mail = new PHPMailer;
                         $mail->CharSet = "utf-8";
                         $mail->isSMTP();
@@ -213,7 +214,7 @@
             <div>
                 <div>
                     <h2>อาจารย์(instructor) : $teacher_name</h2>
-                    <h2>หน่วยตารางสอนตารางสอบได้ดำเนินการเพิ่มรายวิชาให้นิสิตที่ได้รับอนุมัติการเพิ่มรายวิชา $course_ID $course_name ในระบบ reg chula เรียบร้อยแล้ว</h2>
+                    <h2>หน่วยตารางสอนตารางสอบได้ดำเนินการเพิ่มรายวิชาให้นิสิตที่ได้รับอนุมัติการเพิ่มรายวิชา $course_ID $course_name  ตอนเรียน $section ในระบบ reg chula เรียบร้อยแล้ว</h2>
 					<h2>กรุณาตรวจสอบผลการเพิ่มรายวิชาที่ <strong style='color:#0000ff;'></strong></h2>
 					<a href='www2.reg.chula.ac.th' target='_blank'>
 						<h2><strong style='color:#e37aa1;'> >> www2.reg.chula.ac.th << </strong> </h2>
@@ -273,7 +274,7 @@
                 $_SESSION['error'] = "รหัสผ่าน 'ผิด' กรุณากรอกใหม่อีกครั้ง!";
 
                  # link กลับไปหน้าก่อน notify_check.php !!! \(;-;)/ #
-                header("location: notify_check.php ?id=$course_ID &sec=$section");
+                header("location: notify_check.php?id=$course_ID &sec=$section");
 
             }
         } 

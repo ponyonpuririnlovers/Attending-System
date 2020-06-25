@@ -1,6 +1,6 @@
 #Persistent
 CoordMode, ToolTip, screen
-;SetTimer, WatchCursor, 100 
+SetTimer, WatchCursor, 100 
 Counter = 0
 Return
 
@@ -64,10 +64,19 @@ CheckAnyKeyPress:
         Or KeyPress6 == "D" )
     {
         AnyKeyPress = 1
+        CountDownTime = 0
     }
     Else
     {
-        AnyKeyPress = 0
+        If ( CountDownTime >= 5 )
+        {
+            AnyKeyPress = 0
+        }
+        Else
+        {
+            AnyKeyPress = 1
+            CountDownTime++
+        }
     }
 Return
 
@@ -104,7 +113,10 @@ SkillExecute( PixelNow ,PixelStart ,SkillButton ,Refills = "OFF" )
 
 InitialPos:
 
-    MouseGetPos, MouseX, MouseY
+    CoordMode, mouse, Client
+    ;MouseGetPos, MouseX, MouseY
+    MouseX := 180
+    MouseY := 43
     MouseXHP := MouseX
     MouseXMP := MouseX    
     MouseX1 := MouseXHP + 250
@@ -118,6 +130,9 @@ InitialPos:
     MouseY2 := MouseY1
     MouseY3 := MouseY1
     MouseY4 := MouseY1
+    
+    MouseXHP := MouseXHP - 20
+    MouseXMP := MouseXMP - 50
     
     PixelGetColor, colorHP_start, %MouseXHP%, %MouseYHP%
     PixelGetColor, colorMP_start, %MouseXMP%, %MouseYMP%    
@@ -149,5 +164,5 @@ WatchCursor:
     CoordMode, mouse, Client ; Coordinates are relative to the active window's client area
     MouseGetPos, x_3, y_3, id_3, control_3
     
-    ToolTip, Screen :`t`tx %x_1% y %y_1% %MouseXHP% %colorMP% %color1% %color2% %color3% %color4%`nWindow :`tx %x_2% y %y_2%`nClient :`t`tx %x_3% y %y_3%, % A_ScreenWidth-200, % A_ScreenHeight-200
+    ToolTip, Screen :`t`tx %x_1% y %y_1% %CountDownTime% %MouseXHP% %colorMP% %color1% %color2% %color3% %color4%`nWindow :`tx %x_2% y %y_2%`nClient :`t`tx %x_3% y %y_3%, % A_ScreenWidth-200, % A_ScreenHeight-200
 return

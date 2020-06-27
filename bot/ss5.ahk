@@ -7,6 +7,8 @@ SkillEnable1 = 1
 SkillEnable2 = 1
 SkillEnable3 = 1
 SkillEnable4 = 0
+IsFullScreenX = 0
+IsFullScreenY = 0
 Return
 
 =::

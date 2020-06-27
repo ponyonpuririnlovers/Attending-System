@@ -43,6 +43,7 @@ Return
 Return
 
 Space::
+    
     If ( Counter == 0)
     {
         Counter = 1
@@ -56,6 +57,7 @@ Space::
     Else
 	{
         SetTimer MainTask, Off
+        SpacebarChecker := 1
 	}
 Return
 
@@ -112,6 +114,7 @@ SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refil
 {   
     gosub CheckAnyKeyPress
     global AnyKeyPress
+    global SpacebarChecker
     If ( AnyKeyPress == 0 And SkillEnable == 1)
     {
         PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
@@ -134,8 +137,9 @@ SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refil
                     SendInput, {%SkillButton% up}
                     Sleep, 10
                     PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
-                    If ( PixelNow != PixelStart Or LoopChecker >= 20)
+                    If ( PixelNow != PixelStart Or LoopChecker >= 20 Or SpacebarChecker == 1)
                     {
+                        SpacebarChecker := 0
                         Break
                     }
                     LoopChecker++

@@ -9,6 +9,7 @@ SkillEnable1 = 1
 SkillEnable2 = 1
 SkillEnable3 = 1
 SkillEnable4 = 1
+PickUpEnable = 0
 IsFullScreenX = 0
 IsFullScreenY = 0
 Return
@@ -44,6 +45,10 @@ Return
 
 ^4::
     SkillEnable4 :=! SkillEnable4
+Return
+
+^d::
+    PickUpEnable :=! PickUpEnable
 Return
 
 Space::  
@@ -84,23 +89,24 @@ MainTask:
 Return
 
 CheckAnyKeyPress:
-    GetKeyState, KeyPress1, Space
-    GetKeyState, KeyPress2, Control
-    GetKeyState, KeyPress3, Up
-    GetKeyState, KeyPress4, Down
-    GetKeyState, KeyPress5, Right
-    GetKeyState, KeyPress6, Left
-    If ( KeyPress1 == "D" 
-        Or KeyPress2 == "D" 
-        Or KeyPress3 == "D" 
-        Or KeyPress4 == "D" 
-        Or KeyPress5 == "D" 
-        Or KeyPress6 == "D" )
+    GetKeyState, KeyPressSpace, Space
+    GetKeyState, KeyPressControl, Control
+    GetKeyState, KeyPressUp, Up
+    GetKeyState, KeyPressDown, Down
+    GetKeyState, KeyPressRight, Right
+    GetKeyState, KeyPressLeft, Left
+    If ( KeyPressSpace == "D" 
+        Or KeyPressControl == "D" 
+        Or KeyPressUp == "D" 
+        Or KeyPressDown == "D" 
+        Or KeyPressRight == "D" 
+        Or KeyPressLeft == "D" )
     {
         AnyKeyPress = 1
         CountDownTime = 0
-        If ( ( KeyPress5 == "D" Or KeyPress6 == "D" )
-            And ( KeyPress3 == "U" ) )
+        If ( ( KeyPressRight == "D" Or KeyPressLeft == "D" )
+            And ( KeyPressUp == "U" ) 
+            And ( PickUpEnable == 1 ) )
         {
             gosub ControlHold
         }

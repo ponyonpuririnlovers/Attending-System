@@ -27,16 +27,8 @@ Return
 Return
 
 ^f::
-    If FullScreenActive:=!FullScreenActive
-	{
-        IsFullScreenX := 5
-        IsFullScreenY := 30
-	}
-    Else
-	{
-        IsFullScreenX := 0
-        IsFullScreenY := 0
-	}    
+    IsFullScreenX := 5
+    IsFullScreenY := 30
 Return
 
 ^1::
@@ -203,15 +195,24 @@ SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refil
                     MouseYNOW  := MouseY6 
                     PixelStart := color6_start
                 }
-                
-                PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
-                If ( PixelNow == PixelStart )
-                {    
+                LoopChecker := 0
+                Loop
+                {
                     SendInput, {%SkillButton% down}
                     Sleep, 100
                     SendInput, {%SkillButton% up}
-                    Sleep, 350
-                }  
+                    Sleep, 10
+                    PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
+                    
+                    If ( PixelNow != PixelStart 
+                        Or LoopChecker >= 20 
+                        Or SpacebarChecker == 1 )
+                    {
+                        SpacebarChecker := 0
+                        Break
+                    }
+                    LoopChecker++
+                }        
             } 
         }
     }
@@ -269,16 +270,6 @@ InitialPos:
     PixelGetColor, colorB_start, %MouseXB%, %MouseYB%
     PixelGetColor, colorN_start, %MouseXN%, %MouseYN%  
     
-    If ( ( IsFullScreenX != 0 ) And ( IsFullScreenY != 0 ) )
-    {
-        colorHP_start := 0x4A4AFF
-        colorMP_start := 0xFFEE4A
-    }
-    Else
-    {
-        colorHP_start := 0x0000FF
-        colorMP_start := 0xFF7B00
-    }
 Return
 
 PixelUpdate:

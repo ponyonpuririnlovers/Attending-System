@@ -188,30 +188,11 @@ SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refil
         Else
         {           
             If ( PixelNow != PixelStart )
-            {    
-                If ( Refills == "MP" )
-                {
-                    Global MouseX5, MouseY5, color5_start
-                    MouseXNOW  := MouseX5
-                    MouseYNOW  := MouseY5
-                    PixelStart := color5_start
-                }
-                Else
-                {
-                    Global MouseX6, MouseY6, color6_start
-                    MouseXNOW  := MouseX6
-                    MouseYNOW  := MouseY6 
-                    PixelStart := color6_start
-                }
-                
-                PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
-                If ( PixelNow == PixelStart )
-                {    
-                    SendInput, {%SkillButton% down}
-                    Sleep, 100
-                    SendInput, {%SkillButton% up}
-                    Sleep, 350
-                }  
+            {      
+                SendInput, {%SkillButton% down}
+                Sleep, 100
+                SendInput, {%SkillButton% up}
+                Sleep, 10     
             } 
         }
     }

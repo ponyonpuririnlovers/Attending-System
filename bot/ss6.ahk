@@ -261,7 +261,7 @@ InitialPos:
         colorHP_start := 0x4A4AFF
         colorMP_start := 0xFFEE4A
     }
-    Else;
+    Else
     {
         colorHP_start := 0x0000FF
         colorMP_start := 0xFF7B00

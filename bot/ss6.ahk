@@ -59,6 +59,10 @@ Return
     PickUpEnable :=! PickUpEnable
 Return
 
+~Control::
+    KeyPressControl := "D"
+Return
+
 ^Space::
     SpacebarChecker = 1
     SendInput, {control up}
@@ -97,24 +101,26 @@ MainTask:
     SkillExecute( MouseX2 , MouseY2 , color2_start  ,2 ,SkillEnable2 )
     SkillExecute( MouseX3 , MouseY3 , color3_start  ,3 ,SkillEnable3 )
     SkillExecute( MouseX4 , MouseY4 , color4_start  ,4 ,SkillEnable4 )
-
+    
+    ;KeyPressControl := "U"
     ;gosub ControlHold
+    
     
 Return
 
 CheckAnyKeyPress:
-    GetKeyState, KeyPressSpace, Space
+    GetKeyState, KeyPressSpace,   Space
     GetKeyState, KeyPressControl, Ctrl
-    GetKeyState, KeyPressUp, Up
-    GetKeyState, KeyPressDown, Down
-    GetKeyState, KeyPressRight, Right
-    GetKeyState, KeyPressLeft, Left
-    If ( KeyPressSpace == "D" 
+    GetKeyState, KeyPressUp,      Up
+    GetKeyState, KeyPressDown,    Down
+    GetKeyState, KeyPressRight,   Right
+    GetKeyState, KeyPressLeft,    Left
+    If (   KeyPressSpace   == "D" 
         Or KeyPressControl == "D" 
-        Or KeyPressUp == "D" 
-        Or KeyPressDown == "D" 
-        Or KeyPressRight == "D" 
-        Or KeyPressLeft == "D" )
+        Or KeyPressUp      == "D" 
+        Or KeyPressDown    == "D" 
+        Or KeyPressRight   == "D" 
+        Or KeyPressLeft    == "D" )
     {
         AnyKeyPress = 1
         CountDownTime = 0

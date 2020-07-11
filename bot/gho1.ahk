@@ -1,7 +1,7 @@
 #Persistent
 CoordMode, ToolTip, screen
 ;SetTimer, WatchCursor, 100 
-SetTimer BuffTask, 180000
+SetTimer BuffTask, 30000
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
@@ -59,11 +59,19 @@ Return
     PickUpEnable :=! PickUpEnable
 Return
 
+^b::
+    gosub BuffTask
+Return
+
+BuffTask:
+    BuffCheck := 1
+Return
+
 ~Control::
     KeyPressControl := "D"
 Return
 
-~^Space::
+^Space::
     SpacebarChecker := 1
     SendInput, {control up}
 Return
@@ -78,12 +86,12 @@ Return
 	{
         Sleep, 100
 		SetTimer MainTask, 100
-        ;SetTimer NoMainTask, Off
+        SetTimer NoMainTask, Off
 	}
     Else
 	{
         SetTimer MainTask, Off
-        ;SetTimer NoMainTask, 1000
+        SetTimer NoMainTask, 1000
         SpacebarChecker := 1
         SendInput, {control up}
 	}
@@ -92,7 +100,7 @@ Return
 MainTask:
     if ( BuffCheck = 1 )
     {
-        ;SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
+        SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
         SkillExecute( MouseXB , MouseYB , colorB_start  ,"b" ,1 )
         SkillExecute( MouseXN , MouseYN , colorN_start  ,"n" ,1 )
         BuffCheck := 0
@@ -162,6 +170,11 @@ Return
 
 SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refills = "OFF" )
 {   
+    IfWinNotActive, SoulSaverOnline
+    {
+        Return  
+    }   
+    
     gosub CheckAnyKeyPress
     global AnyKeyPress
     global SpacebarChecker
@@ -337,10 +350,3 @@ return
     
 Return
 
-^b::
-    gosub BuffTask
-Return
-
-BuffTask:
-    BuffCheck := 1
-Return

@@ -1,7 +1,7 @@
 #Persistent
 CoordMode, ToolTip, screen
 ;SetTimer, WatchCursor, 100 
-SetTimer BuffTask, 180000
+SetTimer BuffTask, 30000
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
@@ -39,6 +39,52 @@ Return
 	}    
 Return
 
+^w::
+    If LeftRightActive:=!LeftRightActive
+	{
+        SetTimer LeftRightTask, 5000
+        LeftRightCheck := 1
+	}
+    Else
+	{
+        SetTimer LeftRightTask, off
+        LeftRightCheck := 0
+	} 
+Return
+
+LeftRightTask:
+    LeftRightCheck := 1
+    If ( LeftRightCheck = 1 )
+    {
+        If ( Direction :=! Direction )
+        {
+            gosub LeftHold
+        }
+        Else
+        {
+            gosub RightHold
+        }
+        LeftRightCheck := 0
+    }    
+    AnyKeyPress := 0
+    gosub MainTask
+ 
+Return
+
+LeftHold:
+    SendInput, {Left down}
+    Sleep, 100
+    SendInput, {Left up}
+    Sleep, 100
+Return
+
+RightHold:
+    SendInput, {Right down}
+    Sleep, 100
+    SendInput, {Right up}
+    Sleep, 100
+Return
+
 +^1::
     SkillEnable1 :=! SkillEnable1
 Return
@@ -59,11 +105,19 @@ Return
     PickUpEnable :=! PickUpEnable
 Return
 
+^b::
+    gosub BuffTask
+Return
+
+BuffTask:
+    BuffCheck := 1
+Return
+
 ~Control::
     KeyPressControl := "D"
 Return
 
-~^Space::
+^Space::
     SpacebarChecker := 1
     SendInput, {control up}
 Return
@@ -78,25 +132,29 @@ Return
 	{
         Sleep, 100
 		SetTimer MainTask, 100
-        ;SetTimer NoMainTask, Off
+        SetTimer NoMainTask, Off
 	}
     Else
 	{
         SetTimer MainTask, Off
-        ;SetTimer NoMainTask, 1000
+        SetTimer NoMainTask, 1000
         SpacebarChecker := 1
         SendInput, {control up}
 	}
 Return
 
 MainTask:
-    if ( BuffCheck = 1 )
+    If ( BuffCheck = 1 )
     {
-        ;SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
+        SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
         SkillExecute( MouseXB , MouseYB , colorB_start  ,"b" ,1 )
         SkillExecute( MouseXN , MouseYN , colorN_start  ,"n" ,1 )
         BuffCheck := 0
     }
+
+
+    
+    
     SkillExecute( MouseXHP, MouseYHP, colorHP_start ,6 ,1 ,"HP" )
     SkillExecute( MouseXMP, MouseYMP, colorMP_start ,5 ,1 ,"MP" )
     SkillExecute( MouseX1 , MouseY1 , color1_start  ,1 ,SkillEnable1 )
@@ -162,6 +220,11 @@ Return
 
 SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refills = "OFF" )
 {   
+    IfWinNotActive, SoulSaverOnline
+    {
+        Return  
+    }   
+    
     gosub CheckAnyKeyPress
     global AnyKeyPress
     global SpacebarChecker
@@ -337,10 +400,3 @@ return
     
 Return
 
-^b::
-    gosub BuffTask
-Return
-
-BuffTask:
-    BuffCheck := 1
-Return

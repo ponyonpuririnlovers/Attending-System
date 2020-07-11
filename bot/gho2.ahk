@@ -1,7 +1,7 @@
 #Persistent
 CoordMode, ToolTip, screen
 ;SetTimer, WatchCursor, 100 
-SetTimer BuffTask, 30000
+SetTimer BuffTask, off
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
@@ -97,14 +97,84 @@ Return
 	}
 Return
 
-MainTask:
-    if ( BuffCheck = 1 )
+CheckPosition:
+    gosub CheckAnyKeyPress
+    if ( AnyKeyPress = 1 )
     {
-        SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
+        Return
+    }
+    PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY, StartCharacterX + 100, StartCharacterY, 0x00E6FF, 3, Fast
+    If ErrorLevel
+    {
+        ;tooltip, Error 
+    }
+    Else
+    {
+        ErrorX := CharacterX - StartCharacterX
+        If ( Abs( ErrorX ) > 5 )
+        {
+            If ( ErrorX < 0 )
+            {
+                gosub RightHold
+                
+            }
+            Else 
+            {
+                gosub LeftHold
+            }
+        }
+        ;tooltip, CharacterX: %CharacterX%`nCharacterY: %CharacterY%
+        ;tooltip
+    }
+Return
+
+RightHold:
+    SendInput, {Right down}
+    Sleep, 250
+    SendInput, {Right up}
+    Sleep, 10
+Return
+
+LeftHold:
+    SendInput, {Left down}
+    Sleep, 250
+    SendInput, {Left up}
+    Sleep, 10
+Return
+
+^q::
+    
+    PixelSearch, StartCharacterX, StartCharacterY, 525, 62, 1020, 445, 0x00E6FF, 1, Fast
+    ;MouseGetPos, StartCharacterX, StartCharacterY
+    StartCharacterX := StartCharacterX - IsFullScreenX 
+    StartCharacterY := StartCharacterY - IsFullScreenY
+    ;PixelGetColor, colorCharacter, %StartCharacterX%, %StartCharacterY%     
+    ;tooltip, x: %StartCharacterX%`ny: %StartCharacterY%`ncolor: %colorCharacter%
+Return
+
+MainTask:
+
+    BuffCheck++
+    PersonCheck++
+    gosub CheckPosition
+    If ( BuffCheck >= 20 )
+    {
+        ;SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
         SkillExecute( MouseXB , MouseYB , colorB_start  ,"b" ,1 )
         SkillExecute( MouseXN , MouseYN , colorN_start  ,"n" ,1 )
         BuffCheck := 0
     }
+    If ( PersonCheck >= 100 )
+    {
+        PixelSearch, PersonCheckX, PersonCheckY, 525, 62, 1020, 445, 0x0000F7, 1, Fast
+        If Not ErrorLevel
+        {
+            SoundBeep, 750, 1000
+        }
+        PersonCheck := 0
+    }    
+    
+    
     SkillExecute( MouseXHP, MouseYHP, colorHP_start ,6 ,1 ,"HP" )
     SkillExecute( MouseXMP, MouseYMP, colorMP_start ,5 ,1 ,"MP" )
     SkillExecute( MouseX1 , MouseY1 , color1_start  ,1 ,SkillEnable1 )
@@ -183,13 +253,6 @@ SkillExecute( MouseXNOW , MouseYNOW ,PixelStart ,SkillButton ,SkillEnable ,Refil
         PixelGetColor, PixelNow, %MouseXNOW%, %MouseYNOW%
         If ( Refills = "OFF" )
         {
-            ;If ( PixelNow = PixelStart )
-            ;{    
-            ;    SendInput, {%SkillButton% down}
-            ;    Sleep, 100
-            ;    SendInput, {%SkillButton% up}
-            ;    Sleep, 350
-            ;}
             If ( PixelNow = PixelStart )
             {    
                 LoopChecker := 0

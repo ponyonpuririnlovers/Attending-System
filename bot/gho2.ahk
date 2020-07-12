@@ -7,11 +7,12 @@ Counter := 0
 IsFullScreen := 0
 SkillEnable1 := 1 ; 1
 SkillEnable2 := 1 ; 1
-SkillEnable3 := 0 ; 1
-SkillEnable4 := 0 ; 1
+SkillEnable3 := 1 ; 1
+SkillEnable4 := 1 ; 1
 PickUpEnable := 0 ; 1 
 IsFullScreenX := 0
 IsFullScreenY := 0
+SearchCheck := 1
 PixelCheck := 0
 Return
 
@@ -100,22 +101,17 @@ Return
 
 CheckPosition:
     gosub CheckAnyKeyPress
-    if ( AnyKeyPress = 1 )
+    If ( AnyKeyPress = 1 )
     {
         Return
     }
-    ;PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
-    
-    ; Find Object
-    PixelSearch, CharacterX, CharacterY, 62, 256, 920, 650, 0xF7F7FF, 1, Fast  
-    If ErrorLevel
+    If ( SearchCheck = 0 )
     {
-        Return
-    }   
-    PixelSearch, StartCharacterX, StartCharacterY, StartCharacterX - 20 , StartCharacterY - 20, StartCharacterX + 20 , StartCharacterY +20 , 0xA4318C, 1, Fast
-    If ErrorLevel
+        PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
+    }
+    Else
     {
-        PixelSearch, StartCharacterX, StartCharacterY, 62, 256, 920, 650, 0xA4318C, 1, Fast
+        PixelSearch, CharacterX, CharacterY, 62, 256, 920, 650, 0xF7F7FF, 1, Fast  
         If ErrorLevel
         {
             StartCharacterX := StartCharacterSaveX
@@ -125,9 +121,23 @@ CheckPosition:
             {
                 Return
             }
+        }   
+        PixelSearch, StartCharacterX, StartCharacterY, StartCharacterX - 20 , StartCharacterY - 20, StartCharacterX + 20 , StartCharacterY +20 , 0xA4318C, 1, Fast
+        If ErrorLevel
+        {
+            PixelSearch, StartCharacterX, StartCharacterY, 62, 256, 920, 650, 0xA4318C, 1, Fast
+            If ErrorLevel
+            {
+                StartCharacterX := StartCharacterSaveX
+                StartCharacterY := StartCharacterSaveY
+                PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
+                If ErrorLevel
+                {
+                    Return
+                }
+            }  
         }  
     }  
-    ; Find Object   
     
     If ErrorLevel
     {
@@ -217,13 +227,18 @@ Return
 
 TransitionHold( HoldButton )
 {
-    ; Loop check color to go 
+    Sleep, 350
     SendInput, {%HoldButton% down} ; don't use {%HoldButton% down } 
     Sleep, 350
     SendInput, {%HoldButton% up}
     Sleep, 10 
     Return
 }
+
+
+^w::
+    SearchCheck :=! SearchCheck
+Return
 
 ^e::
     PixelCheck :=! PixelCheck

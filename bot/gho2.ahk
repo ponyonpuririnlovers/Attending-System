@@ -5,13 +5,14 @@ SetTimer BuffTask, off
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
-SkillEnable1 := 1
-SkillEnable2 := 1
-SkillEnable3 := 1
-SkillEnable4 := 1
-PickUpEnable := 1
+SkillEnable1 := 0 ; 1
+SkillEnable2 := 0 ; 1
+SkillEnable3 := 0 ; 1
+SkillEnable4 := 0 ; 1
+PickUpEnable := 0 ; 1 
 IsFullScreenX := 0
 IsFullScreenY := 0
+PixelCheck := 1
 Return
 
 =::
@@ -103,7 +104,7 @@ CheckPosition:
     {
         Return
     }
-    PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY, StartCharacterX + 100, StartCharacterY, 0x00E6FF, 3, Fast
+    PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
     If ErrorLevel
     {
         ;tooltip, Error 
@@ -111,39 +112,91 @@ CheckPosition:
     Else
     {
         ErrorX := CharacterX - StartCharacterX
+        ErrorY := CharacterY - StartCharacterY
         If ( Abs( ErrorX ) > 5 )
         {
             If ( ErrorX < 0 )
             {
-                gosub RightHold
-                
+                TransitionHold( "Right" )
             }
             Else 
             {
-                gosub LeftHold
+                TransitionHold( "Left" )
             }
+            ArrivedX := 0
+        }
+        Else
+        {
+            ArrivedX := 1
+        }
+        If ( Abs( ErrorY ) > 5 )
+        {
+            If ( ErrorY < 0 )
+            {
+                SendInput, {control down}
+                TransitionHold( "Down" )      
+                SendInput, {control up}
+            }
+            Else 
+            {
+                TransitionHold( "Up" )            
+            }
+            ArrivedY := 0
+        }
+        Else
+        {
+            ArrivedY := 1
+        }        
+        
+        If ( ( ArrivedX = 1 ) And ( ArrivedY = 1 ) )
+        {
+            If ( TransitionState = 1 )
+            {
+                StartCharacterX := StartCharacterX + 35
+                StartCharacterY := StartCharacterY
+                TransitionState := 2
+            }
+            Else If ( TransitionState = 2 )
+            {
+                StartCharacterX := StartCharacterX 
+                StartCharacterY := StartCharacterY + 35
+                TransitionState := 3
+            }
+            Else If ( TransitionState = 3 )
+            {
+                StartCharacterX := StartCharacterX - 35
+                StartCharacterY := StartCharacterY
+                TransitionState := 4
+            }            
+            Else If ( TransitionState = 4 )
+            {
+                StartCharacterX := StartCharacterX 
+                StartCharacterY := StartCharacterY - 35
+                TransitionState := 1
+            }                
         }
         ;tooltip, CharacterX: %CharacterX%`nCharacterY: %CharacterY%
         ;tooltip
     }
 Return
 
-RightHold:
-    SendInput, {Right down}
-    Sleep, 250
-    SendInput, {Right up}
-    Sleep, 10
-Return
 
-LeftHold:
-    SendInput, {Left down}
-    Sleep, 250
-    SendInput, {Left up}
-    Sleep, 10
+
+TransitionHold( HoldButton )
+{
+    SendInput, {%HoldButton% down} ; don't use {%HoldButton% down } 
+    Sleep, 450
+    SendInput, {%HoldButton% up}
+    Sleep, 10 
+    Return
+}
+
+^e::
+    PixelCheck :=! PixelCheck
 Return
 
 ^q::
-    
+    TransitionState := 1
     PixelSearch, StartCharacterX, StartCharacterY, 525, 62, 1020, 445, 0x00E6FF, 1, Fast
     ;MouseGetPos, StartCharacterX, StartCharacterY
     StartCharacterX := StartCharacterX - IsFullScreenX 
@@ -156,23 +209,27 @@ MainTask:
 
     BuffCheck++
     PersonCheck++
-    gosub CheckPosition
-    If ( BuffCheck >= 20 )
+
+    If ( BuffCheck >= 50 )
     {
         ;SkillExecute( MouseXV , MouseYV , colorV_start  ,"v" ,1 )
         SkillExecute( MouseXB , MouseYB , colorB_start  ,"b" ,1 )
         SkillExecute( MouseXN , MouseYN , colorN_start  ,"n" ,1 )
         BuffCheck := 0
     }
-    If ( PersonCheck >= 100 )
+    If ( PixelCheck = 1 )
     {
-        PixelSearch, PersonCheckX, PersonCheckY, 525, 62, 1020, 445, 0x0000F7, 1, Fast
-        If Not ErrorLevel
+        gosub CheckPosition
+        If ( PersonCheck >= 50 )
         {
-            SoundBeep, 750, 1000
-        }
-        PersonCheck := 0
-    }    
+            PixelSearch, PersonCheckX, PersonCheckY, 525, 62, 1020, 445, 0x0000F7, 1, Fast
+            If Not ErrorLevel
+            {
+                SoundBeep, 750, 1000
+            }
+            PersonCheck := 0
+        }    
+    }
     
     
     SkillExecute( MouseXHP, MouseYHP, colorHP_start ,6 ,1 ,"HP" )

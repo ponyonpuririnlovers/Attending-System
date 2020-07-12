@@ -5,14 +5,14 @@ SetTimer BuffTask, off
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
-SkillEnable1 := 1 ; 1
-SkillEnable2 := 1 ; 1
-SkillEnable3 := 1 ; 1
-SkillEnable4 := 1 ; 1
+SkillEnable1 := 0 ; 1
+SkillEnable2 := 0 ; 1
+SkillEnable3 := 0 ; 1
+SkillEnable4 := 0 ; 1
 PickUpEnable := 0 ; 1 
 IsFullScreenX := 0
 IsFullScreenY := 0
-SearchCheck := 1
+SearchCheck := 0
 PixelCheck := 0
 Return
 
@@ -105,38 +105,14 @@ CheckPosition:
     {
         Return
     }
+    
     If ( SearchCheck = 0 )
     {
         PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
     }
     Else
     {
-        PixelSearch, CharacterX, CharacterY, 62, 256, 920, 650, 0xF7F7FF, 1, Fast  
-        If ErrorLevel
-        {
-            StartCharacterX := StartCharacterSaveX
-            StartCharacterY := StartCharacterSaveY
-            PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
-            If ErrorLevel
-            {
-                Return
-            }
-        }   
-        PixelSearch, StartCharacterX, StartCharacterY, StartCharacterX - 20 , StartCharacterY - 20, StartCharacterX + 20 , StartCharacterY +20 , 0xA4318C, 1, Fast
-        If ErrorLevel
-        {
-            PixelSearch, StartCharacterX, StartCharacterY, 62, 256, 920, 650, 0xA4318C, 1, Fast
-            If ErrorLevel
-            {
-                StartCharacterX := StartCharacterSaveX
-                StartCharacterY := StartCharacterSaveY
-                PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
-                If ErrorLevel
-                {
-                    Return
-                }
-            }  
-        }  
+        gosub SearchPixel
     }  
     
     If ErrorLevel
@@ -180,54 +156,19 @@ CheckPosition:
         Else
         {
             ArrivedY := 1
-        }        
-        
-        If ( ( ArrivedX = 1 ) And ( ArrivedY = 1 ) )
-        {
-           ;SkillEnable1 := 1
-           ;SkillEnable2 := 1
-            Return
-            
-            If ( TransitionState = 1 )
-            {
-                StartCharacterX := StartCharacterX + 50
-                StartCharacterY := StartCharacterY
-                TransitionState := 2
-            }
-            Else If ( TransitionState = 2 )
-            {
-                StartCharacterX := StartCharacterX 
-                StartCharacterY := StartCharacterY + 50
-                TransitionState := 3
-            }
-            Else If ( TransitionState = 3 )
-            {
-                StartCharacterX := StartCharacterX - 50
-                StartCharacterY := StartCharacterY
-                TransitionState := 4
-            }            
-            Else If ( TransitionState = 4 )
-            {
-                StartCharacterX := StartCharacterX 
-                StartCharacterY := StartCharacterY - 50
-                TransitionState := 1
-            }                
         }
-        ;Else
-        ;{
-        ;    SkillEnable1 := 0
-        ;    SkillEnable2 := 0           
-        ;}
+        
+        gosub LoopMovement
+        ;gosub SquareMovement
+        
         ;tooltip, CharacterX: %CharacterX%`nCharacterY: %CharacterY%
         ;tooltip
     }
 Return
 
-
-
 TransitionHold( HoldButton )
 {
-    Sleep, 350
+    Sleep, 100
     SendInput, {%HoldButton% down} ; don't use {%HoldButton% down } 
     Sleep, 350
     SendInput, {%HoldButton% up}
@@ -235,9 +176,23 @@ TransitionHold( HoldButton )
     Return
 }
 
+^+e::
+    PixelSearch, MouseLoopX, MouseLoopY, 525, 62, 1020, 445, 0x00E6FF, 1, Fast
+    ArrayCount++
+    ArrayX[ArrayCount] :=  MouseLoopX
+    ArrayY[ArrayCount] :=  MouseLoopY
+    Sleep, 1000
+Return
+
+^+w::
+    ArrayX := []
+    ArrayY := []
+    ArrayCount := 0
+Return    
+
 
 ^w::
-    SearchCheck :=! SearchCheck
+    SearchCheck :=! SearchCheck 
 Return
 
 ^e::
@@ -247,12 +202,14 @@ Return
 ^q::
     TransitionState := 1
     PixelCheck := 1
+    
     PixelSearch, StartCharacterX, StartCharacterY, 525, 62, 1020, 445, 0x00E6FF, 1, Fast
     ;MouseGetPos, StartCharacterX, StartCharacterY
     StartCharacterX := StartCharacterX - IsFullScreenX 
     StartCharacterY := StartCharacterY - IsFullScreenY
     ;PixelGetColor, colorCharacter, %StartCharacterX%, %StartCharacterY%     
     ;tooltip, x: %StartCharacterX%`ny: %StartCharacterY%`ncolor: %colorCharacter% 
+    
     StartCharacterSaveX := StartCharacterX
     StartCharacterSaveY := StartCharacterY
 Return
@@ -522,3 +479,115 @@ return
     
 Return
 
+SearchPixel:
+        PixelSearch, CharacterX, CharacterY, 62, 256, 920, 650, 0xF7F7FF, 1, Fast  
+        If ErrorLevel
+        {
+            StartCharacterX := StartCharacterSaveX
+            StartCharacterY := StartCharacterSaveY
+            PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
+            If ErrorLevel
+            {
+                Return
+            }
+        }   
+        PixelSearch, StartCharacterX, StartCharacterY, StartCharacterX - 20 , StartCharacterY - 20, StartCharacterX + 20 , StartCharacterY +20 , 0xA4318C, 1, Fast
+        If ErrorLevel
+        {
+            PixelSearch, StartCharacterX, StartCharacterY, 62, 256, 920, 650, 0xA4318C, 1, Fast
+            If ErrorLevel
+            {
+                StartCharacterX := StartCharacterSaveX
+                StartCharacterY := StartCharacterSaveY
+                PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
+                If ErrorLevel
+                {
+                    Return
+                }
+            }  
+        }  
+Return
+
+^u::
+    ArrayX := []
+    ArrayY := []
+    ArrayCount := 0
+    Loop
+    {
+        KeyWait, Lbutton, Down
+        MouseGetPos, MouseLoopX, MouseLoopY
+        ArrayCount++
+        Tooltip, Click %ArrayCount%
+        ArrayX[ArrayCount] :=  MouseLoopX
+        ArrayY[ArrayCount] :=  MouseLoopY
+        If ( StopLoop = 1 Or ArrayCount >= 10 )
+        {
+            Tooltip
+            ArrayCount := ArrayCount - 1
+            StopLoop := 0
+            Break
+        }
+        Sleep, 500
+        Tooltip
+    }  
+Return
+
+^u Up::
+    StopLoop := 1
+Return
+
+LoopMovement:
+    If ( ( ArrivedX = 1 ) And ( ArrivedY = 1 ) )
+    {
+        Loop % ArrayCount
+        {
+            If ( TransitionState = A_Index )
+            {
+                If ( A_Index + 1 > ArrayCount )
+                {
+                    StartCharacterX := ArrayX[1]
+                    StartCharacterY := ArrayY[1]
+                    TransitionState := 1
+                }
+                Else
+                {
+                    StartCharacterX := ArrayX[A_Index + 1]
+                    StartCharacterY := ArrayY[A_Index + 1]
+                    TransitionState++
+                }
+                Break
+            }
+            ;MsgBox % "Element number " . A_Index . " is " . ArrayX[A_Index] " , " ArrayY[A_Index]
+        }
+    }
+Return
+
+SquareMovement:        
+        If ( ( ArrivedX = 1 ) And ( ArrivedY = 1 ) )
+        {   
+            If ( TransitionState = 1 )
+            {
+                StartCharacterX := StartCharacterX + 50
+                StartCharacterY := StartCharacterY
+                TransitionState := 2
+            }
+            Else If ( TransitionState = 2 )
+            {
+                StartCharacterX := StartCharacterX 
+                StartCharacterY := StartCharacterY + 50
+                TransitionState := 3
+            }
+            Else If ( TransitionState = 3 )
+            {
+                StartCharacterX := StartCharacterX - 50
+                StartCharacterY := StartCharacterY
+                TransitionState := 4
+            }            
+            Else If ( TransitionState = 4 )
+            {
+                StartCharacterX := StartCharacterX 
+                StartCharacterY := StartCharacterY - 50
+                TransitionState := 1
+            }                
+        }
+Return       

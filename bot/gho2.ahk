@@ -5,14 +5,14 @@ SetTimer BuffTask, off
 BuffCheck := 1
 Counter := 0
 IsFullScreen := 0
-SkillEnable1 := 0 ; 1
-SkillEnable2 := 0 ; 1
+SkillEnable1 := 1 ; 1
+SkillEnable2 := 1 ; 1
 SkillEnable3 := 0 ; 1
 SkillEnable4 := 0 ; 1
 PickUpEnable := 0 ; 1 
 IsFullScreenX := 0
 IsFullScreenY := 0
-PixelCheck := 1
+PixelCheck := 0
 Return
 
 =::
@@ -104,7 +104,31 @@ CheckPosition:
     {
         Return
     }
-    PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
+    ;PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 3, Fast
+    
+    ; Find Object
+    PixelSearch, CharacterX, CharacterY, 62, 256, 920, 650, 0xF7F7FF, 1, Fast  
+    If ErrorLevel
+    {
+        Return
+    }   
+    PixelSearch, StartCharacterX, StartCharacterY, StartCharacterX - 20 , StartCharacterY - 20, StartCharacterX + 20 , StartCharacterY +20 , 0xA4318C, 1, Fast
+    If ErrorLevel
+    {
+        PixelSearch, StartCharacterX, StartCharacterY, 62, 256, 920, 650, 0xA4318C, 1, Fast
+        If ErrorLevel
+        {
+            StartCharacterX := StartCharacterSaveX
+            StartCharacterY := StartCharacterSaveY
+            PixelSearch, CharacterX, CharacterY, StartCharacterX - 100, StartCharacterY - 100, StartCharacterX + 100, StartCharacterY + 100, 0x00E6FF, 1, Fast
+            If ErrorLevel
+            {
+                Return
+            }
+        }  
+    }  
+    ; Find Object   
+    
     If ErrorLevel
     {
         ;tooltip, Error 
@@ -113,7 +137,7 @@ CheckPosition:
     {
         ErrorX := CharacterX - StartCharacterX
         ErrorY := CharacterY - StartCharacterY
-        If ( Abs( ErrorX ) > 5 )
+        If ( Abs( ErrorX ) > 10 )
         {
             If ( ErrorX < 0 )
             {
@@ -150,31 +174,40 @@ CheckPosition:
         
         If ( ( ArrivedX = 1 ) And ( ArrivedY = 1 ) )
         {
+           ;SkillEnable1 := 1
+           ;SkillEnable2 := 1
+            Return
+            
             If ( TransitionState = 1 )
             {
-                StartCharacterX := StartCharacterX + 35
+                StartCharacterX := StartCharacterX + 50
                 StartCharacterY := StartCharacterY
                 TransitionState := 2
             }
             Else If ( TransitionState = 2 )
             {
                 StartCharacterX := StartCharacterX 
-                StartCharacterY := StartCharacterY + 35
+                StartCharacterY := StartCharacterY + 50
                 TransitionState := 3
             }
             Else If ( TransitionState = 3 )
             {
-                StartCharacterX := StartCharacterX - 35
+                StartCharacterX := StartCharacterX - 50
                 StartCharacterY := StartCharacterY
                 TransitionState := 4
             }            
             Else If ( TransitionState = 4 )
             {
                 StartCharacterX := StartCharacterX 
-                StartCharacterY := StartCharacterY - 35
+                StartCharacterY := StartCharacterY - 50
                 TransitionState := 1
             }                
         }
+        ;Else
+        ;{
+        ;    SkillEnable1 := 0
+        ;    SkillEnable2 := 0           
+        ;}
         ;tooltip, CharacterX: %CharacterX%`nCharacterY: %CharacterY%
         ;tooltip
     }
@@ -184,8 +217,9 @@ Return
 
 TransitionHold( HoldButton )
 {
+    ; Loop check color to go 
     SendInput, {%HoldButton% down} ; don't use {%HoldButton% down } 
-    Sleep, 450
+    Sleep, 350
     SendInput, {%HoldButton% up}
     Sleep, 10 
     Return
@@ -197,12 +231,15 @@ Return
 
 ^q::
     TransitionState := 1
+    PixelCheck := 1
     PixelSearch, StartCharacterX, StartCharacterY, 525, 62, 1020, 445, 0x00E6FF, 1, Fast
     ;MouseGetPos, StartCharacterX, StartCharacterY
     StartCharacterX := StartCharacterX - IsFullScreenX 
     StartCharacterY := StartCharacterY - IsFullScreenY
     ;PixelGetColor, colorCharacter, %StartCharacterX%, %StartCharacterY%     
-    ;tooltip, x: %StartCharacterX%`ny: %StartCharacterY%`ncolor: %colorCharacter%
+    ;tooltip, x: %StartCharacterX%`ny: %StartCharacterY%`ncolor: %colorCharacter% 
+    StartCharacterSaveX := StartCharacterX
+    StartCharacterSaveY := StartCharacterY
 Return
 
 MainTask:

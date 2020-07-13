@@ -220,6 +220,7 @@ MainTask:
 
     BuffCheck++
     PersonCheck++
+    PositionCheck++
 
     If ( BuffCheck >= 50 )
     {
@@ -230,7 +231,15 @@ MainTask:
     }
     If ( PixelCheck = 1 )
     {
-        gosub CheckPosition
+        If ( PositionCheck >= 2 ) 
+        {
+            Sleep, 500
+            gosub CheckPosition
+            gosub CheckPosition
+            gosub CheckPosition
+            PostionCheck := 0
+        }
+
         If ( PersonCheck >= 50 )
         {
             PixelSearch, PersonCheckX, PersonCheckY, 525, 62, 1020, 445, 0x0000F7, 1, Fast

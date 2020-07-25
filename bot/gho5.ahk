@@ -19,7 +19,7 @@ PixelCheck          := 0
 TransitionState     := 1
 ArrayX              := []
 ArrayY              := []
-MonsterColour       := "0x7B4A63" ;A4318C
+MonsterColour       := "0x555555" ;A4318C 
 StandCheck          := 0
 
 Return
